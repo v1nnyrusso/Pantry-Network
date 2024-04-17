@@ -11,3 +11,6 @@
 {"_id":"userId1","firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$Q.LXtefo1UDwzg35ZV7Vs.TubX0TSmx28h4aNTGscTJGIo5pd1.PG","role":"donator","donations":[]}
 {"_id":"userId2","firstName":"Conor","secondName":"Lynagh","organisation":"Iceland","number":"987654321","email":"conor@example.com","password":"$2b$10$hdZuIv0aKZR0Tjjrq2lNiuKNVDjlRBgYfNDRMOp4NFGdY6ufP.vtq","role":"donator","donations":[]}
 {"_id":"userId3","firstName":"Admin","secondName":"Admin","organiation":null,"number":"123456789","email":"admin@admin.com","password":"$2b$10$HXeDMoXCua5.ZQreyLAq6u7HvfV6kQlxeV8imll7KAU.7oDlRxFUu","role":"admin","donations":[]}
+{"_id":"pantryId1","name":"Parkhead School House","location":"Glasgow","address":"135 Westmuir St, Parkhead","postcode":"G31 5EX","staffMembers":["userId4"],"donations":["donationId1"]}
+{"_id":"pantryId2","name":"Govanhill Pantry","location":"Glasgow","address":"488 Cathcart Rd","postcode":"G42 7BX","staffMembers":["userId3"],"donations":[]}
+{"_id":"pantryId3","name":"Croftpark Pantry","location":"Glasgow","address":"Croftpark Ave, Crofthill Rd","postcode":"G 44 5NR","staffMembers":["userId3","userId4"],"donations":["donationId2"]}

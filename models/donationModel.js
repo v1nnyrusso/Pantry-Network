@@ -125,19 +125,26 @@ class DonationDao {
     }
 
     // Get all items needed
-    async getItemsNeeded() {
+    async getItemsNeeded()
+    {
+   
+        // Make new promise
         return new Promise((resolve, reject) => {
-            this.dbManager.db.find({}, (err, docs) => {
-                if (err) {
-                    console.error("Error finding items needed:", err);
+            this.dbManager.db.find({neededItem: {$exists:true}}, (err, items) => {
+                if(err){
+                    console.error('Error finding items needed:', err);
                     reject(err);
                     return;
                 }
+                
+                resolve(items);
+                console.log('Items needed returned from getItemsNeeded():', items);
 
-                resolve(docs);
             });
         });
     }
+    
+            
 }
 
 const donation = new DonationDao(dbManager);
