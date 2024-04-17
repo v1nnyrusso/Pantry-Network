@@ -24,21 +24,21 @@ async pantryInitializer() {
 
         // Make sure pantry is unique
         pantries.forEach(pantry => {
-            this.dbManager.db.findOne({ pantryName: pantry.pantryName }, (err, doc) => {
+            this.dbManager.db.findOne({ pantryName: pantry.pantryName }, (err, obj) => {
                 if (err) {
                     console.error("Error finding pantry:", err);
                     reject(err);
                     return;
                 }
                 // If exists, error
-                if (doc) {
+                if (obj) {
                     console.error("Pantry already exists:", pantry.pantryName);
                     reject(new Error(`Pantry already exists: ${pantry.pantryName}`));
                     return;
                 }
 
                 // Insert pantry without _id field
-                this.dbManager.db.insert(pantry, (err, doc) => {
+                this.dbManager.db.insert(pantry, (err, obj) => {
                     if (err) {
                         console.error("Error inserting pantry:", err);
                         reject(err);

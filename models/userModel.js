@@ -19,7 +19,6 @@ class UserDao {
             console.log('Db connected to user model');
 
         }
-
         else {
 
             throw new Error('No db manager provided');
@@ -27,12 +26,14 @@ class UserDao {
         }
     }
 
+    // Initialise users / seed some users
     async userInitializer() {
         return new Promise((resolve, reject) => {
             const users = [
                 { _id: 'userId1', firstName: 'Vincenzo', secondName: 'Russo', organisation: 'Tesco', number: '123456789', email: 'vincenzo@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
                 { _id: 'userId2', firstName: 'Conor', secondName: 'Lynagh', organisation: 'Iceland', number: '987654321', email: 'conor@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
                 { _id: 'userId3', firstName: 'Admin', secondName: 'Admin', organiation: null, number: '123456789', email: 'admin@admin.com', password:bcrypt.hashSync('admin', saltRounds), role: 'admin', donations: [] },
+                { _id: 'userId4', firstName: 'Staff', secondName: 'Staff', organisation: null, number: '123456789', email: 'staff@staff.com', password: bcrypt.hashSync('staff', saltRounds), role: 'staff', donations: [] }
             ];
     
             // Find each user in the database
@@ -63,6 +64,7 @@ class UserDao {
                 });
             });
     
+            // Resolve the promise, got this far
             resolve();
         });
     }
@@ -91,6 +93,7 @@ class UserDao {
                     break;
                 case 'staff':
                     entry.role = 'staff';
+                    entry.organisation = organisation.charAt(0).toUpperCase() + organisation.slice(1);
             }
 
             // Insert the user entry into the database

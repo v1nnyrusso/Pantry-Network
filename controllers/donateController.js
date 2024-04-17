@@ -3,6 +3,7 @@ const donationDAO = require('../models/donationModel.js');
 const pantryDAO = require('../models/pantryModel.js');
 const user = require('../models/userModel.js');
 
+// Render the donateHome page, async as it uses await for db operations
 exports.donate_home = async (req, res) => {
     try {
         // Check if user is logged in and a donator
@@ -32,6 +33,7 @@ exports.donate_home = async (req, res) => {
     }
 };
 
+// Make a donation action method, async as it uses await for db operations
 exports.donate = async (req, res) => {
     const { pantry, name, qty, expiry } = req.body;
 

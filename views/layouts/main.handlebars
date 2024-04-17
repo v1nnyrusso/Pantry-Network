@@ -83,16 +83,24 @@
           <li class="nav-item active"><a href="#" class="nav-link"> About </a></li>
           <li class="nav-item active"><a href="#" class="nav-link"> Services </a></li>
           <li class="nav-item active"><a href="#" class="nav-link"> Contact</a></li>
-          {{#if isLoggedIn}}
+
+         {{!-- Using handlebars in navbar to filter out between roles --}}
           {{#if user}}
           <li class="nav-item active"><a href="/" class="nav-link"> Hello, {{user}}!</a></li>
-          {{/if}}
+          {{#ifEquals role "staff"}}
+          <li class="nav-item active"><a href="/staff" class="nav-link"> Staff Area</a></li>
+          {{/ifEquals}}
+          {{#ifEquals role "donator"}}
           <li class="nav-item active"><a href="/donate" class="nav-link"> Donate</a></li>
+          {{/ifEquals}}
           <li class="nav-item active"><a href="/logout" class="nav-link"> Logout</a></li>
-          {{else}}
+          {{/if}}
+          {{#unless isLoggedIn}}
           <li class="nav-item active"><a href="/login" class="nav-link"> Login</a></li>
           <li class="nav-item active"><a href="/registration" class="nav-link"> Register</a></li>
-          {{/if}}
+          {{/unless}}
+      
+         
         </ul>
       </div>
     </div>

@@ -36,7 +36,7 @@ class DonationDao {
 
             // Find each item in the database
             itemsNeeded.forEach(item => {
-                this.dbManager.db.findOne({ neededItem: item.neededItem }, (err, doc) => {
+                this.dbManager.db.findOne({ neededItem: item.neededItem }, (err, obj) => {
                     if (err) {
                         console.error("Error finding item:", err);
                         reject(err);
@@ -44,14 +44,14 @@ class DonationDao {
                     }
 
                     // If item exists, reject the promise
-                    if (doc) {
+                    if (obj) {
                         console.error("Item already exists:", item.neededItem);
                         reject(new Error(`Item already exists: ${item.neededItem}`));
                         return;
                     }
 
                     // Seed some items needed
-                    this.dbManager.db.insert(item, (err, docs) => {
+                    this.dbManager.db.insert(item, (err, objs) => {
                         if (err) {
                             console.error("Error inserting items needed:", err);
                             reject(err);
@@ -90,7 +90,7 @@ class DonationDao {
 
             donations.forEach(donation => {
 
-                this.dbManager.db.findOne({ _id: donation._id }, (err, doc) => {
+                this.dbManager.db.findOne({ _id: donation._id }, (err,obj) => {
                     if (err) {
                         console.error("Error finding donation:", err);
                         reject(err);
@@ -98,14 +98,14 @@ class DonationDao {
                     }
 
                     // If donation exists, reject the promise
-                    if (doc) {
+                    if (obj) {
                         console.error("Donation already exists:", donation._id);
                         reject(new Error(`Donation already exists: ${donation._id}`));
                         return;
                     }
 
                     // Seed some donations
-                    this.dbManager.db.insert(donation, (err, docs) => {
+                    this.dbManager.db.insert(donation, (err, objs) => {
                         if (err) {
                             console.error("Error inserting donations:", err);
                             reject(err);
@@ -145,7 +145,7 @@ class DonationDao {
     async makeDonation(donation) {
         return new Promise((resolve, reject) => {
             // Insert donation
-            this.dbManager.db.insert(donation, (err, doc) => {
+            this.dbManager.db.insert(donation, (err, obj) => {
                 if (err) {
                     console.error("Error inserting donation:", err);
                     reject(err);
@@ -153,7 +153,7 @@ class DonationDao {
                 }
 
                 console.log("Donation inserted successfully:", donation);
-                resolve(doc);
+                resolve(obj);
             });
         });
     }
@@ -161,32 +161,33 @@ class DonationDao {
     async updateStock(item, qty) {
         return new Promise((resolve, reject) => {
             // Find the item
-            this.dbManager.db.findOne({ neededItem: item }, (err, doc) => {
+            // Looks for neededitem from passed in item, makes new function with error and obj
+            this.dbManager.db.findOne({ neededItem: item }, (err, obj) => {
                 if (err) {
                     console.error("Error finding item:", err);
                     reject(err);
                     return;
                 }
     
-                if (!doc) {
+                if (!obj) {
                     console.error("Item not found:", item);
                     reject(new Error("Item not found"));
                     return;
                 }
     
                 // Update the stock
-                const updatedDoc = { ...doc, currentStock: doc.currentStock + qty };
+                const updatedObj = { ...obj, currentObj: obj.currentObj + qty };
     
                 // Update the item
-                this.dbManager.db.update({ neededItem: item }, updatedDoc, {}, (err) => {
+                this.dbManager.db.update({ neededItem: item }, updatedObj, {}, (err) => {
                     if (err) {
                         console.error("Error updating stock:", err);
                         reject(err);
                         return;
                     }
     
-                    console.log("Stock updated successfully:", updatedDoc);
-                    resolve(updatedDoc);
+                    console.log("Stock updated successfully:", updatedObj);
+                    resolve(updatedObj);
                 });
             });
         });

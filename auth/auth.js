@@ -58,6 +58,9 @@ exports.login = (req, res, next) => {
                 else if(user.role === 'donator'){
                     next();
                 }
+                else{
+                    return res.redirect('/');
+                }
                 // Proceeding to the next middleware function
                 
             }
@@ -94,12 +97,16 @@ exports.verify = (req, res, next) => {
     }
 };
 
+// Verifies if the user is a donator
 exports.verifyDonator = (req,res,next)=> {
     let accessToken = req.cookies.jwt;
 
     let payload;
     
+    // Try catch
     try{
+
+        // Get payload
         payload = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
         // If the user is a donator, proceed
@@ -139,7 +146,35 @@ exports.verifyAdmin = (req, res, next) => {
         if(payload.role === 'admin'){
             req.isLoggedIn = true;
             req.name = payload.name;
-            req.payload = payload;
+            req.userId = payload.id;
+            next();
+        }
+        else{
+            next();
+        }
+    }
+    // If any errors, send an unauthorised message
+    catch(e){
+        req.session.errorMessage = 'Error: Unauthorized. Please login.';
+        next();
+    }
+};
+
+// Verify if the user is staff
+exports.verifyStaff = (req, res, next) => {
+    let accessToken = req.cookies.jwt;
+
+    let payload;
+    
+    try{
+
+        payload = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+
+        // If the user is staff, proceed
+        if(payload.role === 'staff'){
+            req.isLoggedIn = true;
+            req.name = payload.name;
+            req.userId = payload.id;
             next();
         }
         else{
