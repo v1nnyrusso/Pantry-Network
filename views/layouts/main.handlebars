@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>{{title}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="stylesheet" href="/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #67aeb5 !important;
+      transition: color 0.3s ease;
+
+    }
+
+
+    .navbar-brand strong:hover {
+      color: #67aeb5;
+      transition: color 0.3s ease;
+    }
+
+.image{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border-radius: 10%;
+
+}
+
+.top-left{
+  display: flex;
+  align-items: center;
+}
+
+   
+
+    .container {
+      max-width: 960px;
+    }
+
+    .bg-light {
+      background-color: #f8f9fa !important;
+    }
+
+  </style>
+</head>
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+    <div class="container">
+      <a href="/" class="navbar-brand d-flex align-items-center">
+
+        <div class="top-left">
+          <img src="/images/TSPN_logo.png" alt="TSPN Logo" class="image">
+          <i class="fa fa-snowflake-o fa-lg text-primary mr-2">
+            
+          </i>
+          <strong>Scottish Pantry Co.</strong>
+        </div>
+
+      </a>
+      <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+        class="navbar-toggler">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="/" class="nav-link"> Home </a></li>
+          <li class="nav-item active"><a href="#" class="nav-link"> About </a></li>
+          <li class="nav-item active"><a href="#" class="nav-link"> Services </a></li>
+          <li class="nav-item active"><a href="#" class="nav-link"> Contact</a></li>
+          {{#if isLoggedIn}}
+          {{#if user}}
+          <li class="nav-item active"><a href="/" class="nav-link"> Hello {{user}}!</a></li>
+          {{/if}}
+          <li class="nav-item active"><a href="/logout" class="nav-link"> Logout</a></li>
+          {{else}}
+          <li class="nav-item active"><a href="/login" class="nav-link"> Login</a></li>
+          <li class="nav-item active"><a href="/registration" class="nav-link"> Register</a></li>
+          {{/if}}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<body>
+  <div class="content">
+    {{{body}}}
+  </div>
+</body>
+
+
+<footer class="bg-light py-5">
+  <div class="container text-center">
+    <p class="font-italic text-muted mb-0"> Scottish Charitable Incorporated Organisation SC050443</p>
+  </div>
+</footer>
+
+
+
+</html>
