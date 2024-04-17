@@ -14,54 +14,52 @@ class Pantry {
     }
 
     // Initialise pantries
-    async pantryInitializer() {
-        return new Promise((resolve, reject) => {
-            const pantries = [
-                { _id: 'pantryId1', name: 'Parkhead School House', location: 'Glasgow', address: '135 Westmuir St, Parkhead', postcode: 'G31 5EX', staffMembers: ['userId4'], donations :['donationId1'] },
-                { _id: 'pantryId2', name: 'Govanhill Pantry', location: 'Glasgow', address: '488 Cathcart Rd', postcode: 'G42 7BX', staffMembers: ['userId3'], donations :[] },
-                { _id: 'pantryId3', name: 'Croftpark Pantry', location: 'Glasgow', address: 'Croftpark Ave, Crofthill Rd', postcode: 'G 44 5NR', staffMembers: ['userId3', 'userId4'], donations :['donationId2'] }
+async pantryInitializer() {
+    return new Promise((resolve, reject) => {
+        const pantries = [
+            { pantryName: 'Parkhead School House', location: 'Glasgow', address: '135 Westmuir St, Parkhead', postcode: 'G31 5EX', staffMembers: ['userId4'], donations: ['donationId1'] },
+            { pantryName: 'Govanhill Pantry', location: 'Glasgow', address: '488 Cathcart Rd', postcode: 'G42 7BX', staffMembers: ['userId3'], donations: [] },
+            { pantryName: 'Croftpark Pantry', location: 'Glasgow', address: 'Croftpark Ave, Crofthill Rd', postcode: 'G 44 5NR', staffMembers: ['userId3', 'userId4'], donations: ['donationId2'] }
+        ];
 
-            ];
+        // Make sure pantry is unique
+        pantries.forEach(pantry => {
+            this.dbManager.db.findOne({ pantryName: pantry.pantryName }, (err, doc) => {
+                if (err) {
+                    console.error("Error finding pantry:", err);
+                    reject(err);
+                    return;
+                }
+                // If exists, error
+                if (doc) {
+                    console.error("Pantry already exists:", pantry.pantryName);
+                    reject(new Error(`Pantry already exists: ${pantry.pantryName}`));
+                    return;
+                }
 
-            // make sure pantry is unique
-            pantries.forEach(pantry => {
-                this.dbManager.db.findOne({ name: pantry.name }, (err, doc) => {
+                // Insert pantry without _id field
+                this.dbManager.db.insert(pantry, (err, doc) => {
                     if (err) {
-                        console.error("Error finding pantry:", err);
+                        console.error("Error inserting pantry:", err);
                         reject(err);
                         return;
                     }
-
-                    // If exiests, error
-                    if (doc) {
-                        console.error("Pantry already exists:", pantry.name);
-                        reject(new Error(`Pantry already exists: ${pantry.name}`));
-                        return;
-                    }
-
-                    // Insert pantry
-                    this.dbManager.db.insert(pantry, (err, doc) => {
-                        if (err) {
-                            console.error("Error inserting pantry:", err);
-                            reject(err);
-                            return;
-                        }
-                        console.log("Pantry inserted successfully:", pantry.name);
-                    });
+                    console.log("Pantry inserted successfully:", pantry.pantryName);
                 });
-                    
             });
 
-            resolve();
-        })
-    }
+        });
+
+        resolve();
+    })
+}
 
 
     // Function to get all pantries
     async getAllPantries() {
         // Get all pantries
         return new Promise((resolve, reject) => {
-            this.dbManager.db.find({name: {$exists: true}}, (err, pantries) => {
+            this.dbManager.db.find({pantryName: {$exists: true}}).sort({pantryName: 1}).exec((err, pantries) => {
                 if (err) {
                     reject(err);
                 }
@@ -69,7 +67,7 @@ class Pantry {
                     resolve(pantries);
                     console.log('function all() returns: ', pantries);
                 }
-            })
+            });
 
         })
 

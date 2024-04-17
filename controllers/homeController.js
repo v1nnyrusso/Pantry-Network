@@ -13,17 +13,19 @@ exports.about_res = (req, res) => {
 // Landing page function
 exports.landing_page = (req, res) => {
 
+   
     // If user is logged in and has a payload, render index with user object and logged in status variable
     if (req.payload && req.isLoggedIn) {
-        res.render('index', {
+       return res.render('index', {
             title: "Scottish Pantry Network",
             isLoggedIn: req.isLoggedIn,
             user: req.name,
-            isHomePage: true
+            isHomePage: true,
+       
         })
     }
     else
-        res.render('index', {
+       return res.render('index', {
             title: "Scottish Pantry Network",
             isHomePage: true
         })
@@ -40,7 +42,7 @@ exports.registration_get = (req, res) => {
 
     // Gets string param in route, put it in a local variable
     let errorMessage = req.query.message;
-    res.render("users/registration", {
+    return res.render("users/registration", {
         message: errorMessage
     })
 }
@@ -81,22 +83,24 @@ exports.post_new_user = (req, res) => {
 }
 
 exports.login_get = (req, res) => {
+
     if (req.isLoggedIn) {
         return res.redirect('/');
     }
-    // Store it in a local variable
 
-    message = req.session.errorMessage;
-
-    // CLear so it doesnt keep appearing
+    let message = req.session.errorMessage;
+        
     req.session.errorMessage = null;
+
 
     // Correct the syntax error here
     res.render('users/login', {
         errorMessage: message
-        
+
     });
-    
+
+
+
 }
 
 

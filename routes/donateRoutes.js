@@ -9,10 +9,11 @@ const router = express.Router();
 const donateController = require('../controllers/donateController.js');
 
 // Need this to ensure the donator is logged in
-const {verify} = require('../auth/auth.js'); 
+const {verify, verifyDonator} = require('../auth/auth.js'); 
 
 
-router.get('/', verify, donateController.donate_home);
+router.get('/', verifyDonator, donateController.donate_home);
+router.post('/', verifyDonator, donateController.donate);
 
 
 module.exports = router;

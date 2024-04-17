@@ -32,7 +32,7 @@ router.get('/login', verify, homeController.login_get);
 router.post('/login',login, homeController.login_post);
 
 // Logout
-router.get('/logout', homeController.logout);
+router.get('/logout',  homeController.logout);
 
 
 

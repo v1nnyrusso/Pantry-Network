@@ -23,14 +23,14 @@ class DonationDao {
 
             // Create a new list of items needed by pantries
             const itemsNeeded = [
-                { neededItem: 'carrots', typeOfItem: 'vegetable', 'currentStock': 0 },
-                { neededItem: 'apples', typeOfItem: 'fruit', 'currentStock': 0 },
-                { neededItem: 'milk', typeOfItem: 'dairy', 'currentStock': 0 },
-                { neededItem: 'bread', typeOfItem: 'grain', 'currentStock': 0 },
-                { neededItem: 'chicken', typeOfItem: 'meat', 'currentStock': 0 },
-                { neededItem: 'eggs', typeOfItem: 'dairy', 'currentStock': 0 },
-                { neededItem: 'butter', typeOfItem: 'dairy', 'currentStock': 0 },
-                { neededItem: 'mince', typeOfItem: 'meat', 'currentStock': 0 },
+                { neededItem: 'Carrot', typeOfItem: 'Vegetable', 'currentStock': 0 },
+                { neededItem: 'Apple', typeOfItem: 'Fruit', 'currentStock': 0 },
+                { neededItem: 'Milk', typeOfItem: 'Dairy', 'currentStock': 0 },
+                { neededItem: 'Bread', typeOfItem: 'Grain', 'currentStock': 0 },
+                { neededItem: 'Chicken', typeOfItem: 'Meat', 'currentStock': 0 },
+                { neededItem: 'Eggs', typeOfItem: 'Dairy', 'currentStock': 0 },
+                { neededItem: 'Butter', typeOfItem: 'Dairy', 'currentStock': 0 },
+                { neededItem: 'Mince', typeOfItem: 'Meat', 'currentStock': 0 },
 
             ]
 
@@ -61,7 +61,7 @@ class DonationDao {
                     });
 
                     // Else everything went well
-                    console.log('Item:', item.neededItem,'inserted successfully.');
+                    console.log('Item:', item.neededItem, 'inserted successfully.');
 
 
                 });
@@ -83,8 +83,8 @@ class DonationDao {
         return new Promise((resolve, reject) => {
             const donations =
                 [
-                    { _id: 'donationId1', userId: 'userId1', type: 'vegetable', name: 'carrot', quantity: 2, useByDate: expirydate, status: 'pending' },
-                    { _id: 'donationId2', userId: 'userId2', type: 'fruit', name: 'apple', quantity: 3, useByDate: expirydate, status: 'pending' }
+                    { _id: 'donationId1', userId: 'userId1', type: 'Vegetable', name: 'Carrot', quantity: 2, useByDate: expirydate, status: 'pending' },
+                    { _id: 'donationId2', userId: 'userId2', type: 'Fruit', name: 'Apple', quantity: 3, useByDate: expirydate, status: 'pending' }
                 ]
 
 
@@ -125,26 +125,41 @@ class DonationDao {
     }
 
     // Get all items needed
-    async getItemsNeeded()
-    {
-   
+    // Get all items needed
+    async getItemsNeeded() {
         // Make new promise
         return new Promise((resolve, reject) => {
-            this.dbManager.db.find({neededItem: {$exists:true}}, (err, items) => {
-                if(err){
+            this.dbManager.db.find({ neededItem: { $exists: true } }).sort({ typeOfItem: 1 }).exec((err, items) => {
+                if (err) {
                     console.error('Error finding items needed:', err);
                     reject(err);
                     return;
                 }
-                
+
                 resolve(items);
                 console.log('Items needed returned from getItemsNeeded():', items);
-
             });
         });
     }
-    
-            
+
+    async makeDonation(donation) {
+        return new Promise((resolve, reject) => {
+            // Insert donation
+            this.dbManager.db.insert(donation, (err, doc) => {
+                if (err) {
+                    console.error("Error inserting donation:", err);
+                    reject(err);
+                    return;
+                }
+
+                console.log("Donation inserted successfully:", donation);
+                resolve(doc);
+            });
+        });
+    }
+
+
+
 }
 
 const donation = new DonationDao(dbManager);

@@ -46,7 +46,7 @@ exports.login = (req, res, next) => {
                 console.log("User", email, "logged in successfully.");
                 
                 // Creating a JWT token with the user's email as payload
-                let payload = { email: user.email , role: user.role, name: user.firstName + " " + user.secondName};
+                let payload = { email: user.email , role: user.role, name: user.firstName + " " + user.secondName, id: user._id};
                 let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
                 // Setting the JWT token as a cookie
                 res.cookie("jwt", accessToken);
@@ -77,13 +77,15 @@ exports.verify = (req, res, next) => {
     if (!accessToken) {
         req.isLoggedIn = false;
         next();
-    } else {
+    } 
+    else {
         let payload;
         try {
             payload = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
             req.payload = payload;
             req.isLoggedIn = true;
             req.name = payload.name;
+            req.role = payload.role;
             next();
         } catch (e) {
             req.isLoggedIn = false;
@@ -92,16 +94,41 @@ exports.verify = (req, res, next) => {
     }
 };
 
+exports.verifyDonator = (req,res,next)=> {
+    let accessToken = req.cookies.jwt;
+
+    let payload;
+    
+    try{
+        payload = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+
+        // If the user is a donator, proceed
+        if(payload.role === 'donator'){
+            req.isLoggedIn = true;
+            req.name = payload.name;
+            req.payload = payload;
+            req.userId = payload.id;
+            next();
+        }
+        // Logged in just not a donator
+        else{
+
+            req.isLoggedIn = true;
+            next();
+        }
+ 
+    }
+    // If any errors, send an unauthorised message
+    catch(e){
+        req.session.errorMessage = 'Error: Unauthorized. Please login.';
+        next();
+    }
+
+}
+
 // Verifies if the user is an admin
 exports.verifyAdmin = (req, res, next) => {
     let accessToken = req.cookies.jwt;
-
-     
-    // If they are not logged in, redirect to login page
-    if (!accessToken) {
-        req.session.errorMessage = 'Error: Unauthorized. Please login.';
-        return res.redirect('/login');
-    }
 
     let payload;
     
@@ -115,16 +142,13 @@ exports.verifyAdmin = (req, res, next) => {
             req.payload = payload;
             next();
         }
-        // Else, send an unauthorised message
         else{
-            
-            req.session.errorMessage = 'You must be an admin to access this page.';
-            return res.redirect('/login');
+            next();
         }
     }
     // If any errors, send an unauthorised message
     catch(e){
-        req.session.errorMessage = 'There was an error verifying your login. Please try again.';
-        return res.redirect('/login');
+        req.session.errorMessage = 'Error: Unauthorized. Please login.';
+        next();
     }
 };

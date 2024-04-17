@@ -30,10 +30,12 @@ app.use(cookieParser());
 // Set the view engine to handlebars
 app.set('view engine', 'handlebars');
 
+
 // Set handlebars configurations 
 app.engine('handlebars', engine({
     layoutsDir: __dirname + '/views/layouts'
 }))
+
 
 // Import path module into app
 const path = require('path');
