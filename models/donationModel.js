@@ -158,6 +158,39 @@ class DonationDao {
         });
     }
 
+    async updateStock(item, qty) {
+        return new Promise((resolve, reject) => {
+            // Find the item
+            this.dbManager.db.findOne({ neededItem: item }, (err, doc) => {
+                if (err) {
+                    console.error("Error finding item:", err);
+                    reject(err);
+                    return;
+                }
+    
+                if (!doc) {
+                    console.error("Item not found:", item);
+                    reject(new Error("Item not found"));
+                    return;
+                }
+    
+                // Update the stock
+                const updatedDoc = { ...doc, currentStock: doc.currentStock + qty };
+    
+                // Update the item
+                this.dbManager.db.update({ neededItem: item }, updatedDoc, {}, (err) => {
+                    if (err) {
+                        console.error("Error updating stock:", err);
+                        reject(err);
+                        return;
+                    }
+    
+                    console.log("Stock updated successfully:", updatedDoc);
+                    resolve(updatedDoc);
+                });
+            });
+        });
+    }
 
 
 }

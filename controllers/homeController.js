@@ -13,7 +13,6 @@ exports.about_res = (req, res) => {
 // Landing page function
 exports.landing_page = (req, res) => {
 
-   
     // If user is logged in and has a payload, render index with user object and logged in status variable
     if (req.payload && req.isLoggedIn) {
        return res.render('index', {

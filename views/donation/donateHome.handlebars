@@ -31,7 +31,7 @@
         <label for="item">Select an item:</label>
         <select name="name" class="form-control mb-4">
             {{#each foodItems}}
-                <option value="{{neededItem}}" id="item" name="id">{{typeOfItem}} - {{neededItem}}</option>
+                <option value="{{neededItem}}_{{typeOfItem}}" name=>{{typeOfItem}} - {{neededItem}}</option>
             {{/each}}
         </select>
         <label for="quantity">Quantity:</label>

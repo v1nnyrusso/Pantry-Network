@@ -9,12 +9,16 @@
 {"neededItem":"Bread","typeOfItem":"Grain","currentStock":0,"_id":"G450GD7awhcaGDdE"}
 {"pantryName":"Parkhead School House","location":"Glasgow","address":"135 Westmuir St, Parkhead","postcode":"G31 5EX","staffMembers":["userId4"],"donations":["donationId1"],"_id":"GBJ1IZEMjp0asqq3"}
 {"qty":"1","_id":"He3CVTAEiMaRjI0h"}
+{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"Hft5K2G775es8kYl"}
+{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","quantity":"1","useByDate":"2024-04-21","status":"pending","donationDate":"17/04/2024","_id":"HqZaezTkpbYf872z"}
 {"qty":"1","_id":"K3fGeE1WBbLOVPxz"}
 {"neededItem":"Chicken","typeOfItem":"Meat","currentStock":0,"_id":"MsjJsI2ZXgzTRtcj"}
 {"pantryId":"Croftpark Pantry","quantity":"1","useByDate":"","status":"pending","donationDate":1713382243239,"_id":"OheB2ZDPn6DP97YK"}
 {"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","quantity":"1","useByDate":"23948-04-17","status":"pending","donationDate":"17/04/2024","_id":"QDYa3Fn4fAPhXZrJ"}
 {"quantity":"1","useByDate":"","status":"pending","donationDate":1713381922127,"_id":"S1R4hk81BBbdVZyg"}
+{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs_Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"VXg0vcUQusmWT8YR"}
 {"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"X6vSPwFhZyzP3cdy"}
+{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"Xa5zwihiVIFmPQYw"}
 {"neededItem":"Butter","typeOfItem":"Dairy","currentStock":0,"_id":"XiFCS0KjyeqEVRH5"}
 {"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"ZedYppjR7RSdYYGl"}
 {"neededItem":"Apple","typeOfItem":"Fruit","currentStock":0,"_id":"b40FV8oOAVgSL2sq"}
@@ -29,8 +33,10 @@
 {"_id":"userId1","firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$9cv62bQs20/8jyRTlo3AnO6p/djcj5xhjuNWElFxo7r.tgLcuj5Kq","role":"donator","donations":[]}
 {"_id":"userId2","firstName":"Conor","secondName":"Lynagh","organisation":"Iceland","number":"987654321","email":"conor@example.com","password":"$2b$10$mmDWYjL5GPI4q5XZprORj.OPI4njdwqKIhp4WTYq5s5ZCnCdaefpO","role":"donator","donations":[]}
 {"_id":"userId3","firstName":"Admin","secondName":"Admin","organiation":null,"number":"123456789","email":"admin@admin.com","password":"$2b$10$fkyN9CxS.FSHDHrqgkGlCeQnSubklrlCPrtmGbcJ4HdFkOQY.fm1.","role":"admin","donations":[]}
+{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"wTuoVQp6ojbRa9i4"}
 {"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"y4BTvnTd8ngZHldg"}
 {"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":{"$$date":1713382285505},"_id":"yZWCUIbETmpD2DyP"}
 {"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"zTBMZKGvNaYfsLol"}
 {"quantity":"1","useByDate":"2024-04-29","status":"pending","donationDate":1713382040996,"_id":"zU9annt9qi48ZFzT"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","quantity":"1","useByDate":"2024-04-21","status":"pending","donationDate":"17/04/2024","_id":"HqZaezTkpbYf872z"}
+{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"lOZPDvv4NJkBD3jY"}
+{"neededItem":"Eggs","typeOfItem":"Dairy","currentStock":"01","_id":"3n7zR6MwRBrCVu8K"}

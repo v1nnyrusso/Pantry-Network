@@ -42,8 +42,13 @@
         <h2 class="font-weight-light">Donate</h2>
         <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         <div class="text-center">
+          {{#if user}}
           <a href="/donate" class="btn btn-light px-4 rounded-pill shadow-sm mr-3">Donate</a>
+          {{/if}}
+          {{#unless user}}
+          <a href="/login" class="btn btn-light px-4 rounded-pill">Login</a>
           <a href="/registration" class="btn btn-light px-4 rounded-pill">Register</a>
+          {{/unless}}
         </div>
       </div>
       <div class="col-lg-6">

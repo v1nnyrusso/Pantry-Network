@@ -18,6 +18,7 @@ exports.donate_home = async (req, res) => {
                 user: req.name,
                 isDonatePage: true,
                 foodItems: items,
+                type: items.typeOfItem,
                 pantries: pantries,
             });
         } else {
@@ -34,78 +35,54 @@ exports.donate_home = async (req, res) => {
 exports.donate = async (req, res) => {
     const { pantry, name, qty, expiry } = req.body;
 
-
-    // Check if expiry date is in the wrong format
-    if(expiry.length !== 10){
-        return res.render('donation/donateHome', {
-            title: 'Donate',
-            isLoggedIn: req.isLoggedIn,
-            user: req.name,
-            isDonatePage: true,
-            errorMessage: 'Error: Expiry date must be in the format dd/mm/yyyy.',
-            foodItems : await donationDAO.getItemsNeeded(),
-            pantries : await pantryDAO.getAllPantries()
-        });
-    }
-
-    // Check if expiry date is in the past
-    if(expiry < new Date().toLocaleDateString('en-GB')){
-        return res.render('donation/donateHome', {
-            title: 'Donate',
-            isLoggedIn: req.isLoggedIn,
-            user: req.name,
-            isDonatePage: true,
-            errorMessage: 'Error: Expiry date cannot be in the past.',
-            foodItems : await donationDAO.getItemsNeeded(),
-            pantries : await pantryDAO.getAllPantries()
-        });
-    }
-    
-    // Check if any fields are empty, or if quantity is not a number
-    if (!pantry || !name || !qty || isNaN(qty) ||!expiry) {
-
-        // Check if quantity is not a number, takes priority over other checks
-        if(isNaN(qty)){
-            return res.render('donation/donateHome', {
-                title: 'Donate',
-                isLoggedIn: req.isLoggedIn,
-                user: req.name,
-                isDonatePage: true,
-                errorMessage: 'Error: Quantity must be a number.',
-                foodItems : await donationDAO.getItemsNeeded(),
-                pantries : await pantryDAO.getAllPantries()
-            });
-        }
+    // Validation checks
+    if (!name || !qty || !expiry || isNaN(qty) || expiry.length !== 10 || expiry < new Date().toLocaleDateString('en-GB')) {
+        let errorMessage = '';
+        if (!name || !qty || !expiry) errorMessage = 'Error: All fields are required.';
+        else if (isNaN(qty)) errorMessage = 'Error: Quantity must be a number.';
+        else if (expiry.length !== 10) errorMessage = 'Error: Expiry date must be in the format dd/mm/yyyy.';
+        else errorMessage = 'Error: Expiry date cannot be in the past.';
 
         return res.render('donation/donateHome', {
             title: 'Donate',
             isLoggedIn: req.isLoggedIn,
             user: req.name,
             isDonatePage: true,
-            errorMessage: 'Error: All fields are required.',
-            foodItems : await donationDAO.getItemsNeeded(),
-            pantries : await pantryDAO.getAllPantries()
+            errorMessage,
+            foodItems: await donationDAO.getItemsNeeded(),
+            pantries: await pantryDAO.getAllPantries()
         });
     }
- 
+
+    // Proceed with donation
+    const [neededItem, typeOfItem] = name.split('_');
+
+    // Make new donation obj
     const donation = {
         userId: req.userId,
         pantryId: pantry,
-        name: name,
+        name: neededItem,
+        type: typeOfItem,
         quantity: qty,
         useByDate: expiry,
         status: 'pending',
         donationDate: new Date().toLocaleDateString('en-GB'),
     };
 
-    donationDAO.makeDonation(donation)
-        .then(() => {
-            return res.redirect('/');
-        })
-        .catch(err => {
-            console.error('Error making donation:', err);
-            return res.status(500).send('Error making donation');
-        });
+    // Try to make the donation, update the stock and redirect to home
+    try {
+        // Make a donation
+        await donationDAO.makeDonation(donation);
+        // Update the stock
+        await donationDAO.updateStock(neededItem, qty);
+        console.log('Donation made successfully');
+        return res.redirect('/');
+    } catch (err) {
+        console.error('Error making donation:', err);
+        console.error('Error updating stock:', err);
+        return res.status(500).send('Error making donation and updating stock');
+    }
 };
+
 
 
