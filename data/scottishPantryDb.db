@@ -1,0 +1,13 @@
+{"neededItem":"butter","typeOfItem":"dairy","currentStock":0,"_id":"5kBsGlh7iamzWzzf"}
+{"neededItem":"eggs","typeOfItem":"dairy","currentStock":0,"_id":"CpNHod1n5sJkYzfU"}
+{"neededItem":"chicken","typeOfItem":"meat","currentStock":0,"_id":"H8Ka2wJ2lNhne9YD"}
+{"neededItem":"milk","typeOfItem":"dairy","currentStock":0,"_id":"M6dGLetrUENibal6"}
+{"neededItem":"apples","typeOfItem":"fruit","currentStock":0,"_id":"SzuiJmBWwkLBd33s"}
+{"neededItem":"mince","typeOfItem":"meat","currentStock":0,"_id":"XBl4xmwOt0M8TDiG"}
+{"_id":"donationId1","userId":"userId1","type":"vegetable","name":"carrot","quantity":2,"useByDate":{"$$date":1713971952201},"status":"pending"}
+{"_id":"donationId2","userId":"userId2","type":"fruit","name":"apple","quantity":3,"useByDate":{"$$date":1713971952201},"status":"pending"}
+{"neededItem":"carrots","typeOfItem":"vegetable","currentStock":0,"_id":"hnKMBk75ZXUEYQqU"}
+{"neededItem":"bread","typeOfItem":"grain","currentStock":0,"_id":"lEgOZOMPF6UsPeFs"}
+{"_id":"userId1","firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$Q.LXtefo1UDwzg35ZV7Vs.TubX0TSmx28h4aNTGscTJGIo5pd1.PG","role":"donator","donations":[]}
+{"_id":"userId2","firstName":"Conor","secondName":"Lynagh","organisation":"Iceland","number":"987654321","email":"conor@example.com","password":"$2b$10$hdZuIv0aKZR0Tjjrq2lNiuKNVDjlRBgYfNDRMOp4NFGdY6ufP.vtq","role":"donator","donations":[]}
+{"_id":"userId3","firstName":"Admin","secondName":"Admin","organiation":null,"number":"123456789","email":"admin@admin.com","password":"$2b$10$HXeDMoXCua5.ZQreyLAq6u7HvfV6kQlxeV8imll7KAU.7oDlRxFUu","role":"admin","donations":[]}

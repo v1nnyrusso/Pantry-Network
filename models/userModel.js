@@ -1,6 +1,6 @@
 // Import nedb and bcrypt modules
 // Import the 'gray-nedb' module as 'Datastore'
-const Datastore = require("gray-nedb");
+const dbManager = require('../data/dbManager');
 
 // Import the 'bcrypt' module
 const bcrypt = require('bcrypt');
@@ -10,67 +10,71 @@ const saltRounds = 10;
 
 class UserDao {
 
-    constructor(dbFilePath) {
+    constructor(dbManager) {
         // If dbFilePath is true
         // Create a new instance of Datastore with the provided file path
-        if (dbFilePath) {
+        if (dbManager) {
 
-            this.db = new Datastore({
-                filename: dbFilePath,
-                autoload: true,
-
-
-            });
+            this.dbManager = dbManager;
+            console.log('Db connected to user model');
 
         }
-        // If dbFilePath is false 
-        // make a new in-memory database
+
         else {
-            // Create a new instance of Datastore without a file path (in-memory database)
-            this.db = new Datastore();
-  
+
+            throw new Error('No db manager provided');
+
         }
     }
 
-    // Initialiser method
-    init() {
-        this.db.insert({
-            firstName: 'Vincenzo',
-            secondName: 'Russo',
-            organisation: 'Tesco',
-            number: '123456789',
-            email: 'vincenzo@example.com',
-            password: bcrypt.hashSync('123', saltRounds),
-            role: 'donator'
+    async userInitializer() {
+        return new Promise((resolve, reject) => {
+            const users = [
+                { _id: 'userId1', firstName: 'Vincenzo', secondName: 'Russo', organisation: 'Tesco', number: '123456789', email: 'vincenzo@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
+                { _id: 'userId2', firstName: 'Conor', secondName: 'Lynagh', organisation: 'Iceland', number: '987654321', email: 'conor@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
+                { _id: 'userId3', firstName: 'Admin', secondName: 'Admin', organiation: null, number: '123456789', email: 'admin@admin.com', password:bcrypt.hashSync('admin', saltRounds), role: 'admin', donations: [] },
+            ];
+    
+            // Find each user in the database
+            users.forEach(user => {
+                this.dbManager.db.findOne({ email: user.email }, (err, doc) => {
+                    if (err) {
+                        console.error("Error finding user:", err);
+                        reject(err);
+                        return;
+                    }
+    
+                    // If user exists, reject the promise
+                    if (doc) {
+                        console.error("User already exists:", user.email);
+                        reject(new Error(`User already exists: ${user.email}`));
+                        return;
+                    }
+    
+                    // If error, reject 
+                    this.dbManager.db.insert(user, (err, doc) => {
+                        if (err) {
+                            console.error("Error inserting user:", err);
+                            reject(err);
+                            return;
+                        }
+                        console.log("User inserted successfully:", user.email);
+                    });
+                });
+            });
+    
+            resolve();
         });
-        this.db.insert({
-            firstName: 'Conor',
-            secondName: 'Lynagh',
-            organisation: 'Iceland',
-            number: '987654321',
-            email: 'conor@example.com',
-            password: bcrypt.hashSync('123', saltRounds),
-            role: 'donator'
-        });
-        this.db.insert({
-            firstName: 'Administrator',
-            secondName: 'Smith',
-            number: '123456789',
-            email: 'admin@admin.com',
-            password: bcrypt.hashSync('admin', saltRounds),
-            role: 'admin'
-        });
-        return this;
     }
 
-
-    create(firstName, secondName, organisation, number, email, password, source) {
+    // Create a new user
+     create(firstName, secondName, organisation, number, email, password, source) {
         const that = this;
 
         // Hash the password using bcrypt
         bcrypt.hash(password, saltRounds, function (err, hash) {
 
-            var entry = { firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1), secondName: secondName.charAt(0).toUpperCase() +secondName.slice(1), number: number, email: email, password: hash };
+            var entry = { firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1), secondName: secondName.charAt(0).toUpperCase() + secondName.slice(1), number: number, email: email, password: hash, donations: []};
             if (err) {
                 console.error("Error hashing password:", err);
                 return;
@@ -86,11 +90,11 @@ class UserDao {
                     entry.organisation = organisation.charAt(0).toUpperCase() + organisation.slice(1);
                     break;
                 case 'staff':
-                    entry.role = 'staff';    
+                    entry.role = 'staff';
             }
 
             // Insert the user entry into the database
-            that.db.insert(entry, function (err) {
+            that.dbManager.db.insert(entry, function (err) {
                 if (err) {
                     console.error("Error inserting user:", err);
                     return;
@@ -101,9 +105,10 @@ class UserDao {
     }
 
 
-    lookup(user, cb) {
+    // Lookup user based on email
+    lookupEmail(user, cb) {
 
-        this.db.find({ 'email': user },
+        this.dbManager.db.find({ 'email': user },
 
             (err, entries) => {
                 if (err) {
@@ -117,7 +122,7 @@ class UserDao {
                 }
 
             });
-        
+
     }
 
 }
@@ -125,9 +130,9 @@ class UserDao {
 
 
 //  Create new instance of class that Initialises database and export class to use outside of model
-const dao = new UserDao("./database/users.db");
-dao.init();
-module.exports = dao;
+const user = new UserDao(dbManager);
+user.userInitializer();
+module.exports = user;
 
 
 

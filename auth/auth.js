@@ -16,7 +16,7 @@ exports.login = (req, res, next) => {
 
 
     // Using the 'lookup' method of 'userModel' to find the user in the database
-    userModel.lookup(email, (err, user) => {
+    userModel.lookupEmail(email, (err, user) => {
         // Handling errors from the database lookup
         if (err) {
             console.log("Error looking up user:", err);
@@ -96,8 +96,10 @@ exports.verify = (req, res, next) => {
 exports.verifyAdmin = (req, res, next) => {
     let accessToken = req.cookies.jwt;
 
+     
     // If they are not logged in, redirect to login page
     if (!accessToken) {
+        req.session.errorMessage = 'Error: Unauthorized. Please login.';
         return res.redirect('/login');
     }
 
@@ -115,14 +117,14 @@ exports.verifyAdmin = (req, res, next) => {
         }
         // Else, send an unauthorised message
         else{
-            return res.status(401).send('Unauthorized.');
+            
+            req.session.errorMessage = 'You must be an admin to access this page.';
+            return res.redirect('/login');
         }
     }
     // If any errors, send an unauthorised message
     catch(e){
-        req.isLoggedIn = false;
-        return res.status(401).send('Unauthorized.');
+        req.session.errorMessage = 'There was an error verifying your login. Please try again.';
+        return res.redirect('/login');
     }
-    
-    
 };

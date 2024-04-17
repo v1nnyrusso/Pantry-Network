@@ -1,6 +1,10 @@
 // Import express framework into node.js app index.js
 const express = require('express');
 
+const session = require('express-session');
+
+
+
 // Used to store env variables
 require('dotenv').config()
 
@@ -12,6 +16,12 @@ const {engine} = require('express-handlebars');
 // New local variable to = express framework to create express application
 const app = express();
 
+app.use(session({
+  secret: 'secret-key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // set to true if your using https
+}));
 
 // Used to parse cookies
 app.use(cookieParser());
@@ -42,10 +52,16 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
 
-//Default redirection to HTTPGET request to root of application
-// Import router from scottishpantryRoutes.js
-const router = require('./routes/scottishpantryRoutes');
-app.use('/', router);
+// Import routes for code modularity and readability
+const homeRoutes = require('./routes/homeRoutes.js');
+const adminRoutes = require('./routes/adminRoutes.js');
+const donateRoutes = require ('./routes/donateRoutes.js');
+
+
+// Rerouters for different endpoints
+app.use('/', homeRoutes);
+app.use('/admin', adminRoutes);
+app.use('/donate', donateRoutes);
 
 
 // Listens for port 3000, log to console that msg for success

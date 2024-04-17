@@ -50,8 +50,7 @@ exports.post_new_user = (req, res) => {
 
     const { firstName, secondName, organisation, number, email, password } = req.body;
 
-    let confirmPassword = req.password2;
-
+    let confirmPassword = req.body.password2;
 
 
     source = 'registration';
@@ -62,41 +61,44 @@ exports.post_new_user = (req, res) => {
     }
 
 
-    if (password != confirmPassword)
-    {
+    if (password != confirmPassword) {
         return res.render("users/registration", {
             message: "Error: Passwords must match."
         })
     }
-    
-    userDAO.lookup(email, (err, u) => {
+
+    userDAO.lookupEmail(email, (err, u) => {
         if (u) {
             res.status(401).send("User exists: " + email);
             return;
         }
-    
+
         userDAO.create(firstName, secondName, organisation, number, email, password, source);
-    
+
         // This will only be reached if the user does not exist, so no headers have been sent yet
         res.redirect('/login');
     })
 }
 
-// Handle login page get request and render login page
 exports.login_get = (req, res) => {
-
-   
-    // Use return stateement to immediately exit function if user is logged in
-    if (req.isLoggedIn) { 
+    if (req.isLoggedIn) {
         return res.redirect('/');
-     }
+    }
+    // Store it in a local variable
 
-    // Else do normal error message
-    res.render('users/login'), {
-        errorMessage: res.errorMessage,
+    message = req.session.errorMessage;
 
-    };
+    // CLear so it doesnt keep appearing
+    req.session.errorMessage = null;
+
+    // Correct the syntax error here
+    res.render('users/login', {
+        errorMessage: message
+        
+    });
+    
 }
+
 
 // Handle login post request
 exports.login_post = (req, res) => {
