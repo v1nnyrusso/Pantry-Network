@@ -17,6 +17,7 @@
 {"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714073132802},"status":"pending","_id":"HBOxcDDXitoheRH7"}
 {"dataStore":"Product","productName":"Coffee","typeOfProduct":"Food","currentStock":0,"categories":["Drink"],"_id":"IFrdn3zCdAwvDLPX"}
 {"dataStore":"Product","productName":"Potato","typeOfProduct":"Food","currentStock":0,"categories":["Vegetable","Fresh Produce"],"_id":"IYxd8OVgwKZOK39y"}
+{"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714073145864},"status":"pending","_id":"IgzJ0cmKTqw8Anwk"}
 {"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714073081090},"status":"pending","_id":"JGWoK2D6qT9Krtk2"}
 {"dataStore":"Product","productName":"Cereal","typeOfProduct":"Food","currentStock":0,"categories":["Grain"],"_id":"NiOT7ru25PQGpp23"}
 {"dataStore":"Product","productName":"Toothpaste","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"OSvq2y9MaSk3E2ia"}
@@ -24,26 +25,37 @@
 {"dataStore":"Product","productName":"Dog Food","typeOfProduct":"Food","currentStock":0,"categories":["Pet"],"_id":"OTk3pWSakPzXKke1"}
 {"dataStore":"Product","productName":"Butter","typeOfProduct":"Food","currentStock":0,"categories":["Dairy"],"_id":"QmPUda1PRCnoDoeB"}
 {"dataStore":"Product","productName":"Toilet Paper","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"R3NV7UZaqbxgIOaL"}
+{"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714073900582},"status":"pending","_id":"RgkrG9Lgq7uaGbbJ"}
+{"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714075140305},"status":"pending","_id":"RioVOk866AT2MgIj"}
+{"dataStore":"Donation","userId":"xGdj2lR5VSa7SjnT","pantryId":"d1nxpS4DwRVDO1B0","products":[{"productId":"1gWzm2ktqaAGEOSn","productName":"Yogurt","quantity":1,"expiry":"2024-04-24"}],"status":"pending","donationDate":"18/04/2024","_id":"TLvvKsKVKXGRieTD"}
 {"dataStore":"Product","productName":"Soap","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"Te46z4VXPnxVjExL"}
+{"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714073851624},"status":"pending","_id":"UWNGYg4zPIsCgtF7"}
 {"dataStore":"Product","productName":"Tea","typeOfProduct":"Food","currentStock":0,"categories":["Drink"],"_id":"VwMngmin9usNbhOT"}
 {"dataStore":"Pantry","pantryName":"Govanhill Pantry","location":"Glasgow","address":"488 Cathcart Rd","postcode":"G42 7BX","staffMembers":["userId3"],"donations":[],"_id":"WJoLNF9Ac6apat8g"}
 {"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714073132802},"status":"pending","_id":"WzWZ3QJ57hL5Snuc"}
 {"dataStore":"Product","productName":"Shampoo","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"ZqzfFOnEuG0xDz2G"}
 {"dataStore":"Product","productName":"Crisps","typeOfProduct":"Food","currentStock":0,"categories":["Snack"],"_id":"Zu8jXF5mCyC7NUlM"}
+{"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714073851624},"status":"pending","_id":"aSVJUOMNwGfdgoJb"}
+{"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714075140305},"status":"pending","_id":"bAFkTLQXDGCVUqby"}
 {"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714072955129},"status":"pending","_id":"bAMDsuiIHJ38HVQE"}
+{"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714073900582},"status":"pending","_id":"bgozCSEDUz8YJ3b1"}
 {"dataStore":"Product","productName":"Canned Soup","typeOfProduct":"Food","currentStock":0,"categories":["Canned"],"_id":"cGbjbbAMdmRoaqry"}
-{"dataStore":"Pantry","pantryName":"Croftpark Pantry","location":"Glasgow","address":"Croftpark Ave, Crofthill Rd","postcode":"G 44 5NR","staffMembers":["userId3","userId4"],"donations":["donationId2"],"_id":"d1nxpS4DwRVDO1B0"}
+{"dataStore":"Pantry","pantryName":"Croftpark Pantry","location":"Glasgow","address":"Croftpark Ave, Crofthill Rd","postcode":"G 44 5NR","staffMembers":["userId3","userId4"],"donations":["donationId2","TLvvKsKVKXGRieTD","ya7DoJtOLwiHZsDz","imdoZIy0GLA6CEgn","iJ5vgy4tfg4TqfUY"],"_id":"d1nxpS4DwRVDO1B0"}
 {"dataStore":"Product","productName":"Beef Mince","typeOfProduct":"Food","currentStock":0,"categories":["Meat","Beef"],"_id":"eWZ9NkJtjvM7MVVh"}
 {"dataStore":"Product","productName":"Sanitary Towels","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"edxSydsiAT4OTTQT"}
 {"dataStore":"Product","productName":"Canned Beans","typeOfProduct":"Food","currentStock":0,"categories":["Canned"],"_id":"eosBDtfiju2xiq80"}
 {"dataStore":"Product","productName":"Canned Salmon","typeOfProduct":"Food","currentStock":0,"categories":["Canned","Meat","Fish"],"_id":"f88uEVpPIouSV01k"}
 {"dataStore":"Product","productName":"Bottled Water","typeOfProduct":"Food","currentStock":0,"categories":["Drink"],"_id":"flrH9pGAq2q8RwcF"}
 {"dataStore":"Product","productName":"Apple","typeOfProduct":"Food","currentStock":0,"categories":["Fruit","Fresh Produce"],"_id":"gj7PxcfnQscAezqH"}
+{"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714073764921},"status":"pending","_id":"i4eZuwQepX83PeOx"}
+{"dataStore":"Donation","userId":"xGdj2lR5VSa7SjnT","pantryId":"d1nxpS4DwRVDO1B0","products":[],"status":"pending","donationDate":"18/04/2024","_id":"iJ5vgy4tfg4TqfUY"}
+{"dataStore":"Donation","userId":"xGdj2lR5VSa7SjnT","pantryId":"d1nxpS4DwRVDO1B0","products":[{"productId":"1gWzm2ktqaAGEOSn","productName":"Yogurt","quantity":1,"expiry":"2024-04-25"}],"status":"pending","donationDate":"18/04/2024","_id":"imdoZIy0GLA6CEgn"}
 {"dataStore":"Product","productName":"Canned Vegetables","typeOfProduct":"Food","currentStock":0,"categories":["Canned"],"_id":"jrFTC1CCZxFgtGp7"}
 {"dataStore":"Product","productName":"Onion","typeOfProduct":"Food","currentStock":0,"categories":["Vegetable","Fresh Produce"],"_id":"kPXZRo0Negm0uh6q"}
 {"dataStore":"Product","productName":"Pasta","typeOfProduct":"Food","currentStock":0,"categories":["Grain"],"_id":"ln7KEZVvhO4ERW5x"}
 {"dataStore":"Product","productName":"Pepper","typeOfProduct":"Food","currentStock":0,"categories":["Cooking"],"_id":"mineUNXamBqd9A7D"}
 {"dataStore":"Product","productName":"Bacon","typeOfProduct":"Food","currentStock":0,"categories":["Meat","Pork"],"_id":"mpME8AuUNpIktfJY"}
+{"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714073764921},"status":"pending","_id":"o4Q2ckYAsj3cp2a7"}
 {"dataStore":"Product","productName":"Nappies","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries","Baby"],"_id":"oYzTzlj3aIrDpWpN"}
 {"dataStore":"Product","productName":"Rice","typeOfProduct":"Food","currentStock":0,"categories":["Grain"],"_id":"pyIqAXb4iKXhVR2M"}
 {"dataStore":"Product","productName":"Flour","typeOfProduct":"Food","currentStock":0,"categories":["Baking"],"_id":"q5kmsEYvnCGRK3ga"}
@@ -51,14 +63,16 @@
 {"dataStore":"Product","productName":"Baby Milk","typeOfProduct":"Food","currentStock":0,"categories":["Baby"],"_id":"utP8wWKhAF8gFa98"}
 {"dataStore":"Product","productName":"Chocolate","typeOfProduct":"Food","currentStock":0,"categories":["Snack"],"_id":"vDwpk7KrBVhUDBPV"}
 {"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714073081090},"status":"pending","_id":"whgUZLB25CbzcII1"}
-{"dataStore":"User","firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$R4R42C6RKqANtLZ94MNf/OpvZYo5qfnj.LTAlMzG6/DQIRZM3gD9.","role":"donator","donations":[],"_id":"xGdj2lR5VSa7SjnT"}
+{"dataStore":"User","firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$R4R42C6RKqANtLZ94MNf/OpvZYo5qfnj.LTAlMzG6/DQIRZM3gD9.","role":"donator","donations":["TLvvKsKVKXGRieTD","ya7DoJtOLwiHZsDz","imdoZIy0GLA6CEgn","iJ5vgy4tfg4TqfUY"],"_id":"xGdj2lR5VSa7SjnT"}
 {"dataStore":"Product","productName":"Milk","typeOfProduct":"Food","currentStock":0,"categories":["Dairy","Drink"],"_id":"y1f5ZNvPDoBL6fZS"}
+{"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714073145864},"status":"pending","_id":"yWHChroLeiERDI3s"}
 {"dataStore":"Product","productName":"Eggs","typeOfProduct":"Food","currentStock":0,"categories":["Dairy"],"_id":"yXX4eWrCMs4ezn45"}
+{"dataStore":"Donation","userId":"xGdj2lR5VSa7SjnT","pantryId":"d1nxpS4DwRVDO1B0","products":[{"productId":"1gWzm2ktqaAGEOSn","productName":"Yogurt","quantity":1,"expiry":"2024-04-25"}],"status":"pending","donationDate":"18/04/2024","_id":"ya7DoJtOLwiHZsDz"}
 {"dataStore":"Product","productName":"Bread","typeOfProduct":"Grain","currentStock":0,"categories":["Cooking"],"_id":"zKZsvJw9ChHUeSHK"}
 {"dataStore":"User","firstName":"Conor","secondName":"Lynagh","organisation":"Iceland","number":"987654321","email":"conor@example.com","password":"$2b$10$OZbv6abSKw7.xOkfdWTE1O6ubS30dN7vZKZQIyWKD5aOdnzXR/NrO","role":"donator","donations":[],"_id":"zOwsluI9gkRjNjAR"}
 {"dataStore":"Pantry","pantryName":"Parkhead School House","location":"Glasgow","address":"135 Westmuir St, Parkhead","postcode":"G31 5EX","staffMembers":["userId4"],"donations":["donationId1"],"_id":"zhOB2omFHDgPzBmc"}
-{"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714073145864},"status":"pending","_id":"IgzJ0cmKTqw8Anwk"}
-{"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714073145864},"status":"pending","_id":"yWHChroLeiERDI3s"}
-{"dataStore":"Donation","userId":"xGdj2lR5VSa7SjnT","pantryId":"d1nxpS4DwRVDO1B0","products":[{"productId":"1gWzm2ktqaAGEOSn","productName":"Yogurt","quantity":1,"expiry":"2024-04-24"}],"status":"pending","donationDate":"18/04/2024","_id":"TLvvKsKVKXGRieTD"}
-{"dataStore":"User","firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$R4R42C6RKqANtLZ94MNf/OpvZYo5qfnj.LTAlMzG6/DQIRZM3gD9.","role":"donator","donations":["TLvvKsKVKXGRieTD"],"_id":"xGdj2lR5VSa7SjnT"}
-{"dataStore":"Pantry","pantryName":"Croftpark Pantry","location":"Glasgow","address":"Croftpark Ave, Crofthill Rd","postcode":"G 44 5NR","staffMembers":["userId3","userId4"],"donations":["donationId2","TLvvKsKVKXGRieTD"],"_id":"d1nxpS4DwRVDO1B0"}
+{"dataStore":"Donation","productId":"productId1","userId":"userId1","pantryId":"pantryId1","category":"Produce","product":"Vegetable","name":"Carrot","typeOf":"Food","quantity":2,"useByDate":{"$$date":1714075568448},"status":"pending","_id":"YRpZCvacxvCtS1ke"}
+{"dataStore":"Donation","productId":"productId2","userId":"userId2","pantryID":"pantryId1","category":"Produce","product":"Fruit","name":"Apple","typeOf":"Food","quantity":3,"useByDate":{"$$date":1714075568448},"status":"pending","_id":"qUqFklhnNENTc0GO"}
+{"dataStore":"Donation","userId":"xGdj2lR5VSa7SjnT","pantryId":"zhOB2omFHDgPzBmc","products":[{"productId":"1gWzm2ktqaAGEOSn","productName":"Yogurt","quantity":1,"expiry":"2024-04-12"}],"status":"pending","donationDate":"18/04/2024","_id":"IXUpuGuoPs8Czqa7"}
+{"dataStore":"User","firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$R4R42C6RKqANtLZ94MNf/OpvZYo5qfnj.LTAlMzG6/DQIRZM3gD9.","role":"donator","donations":["TLvvKsKVKXGRieTD","ya7DoJtOLwiHZsDz","imdoZIy0GLA6CEgn","iJ5vgy4tfg4TqfUY","IXUpuGuoPs8Czqa7"],"_id":"xGdj2lR5VSa7SjnT"}
+{"dataStore":"Pantry","pantryName":"Parkhead School House","location":"Glasgow","address":"135 Westmuir St, Parkhead","postcode":"G31 5EX","staffMembers":["userId4"],"donations":["donationId1","IXUpuGuoPs8Czqa7"],"_id":"zhOB2omFHDgPzBmc"}

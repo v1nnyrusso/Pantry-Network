@@ -19,6 +19,10 @@ exports.donate_home = async (req, res) => {
             // Sort in alphabetical order of type and product
             const productsByType = products.sort((a, b) => a.typeOfProduct.localeCompare(b.typeOfProduct));
 
+            errorMessage = req.session.errorMessage;
+            req.session.errorMessage = null;
+            successMessage = req.session.successMessage;
+            req.session.successMessage = null;
             // Render donateHome page with data
             return res.render('donation/donateHome', {
                 title: 'Donate',
@@ -27,7 +31,9 @@ exports.donate_home = async (req, res) => {
                 isDonatePage: true,
                 products: productsByType,
                 categories: products.categories,
-                role: req.session.user.role
+                role: req.session.user.role,
+                successMessage: successMessage,
+                errorMessage: errorMessage
             });
         } else {
             // If user is not logged in, redirect to login page
@@ -70,11 +76,11 @@ exports.addToCart = async (req, res) => {
     else {
         // Try add a donation to the cart
         try {
-           
+
 
 
             req.session.donations = req.session.donations || [];
-         
+
             req.session.donations.push({ productId, qty, expiry, productName, pantry });
 
             req.session.successMessage = "Donation added to cart successfully!"
@@ -84,10 +90,10 @@ exports.addToCart = async (req, res) => {
                 title: 'Donate',
                 isLoggedIn: req.isLoggedIn,
                 user: req.session.user,
-                role : req.session.user.role,
+                role: req.session.user.role,
                 isDonatePage: true,
-                products: await productDAO.getProducts(),
-                pantries: await pantryDAO.getAllPantries(),
+                products: await productDAO.getProducts().sort((a, b) => a.typeOfProduct.localeCompare(b.typeOfProduct)),
+                pantries: await pantryDAO.getAllPantries().sort(a, b => a.pantryName.localeCompare(b.pantryName)),
                 successMessage: req.session.successMessage
             });
 
@@ -129,14 +135,17 @@ exports.removefromCart = async (req, res) => {
 // Get the data from the session and render the donateCart page
 exports.getCart = async (req, res) => {
 
+    // Get error message from session, clear it
+    let errorMessage = req.session.errorMessage;
+    req.session.errorMessage = null;
     // Get pantries
     const pantries = await pantryDAO.getAllPantries();
 
     // Check if user is logged in and a donator
-    if(req.session.user.role !== 'donator'){
+    if (req.session.user.role !== 'donator') {
         return res.redirect('/');
     }
- 
+
     // If the user is not logged in, redirect to login
     if (!req.session.user || !req.session.user.id) {
         return res.redirect('/login');
@@ -146,15 +155,20 @@ exports.getCart = async (req, res) => {
     if (!req.session.donations) {
         req.session.donations = [];
     }
-    
-    res.render('donation/cart', { donations: req.session.donations, user: req.session.user, isLoggedIn: req.isLoggedIn, title: 'Cart', role: req.session.user.role, isCartPage: true, pantries: pantries});
+
+    res.render('donation/cart', { donations: req.session.donations, user: req.session.user, isLoggedIn: req.isLoggedIn, title: 'Cart', role: req.session.user.role, isCartPage: true, pantries: pantries });
 }
 
 
 exports.donate = async (req, res) => {
-    
+
     // Get the data from the session
     const donations = req.session.donations || [];
+
+    if (donations.length === 0) {
+        req.session.errorMessage = 'Error: No donations in basket. Please add some products to donate.';
+        return res.redirect('/donate');
+    }
     // And the boidy
     const pantry = req.body.pantry;
 
@@ -168,13 +182,12 @@ exports.donate = async (req, res) => {
         // Parse the quantity as an integer
         const quantity = parseInt(donation.qty);
         const expiry = donation.expiry;
-    
+
         // Push each product to new array
         products.push({ productId, productName, quantity, expiry });
 
         // Validation checks
-        if (!productId || !quantity || !expiry || isNaN(quantity) || expiry.length !== 10 || expiry < new Date().toLocaleDateString('en-GB')) 
-        {
+        if (!productId || !quantity || !expiry || isNaN(quantity) || expiry.length !== 10 || expiry < new Date().toLocaleDateString('en-GB')) {
             console.error('Error: Invalid donation data');
             return res.status(400).send('Error: Invalid donation data');
         }
@@ -198,7 +211,8 @@ exports.donate = async (req, res) => {
         await pantryDAO.addDonationToPantry(pantry, donationId);
         console.log('Donation made successfully');
         req.session.donations = [];
-        return res.redirect('/');
+        req.session.successMessage = 'Donation made successfully!';
+        return res.redirect('/donate');
     } catch (err) {
         console.error('Error making donation or updating stock:', err);
         return res.status(500).send('Error making donation or updating stock');
