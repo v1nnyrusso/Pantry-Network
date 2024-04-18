@@ -33,7 +33,6 @@ exports.donate_home = async (req, res) => {
     }
 };
 
-// Make a donation action method, async as it uses await for db operations
 exports.donate = async (req, res) => {
     const { pantry, name, qty, expiry } = req.body;
 
@@ -45,6 +44,7 @@ exports.donate = async (req, res) => {
         else if (expiry.length !== 10) errorMessage = 'Error: Expiry date must be in the format dd/mm/yyyy.';
         else errorMessage = 'Error: Expiry date cannot be in the past.';
 
+        // Return and repopulate the form with error message
         return res.render('donation/donateHome', {
             title: 'Donate',
             isLoggedIn: req.isLoggedIn,
@@ -61,7 +61,7 @@ exports.donate = async (req, res) => {
 
     // Make new donation obj
     const donation = {
-        userId: req.userId,
+        userId: req.userId, 
         pantryId: pantry,
         name: neededItem,
         type: typeOfItem,
@@ -71,12 +71,15 @@ exports.donate = async (req, res) => {
         donationDate: new Date().toLocaleDateString('en-GB'),
     };
 
+
     // Try to make the donation, update the stock and redirect to home
     try {
         // Make a donation
-        await donationDAO.makeDonation(donation);
+        const donationId = await donationDAO.makeDonation(donation);
         // Update the stock
         await donationDAO.updateStock(neededItem, qty);
+        // Add donation to user
+        await donationDAO.addUserDonation(donationId, req.userId); // Pass req.userId directly
         console.log('Donation made successfully');
         return res.redirect('/');
     } catch (err) {
@@ -85,6 +88,3 @@ exports.donate = async (req, res) => {
         return res.status(500).send('Error making donation and updating stock');
     }
 };
-
-
-

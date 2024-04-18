@@ -1,45 +1,56 @@
-{"firstName":"Vincenzo","secondName":"Russo","number":"12342567","email":"vinnyr1999@gmail.com","password":"$2b$10$uUd6uEj63wg156QTBA08rOPjIcy5/fIHa5R8HpMRKqW3iQv8mhzI.","donations":[],"role":"donator","organisation":"Tesco","_id":"0AgTA4XR1YfBlrxE"}
-{"userId":"userId1","name":"Eggs","quantity":"1","useByDate":"2020-04-17","status":"pending","donationDate":"17/04/2024","_id":"0foPQdb97T0sbUuz"}
-{"neededItem":"Eggs","typeOfItem":"Dairy","currentStock":"01","_id":"3n7zR6MwRBrCVu8K","currentObj":"undefined11"}
-{"quantity":"1","useByDate":"","status":"pending","donationDate":1713381906116,"_id":"6GWvy1J8GRc9DoZN"}
-{"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"6dhu0ZTZvQ7KzJAs"}
-{"userId":"userId1","pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"BJ25rGuHWz03Ls7X"}
-{"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"C176IUHDbeVqAvZi"}
-{"pantryName":"Croftpark Pantry","location":"Glasgow","address":"Croftpark Ave, Crofthill Rd","postcode":"G 44 5NR","staffMembers":["userId3","userId4"],"donations":["donationId2"],"_id":"CAa8XfHXmReYkXwH"}
-{"pantryId":"Croftpark Pantry","quantity":"1","useByDate":"","status":"pending","donationDate":1713382175996,"_id":"FIswqo3yoxbFr3Ks"}
-{"neededItem":"Bread","typeOfItem":"Grain","currentStock":0,"_id":"G450GD7awhcaGDdE"}
-{"pantryName":"Parkhead School House","location":"Glasgow","address":"135 Westmuir St, Parkhead","postcode":"G31 5EX","staffMembers":["userId4"],"donations":["donationId1"],"_id":"GBJ1IZEMjp0asqq3"}
-{"qty":"1","_id":"He3CVTAEiMaRjI0h"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"Hft5K2G775es8kYl"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","quantity":"1","useByDate":"2024-04-21","status":"pending","donationDate":"17/04/2024","_id":"HqZaezTkpbYf872z"}
-{"qty":"1","_id":"K3fGeE1WBbLOVPxz"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"Lzu6HJyyu6OMByou"}
-{"neededItem":"Chicken","typeOfItem":"Meat","currentStock":0,"_id":"MsjJsI2ZXgzTRtcj"}
-{"pantryId":"Croftpark Pantry","quantity":"1","useByDate":"","status":"pending","donationDate":1713382243239,"_id":"OheB2ZDPn6DP97YK"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","quantity":"1","useByDate":"23948-04-17","status":"pending","donationDate":"17/04/2024","_id":"QDYa3Fn4fAPhXZrJ"}
-{"quantity":"1","useByDate":"","status":"pending","donationDate":1713381922127,"_id":"S1R4hk81BBbdVZyg"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs_Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"VXg0vcUQusmWT8YR"}
-{"userId":"0AgTA4XR1YfBlrxE","pantryId":"GBJ1IZEMjp0asqq3","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"WRWmlYK2TPGNCptc"}
-{"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"X6vSPwFhZyzP3cdy"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"Xa5zwihiVIFmPQYw"}
-{"neededItem":"Butter","typeOfItem":"Dairy","currentStock":0,"_id":"XiFCS0KjyeqEVRH5"}
-{"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"ZedYppjR7RSdYYGl"}
-{"neededItem":"Apple","typeOfItem":"Fruit","currentStock":0,"_id":"b40FV8oOAVgSL2sq"}
-{"_id":"donationId1","userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1713983668867},"status":"pending"}
-{"_id":"donationId2","userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1713983668867},"status":"pending"}
-{"neededItem":"Milk","typeOfItem":"Dairy","currentStock":0,"_id":"jzdvekGRXV13HNuR"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"lOZPDvv4NJkBD3jY"}
-{"neededItem":"Carrot","typeOfItem":"Vegetable","currentStock":0,"_id":"ma11uiroQuoV2nOt"}
-{"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"mrMWQ5LV7xoIn42i"}
-{"neededItem":"Mince","typeOfItem":"Meat","currentStock":0,"_id":"n9eOfsHYqLCj2E02"}
-{"pantryName":"Govanhill Pantry","location":"Glasgow","address":"488 Cathcart Rd","postcode":"G42 7BX","staffMembers":["userId3"],"donations":[],"_id":"nUh1HvpO0bMnR7st"}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","quantity":"1","useByDate":"1999-05-05","status":"pending","donationDate":"17/04/2024","_id":"rglDY8oWxAxF9mM4"}
-{"_id":"userId1","firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$9cv62bQs20/8jyRTlo3AnO6p/djcj5xhjuNWElFxo7r.tgLcuj5Kq","role":"donator","donations":[]}
-{"_id":"userId2","firstName":"Conor","secondName":"Lynagh","organisation":"Iceland","number":"987654321","email":"conor@example.com","password":"$2b$10$mmDWYjL5GPI4q5XZprORj.OPI4njdwqKIhp4WTYq5s5ZCnCdaefpO","role":"donator","donations":[]}
-{"_id":"userId3","firstName":"Admin","secondName":"Admin","organiation":null,"number":"123456789","email":"admin@admin.com","password":"$2b$10$fkyN9CxS.FSHDHrqgkGlCeQnSubklrlCPrtmGbcJ4HdFkOQY.fm1.","role":"admin","donations":[]}
-{"_id":"userId4","firstName":"Staff","secondName":"Staff","organisation":null,"number":"123456789","email":"staff@staff.com","password":"$2b$10$gOFgn906KkooZUw4sA9fv.gOqKYlMF6wUoj/lkJSi9nrbU9waWRLm","role":"staff","donations":[]}
-{"userId":"userId1","pantryId":"CAa8XfHXmReYkXwH","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-24","status":"pending","donationDate":"17/04/2024","_id":"wTuoVQp6ojbRa9i4"}
-{"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"y4BTvnTd8ngZHldg"}
-{"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":{"$$date":1713382285505},"_id":"yZWCUIbETmpD2DyP"}
-{"pantryId":"Croftpark Pantry","name":"Eggs","quantity":"1","useByDate":"","status":"pending","donationDate":"17/04/2024","_id":"zTBMZKGvNaYfsLol"}
-{"quantity":"1","useByDate":"2024-04-29","status":"pending","donationDate":1713382040996,"_id":"zU9annt9qi48ZFzT"}
+{"neededItem":"Milk","typeOfItem":"Dairy","currentStock":2,"_id":"23X0HZc1Cx7tmNOr"}
+{"firstName":"Conor","secondName":"Lynagh","organisation":"Iceland","number":"987654321","email":"conor@example.com","password":"$2b$10$hjYBdQuzS/Vyig6T7qFA8OJGpOo3.i1h90W6IRAQOpnftlXTecsP2","role":"donator","donations":[],"_id":"2rtJmxo32YLYp4AA"}
+{"pantryName":"Parkhead School House","location":"Glasgow","address":"135 Westmuir St, Parkhead","postcode":"G31 5EX","staffMembers":["userId4"],"donations":["donationId1"],"_id":"3a8HyQVgqOq7p338"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714004514834},"status":"pending","_id":"3yZCqAqb4pzEKXhi"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714004838711},"status":"pending","_id":"5sdwJViYZYrzWT9A"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"6En3Lho8BXmf9zfo"}
+{"neededItem":"Butter","typeOfItem":"Dairy","currentStock":0,"_id":"8fzjM6rEttxoYCQT"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"9MMLMjBBk3dRLklk"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714004209308},"status":"pending","_id":"9SGactdoFbvFw7F4"}
+{"neededItem":"Carrot","typeOfItem":"Vegetable","currentStock":0,"_id":"9aId5e7sAZvGb3LM"}
+{"userId":"nEk0VfOD9RHbWGaU","pantryId":"MB4kAEVYi51G7RdW","name":"Milk","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"ALFYFqmaKBRtq6lT"}
+{"neededItem":"Chicken","typeOfItem":"Meat","currentStock":0,"_id":"BaAr4TPZkP1SJGck"}
+{"neededItem":"Apple","typeOfItem":"Fruit","currentStock":0,"_id":"BjVy5l557ZwJ0wc8"}
+{"neededItem":"Mince","typeOfItem":"Meat","currentStock":0,"_id":"C4pF8pYamis0PcHo"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714005488531},"status":"pending","_id":"F8ISssskhCCmrcYH"}
+{"neededItem":"Eggs","typeOfItem":"Dairy","currentStock":10,"_id":"Gp5DFagMRcRLHprv"}
+{"neededItem":"Bread","typeOfItem":"Grain","currentStock":0,"_id":"Il9ZEs7iVSNVIe2s"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714004514834},"status":"pending","_id":"JM0ZxcwCAJeGybAH"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714004752148},"status":"pending","_id":"KeJUlsqfKi6KPiOm"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714004209308},"status":"pending","_id":"KoYgnRiW6Vgw8CfG"}
+{"pantryName":"Croftpark Pantry","location":"Glasgow","address":"Croftpark Ave, Crofthill Rd","postcode":"G 44 5NR","staffMembers":["userId3","userId4"],"donations":["donationId2"],"_id":"MB4kAEVYi51G7RdW"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714003857856},"status":"pending","_id":"NUzCHhxQR0yDHX0J"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Milk","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"O9U1P9DyKSEztPyW"}
+{"firstName":"Admin","secondName":"Admin","organiation":null,"number":"123456789","email":"admin@admin.com","password":"$2b$10$K/QdecBXef.VqicSvSnJXOon//DmL1WPYWs9PvWpChYhdsMkcdnEO","role":"admin","donations":[],"_id":"OFKYq05INXk27X91"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"P5yqvY91xionM7ob"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"R117onPkJwbO2u9I"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714004798109},"status":"pending","_id":"S8ff3GB60avCDEyU"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714004030752},"status":"pending","_id":"ST0k47wvC2FEQp7P"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714004838711},"status":"pending","_id":"UTwR6x8g96v3ZVpr"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714004252106},"status":"pending","_id":"VrkuEinehzsjgPrl"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714005284449},"status":"pending","_id":"VsFR1OiuOUgQPUy8"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"c9KvoX2tBRIGwHsj","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"YRuK20F4UD286D8F","donations":["YRuK20F4UD286D8F"]}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"aJANZ2u212NIIJUb"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714003857856},"status":"pending","_id":"bsX5yk2w2GeDkS5R"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714004798109},"status":"pending","_id":"bv6HKg1s0k1FWeLZ"}
+{"pantryName":"Govanhill Pantry","location":"Glasgow","address":"488 Cathcart Rd","postcode":"G42 7BX","staffMembers":["userId3"],"donations":[],"_id":"c9KvoX2tBRIGwHsj"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714005864693},"status":"pending","_id":"cYMAguGoiPnw4cke"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714005284449},"status":"pending","_id":"fxx0kYldRFOA7Dlz"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"i4CigAx1l8EYfMQR"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714005798421},"status":"pending","_id":"iexCx2MNA2qVzRYk"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714004030752},"status":"pending","_id":"jcMXZuR0p4XVEhUk"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714005488531},"status":"pending","_id":"k0HEoo1vuKRDYPq3"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714004752148},"status":"pending","_id":"kVeCbFXyDRgrRHuw"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714004252106},"status":"pending","_id":"lrj0Pm50BcdvGNvM"}
+{"firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$yR1yDlpaQiZZd7eHu/K8wOXegk0X9F0oqNrXSiD2NM6DTbO7Z/Ziq","role":"donator","donations":["ALFYFqmaKBRtq6lT"],"_id":"nEk0VfOD9RHbWGaU"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"npZHdRXe9qX5LvIY"}
+{"firstName":"Staff","secondName":"Staff","organisation":null,"number":"123456789","email":"staff@staff.com","password":"$2b$10$NpClocSp4ulYYN.Mz6qNyuijcIO2hutUBAo.vpM2OV6x1wqvYX0Ae","role":"staff","donations":[],"_id":"qFMzpd3Y7kpSJV2v"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"s04Lb0eUTaIq25ZH"}
+{"userId":"qx8SJqEcbAI21Q3z","pantryId":"MB4kAEVYi51G7RdW","name":"Eggs","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"u55kJu96t16J1TRP"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714005798421},"status":"pending","_id":"ugQ9OC6yPguj8ejp"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714005864693},"status":"pending","_id":"xudtwmlfLDnGsgZ5"}
+{"userId":"userId1","type":"Vegetable","name":"Carrot","quantity":2,"useByDate":{"$$date":1714005990150},"status":"pending","_id":"ys1G9DYY0j5IGwds"}
+{"userId":"userId2","type":"Fruit","name":"Apple","quantity":3,"useByDate":{"$$date":1714005990150},"status":"pending","_id":"ZMVFiEollyy1FxLb"}
+{"userId":"nEk0VfOD9RHbWGaU","pantryId":"MB4kAEVYi51G7RdW","name":"Milk","type":"Dairy","quantity":"1","useByDate":"2024-04-25","status":"pending","donationDate":"18/04/2024","_id":"qlnlMsLr80nxAnu0"}
+{"neededItem":"Milk","typeOfItem":"Dairy","currentStock":3,"_id":"23X0HZc1Cx7tmNOr"}
+{"firstName":"Vincenzo","secondName":"Russo","organisation":"Tesco","number":"123456789","email":"vincenzo@example.com","password":"$2b$10$yR1yDlpaQiZZd7eHu/K8wOXegk0X9F0oqNrXSiD2NM6DTbO7Z/Ziq","role":"donator","donations":["ALFYFqmaKBRtq6lT","qlnlMsLr80nxAnu0"],"_id":"nEk0VfOD9RHbWGaU"}

@@ -83,14 +83,14 @@ class DonationDao {
         return new Promise((resolve, reject) => {
             const donations =
                 [
-                    { _id: 'donationId1', userId: 'userId1', type: 'Vegetable', name: 'Carrot', quantity: 2, useByDate: expirydate, status: 'pending' },
-                    { _id: 'donationId2', userId: 'userId2', type: 'Fruit', name: 'Apple', quantity: 3, useByDate: expirydate, status: 'pending' }
+                    { userId: 'userId1', type: 'Vegetable', name: 'Carrot', quantity: 2, useByDate: expirydate, status: 'pending' },
+                    { userId: 'userId2', type: 'Fruit', name: 'Apple', quantity: 3, useByDate: expirydate, status: 'pending' }
                 ]
 
 
             donations.forEach(donation => {
 
-                this.dbManager.db.findOne({ _id: donation._id }, (err,obj) => {
+                this.dbManager.db.findOne({ _id: donation._id }, (err, obj) => {
                     if (err) {
                         console.error("Error finding donation:", err);
                         reject(err);
@@ -153,48 +153,77 @@ class DonationDao {
                 }
 
                 console.log("Donation inserted successfully:", donation);
-                resolve(obj);
+                resolve(obj._id);
             });
         });
     }
 
+    // Update stock method
     async updateStock(item, qty) {
         return new Promise((resolve, reject) => {
             // Find the item
-            // Looks for neededitem from passed in item, makes new function with error and obj
             this.dbManager.db.findOne({ neededItem: item }, (err, obj) => {
                 if (err) {
                     console.error("Error finding item:", err);
                     reject(err);
                     return;
                 }
-    
+
                 if (!obj) {
                     console.error("Item not found:", item);
                     reject(new Error("Item not found"));
                     return;
                 }
-    
-                // Update the stock
-                const updatedObj = { ...obj, currentObj: obj.currentObj + qty };
-    
-                // Update the item
-                this.dbManager.db.update({ neededItem: item }, updatedObj, {}, (err) => {
+
+                // Update the stock, make sure to parse it as an integer
+                const updatedStock = obj.currentStock + parseInt(qty);
+
+                // Update the item in the database
+                // Parse the updated stock as an integer
+                this.dbManager.db.update({ neededItem: item }, { $set: { currentStock: updatedStock } }, {}, (err) => {
                     if (err) {
                         console.error("Error updating stock:", err);
                         reject(err);
                         return;
                     }
-    
-                    console.log("Stock updated successfully:", updatedObj);
-                    resolve(updatedObj);
+
+                    console.log("Stock updated successfully for", item, "new stock:", updatedStock);
+                    resolve(updatedStock);
                 });
             });
         });
     }
 
+    async addUserDonation(donationId, userId) {
+
+        console.log('Adding donation to user:', donationId, userId);
+        return new Promise((resolve, reject) => {
+            if (!donationId || !userId) {
+                console.error(" ID not found");
+                reject(new Error("ID not found"));
+                return;
+            }
+    
+            // Construct the query to find the user by userId
+            const query = { _id: userId };
+    
+            // Update the user document to push the donationId to the donations array
+            this.dbManager.db.update(query, { $push: { donations: donationId } }, {}, (err) => {
+                if (err) {
+                    console.error("Error adding donation to user:", err);
+                    reject(err);
+                    return;
+                }
+    
+                console.log("Added donation to user");
+                resolve();
+            });
+        });
+    }
+    
 
 }
+
 
 const donation = new DonationDao(dbManager);
 donation.donationInitializer();

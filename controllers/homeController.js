@@ -13,7 +13,9 @@ exports.about_res = (req, res) => {
 exports.landing_page = (req, res) => {
 
     // If user is logged in and has a payload, render index with user object and logged in status variable
-    if (req.payload && req.isLoggedIn) {
+    if (req.payload && req.isLoggedIn)
+     {
+        console.log(req.userId);
        return res.render('index', {
             title: "Scottish Pantry Network",
             isLoggedIn: req.isLoggedIn,

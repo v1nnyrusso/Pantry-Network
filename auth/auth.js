@@ -89,6 +89,7 @@ exports.verify = (req, res, next) => {
             req.isLoggedIn = true;
             req.name = payload.name;
             req.role = payload.role;
+            req.userId = payload.id;
             next();
         } catch (e) {
             req.isLoggedIn = false;
