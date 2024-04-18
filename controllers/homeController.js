@@ -19,9 +19,9 @@ exports.landing_page = (req, res) => {
        return res.render('index', {
             title: "Scottish Pantry Network",
             isLoggedIn: req.isLoggedIn,
-            user: req.name,
+            user: req.session.user,
             isHomePage: true,
-            role: req.role
+            role: req.session.user.role
             
         })
     }
@@ -132,6 +132,9 @@ exports.login_post = (req, res) => {
 
 // Clear jwt and logout, redirect to index
 exports.logout = (req, res) => {
+
+    // Clear session and cookie
+    req.session.destroy();
     res.clearCookie("jwt").status(200).redirect("/");
 }
 

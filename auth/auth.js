@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
 
 const jwt = require('jsonwebtoken');
+const session = require('express-session');
 
 // Exporting a function called 'login', which handles the login request
 exports.login = (req, res, next) => {
@@ -46,7 +47,7 @@ exports.login = (req, res, next) => {
                 console.log("User", email, "logged in successfully.");
                 
                 // Creating a JWT token with the user's email as payload
-                let payload = { email: user.email , role: user.role, name: user.firstName + " " + user.secondName, id: user._id};
+                let payload = { email: user.email , role: user.role, name: user.firstName, id: user._id};
                 let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
                 // Setting the JWT token as a cookie
                 res.cookie("jwt", accessToken);
@@ -77,18 +78,24 @@ exports.login = (req, res, next) => {
 exports.verify = (req, res, next) => {
     let accessToken = req.cookies.jwt;
 
+
     if (!accessToken) {
         req.isLoggedIn = false;
         next();
     } 
     else {
         let payload;
+        
         try {
             payload = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+
+            const info  = {role: payload.role, id: payload.id, name: payload.name, email: payload.email};
+            
             req.payload = payload;
             req.isLoggedIn = true;
             req.name = payload.name;
             req.role = payload.role;
+            req.session.user = info;
             req.userId = payload.id;
             next();
         } catch (e) {
@@ -110,6 +117,7 @@ exports.verifyDonator = (req,res,next)=> {
         // Get payload
         payload = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
+        const info  = {role: payload.role, id: payload.id, name: payload.name, email: payload.email};
         // If the user is a donator, proceed
         if(payload.role === 'donator'){
             req.isLoggedIn = true;

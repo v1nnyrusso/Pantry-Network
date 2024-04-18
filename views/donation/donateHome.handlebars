@@ -5,6 +5,7 @@
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 10px;
+      
         
     }
 
@@ -22,31 +23,33 @@
     <h2 class="text-center mb-4">Food Donation Shop</h2>
     <p> Thank you for considering donating to one of our pantries. Below, you can see what items we are currently accepting. This changes from time to time. Please check back often to see what we are accepting!</p>
     <div class="row justify-content-center">
-         <label for="pantry">Select a pantry:</label>
-        <select name="pantry" class="form-control mb-4">
-            {{#each pantries}}
-                <option value="{{_id}}" id="pantry" name="pantry">{{pantryName}}</option>
-            {{/each}}
-        </select>
+         
         <label for="item">Select an item:</label>
-        <select name="name" class="form-control mb-4">
-            {{#each foodItems}}
-                <option value="{{neededItem}}_{{typeOfItem}}" name=>{{typeOfItem}} - {{neededItem}}</option>
+        <select name="product" class="form-control mb-4">
+            {{#each products}}
+                <option value="{{_id}}_{{productName}}" name=>{{typeOfProduct}} - {{productName}}</option>
             {{/each}}
         </select>
         <label for="quantity">Quantity:</label>
         <input type="number" id="qty" name="qty" class="form-control mb-2" min="1" max="10" required>
         <label for="expiry">Expiry Date:</label>
         <input type="date" id="expiry" name="expiry" class="form-control mb-2" required>
+        <input type="hidden" name="productName" value="{{productName}}">
+        
        
          <div>
             <div class="form-group" style="text-align:center">
-                <input type="submit" value="Donate" class="btn btn-primary">
+                <input type="submit" value="Add to Basket" class="btn btn-primary">
             </div>
             <!-- Error Message -->
             {{#if errorMessage}}
             <div class="alert alert-danger" id="error" role="alert">
                 {{errorMessage}}
+            </div>
+            {{/if}}
+            {{#if successMessage}}
+            <div class="alert alert-success" id="error" role="alert">
+                {{successMessage}}
             </div>
             {{/if}}
             
@@ -60,6 +63,8 @@
 </form>
 
 <script>
+
+    
     // JavaScript code to scroll to the error message
     document.addEventListener('DOMContentLoaded', function() {
         var errorMessage = document.getElementById('error');

@@ -30,10 +30,10 @@ class UserDao {
     async userInitializer() {
         return new Promise((resolve, reject) => {
             const users = [
-                {  firstName: 'Vincenzo', secondName: 'Russo', organisation: 'Tesco', number: '123456789', email: 'vincenzo@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
-                {  firstName: 'Conor', secondName: 'Lynagh', organisation: 'Iceland', number: '987654321', email: 'conor@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
-                {  firstName: 'Admin', secondName: 'Admin', organiation: null, number: '123456789', email: 'admin@admin.com', password:bcrypt.hashSync('admin', saltRounds), role: 'admin', donations: [] },
-                {  firstName: 'Staff', secondName: 'Staff', organisation: null, number: '123456789', email: 'staff@staff.com', password: bcrypt.hashSync('staff', saltRounds), role: 'staff', donations: [] }
+                {  dataStore: 'User', firstName: 'Vincenzo', secondName: 'Russo', organisation: 'Tesco', number: '123456789', email: 'vincenzo@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
+                {  dataStore:'User',firstName: 'Conor', secondName: 'Lynagh', organisation: 'Iceland', number: '987654321', email: 'conor@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
+                {  dataStore: 'User',firstName: 'Admin', secondName: 'Admin', organiation: null, number: '123456789', email: 'admin@admin.com', password:bcrypt.hashSync('admin', saltRounds), role: 'admin', donations: [] },
+                {  dataStore:'User', firstName: 'Staff', secondName: 'Staff', organisation: null, number: '123456789', email: 'staff@staff.com', password: bcrypt.hashSync('staff', saltRounds), role: 'staff', donations: [] }
             ];
     
             // Find each user in the database
@@ -126,6 +126,33 @@ class UserDao {
 
             });
 
+    }
+
+    async addUserDonation(donationId, userId) {
+
+        console.log('Adding donation to user:', donationId, userId);
+        return new Promise((resolve, reject) => {
+            if (!donationId || !userId) {
+                console.error(" ID not found");
+                reject(new Error("ID not found"));
+                return;
+            }
+    
+            // Construct the query to find the user by userId
+            const query = { _id: userId };
+    
+            // Update the user document to push the donationId to the donations array
+            this.dbManager.db.update(query, { $push: { donations: donationId } }, {}, (err) => {
+                if (err) {
+                    console.error("Error adding donation to user:", err);
+                    reject(err);
+                    return;
+                }
+    
+                console.log("Added donation to user");
+                resolve();
+            });
+        });
     }
 
 }

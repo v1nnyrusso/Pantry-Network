@@ -13,7 +13,15 @@ const {verify, verifyDonator} = require('../auth/auth.js');
 
 
 router.get('/', verifyDonator, donateController.donate_home);
-router.post('/', verifyDonator, donateController.donate);
+router.post('/', verifyDonator, donateController.addToCart);
+
+
+
+router.get('/cart', verifyDonator, donateController.getCart);
+
+router.post('/cart', verifyDonator, donateController.donate);
+
+
 
 
 module.exports = router;

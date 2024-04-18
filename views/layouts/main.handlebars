@@ -8,6 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="stylesheet" href="/bootstrap.min.css">
   <style>
+    .btn {
+      background-color: #67b0b7;
+      color: #fff;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-color:#67aeb5
+    }
+
     body {
       display: flex;
       flex-direction: column;
@@ -30,21 +38,28 @@
       transition: color 0.3s ease;
     }
 
-.image{
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 10px;
-  border-radius: 10%;
+    .image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border-radius: 10%;
 
-}
+    }
 
-.top-left{
-  display: flex;
-  align-items: center;
-}
+    .top-left {
+      display: flex;
+      align-items: center;
+    }
 
-   
+    .svg {
+      height: 30px;
+      width: 20x;
+    }
+
+
+
+
 
     .container {
       max-width: 960px;
@@ -53,7 +68,6 @@
     .bg-light {
       background-color: #f8f9fa !important;
     }
-
   </style>
 </head>
 
@@ -66,7 +80,7 @@
         <div class="top-left">
           <img src="/images/TSPN_logo.png" alt="TSPN Logo" class="image">
           <i class="fa fa-snowflake-o fa-lg text-primary mr-2">
-            
+
           </i>
           <strong>Scottish Pantry Co.</strong>
         </div>
@@ -84,14 +98,52 @@
           <li class="nav-item active"><a href="#" class="nav-link"> Services </a></li>
           <li class="nav-item active"><a href="#" class="nav-link"> Contact</a></li>
 
-         {{!-- Using handlebars in navbar to filter out between roles --}}
+          {{!-- Using handlebars in navbar to filter out between roles --}}
           {{#if user}}
-          <li class="nav-item active"><a href="/" class="nav-link"> Hello, {{user}}!</a></li>
+          <li class="nav-item active"><a href="/" class="nav-link"> Hello, {{user.name}}!</a></li>
           {{#ifEquals role "staff"}}
           <li class="nav-item active"><a href="/staff" class="nav-link"> Staff Area</a></li>
           {{/ifEquals}}
           {{#ifEquals role "donator"}}
           <li class="nav-item active"><a href="/donate" class="nav-link"> Donate</a></li>
+          <li class="nav-item active"><a href="/donate/cart" class="nav-link">
+
+              <div>
+                <svg class="svg" fill="#67b0b7" height="64px" width="64px" version="1.1" id="Capa_1"
+                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="-49 -49 588.00 588.00" xml:space="preserve" stroke="#67b0b7" transform="rotate(0)">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
+                    stroke-width="1.9600000000000002"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <g>
+                      <g>
+                        <g>
+                          <g>
+                            <g>
+                              <circle cx="426.445" cy="398.018" r="16.851"></circle>
+                              <circle cx="361.054" cy="398.018" r="16.851"></circle>
+                            </g>
+                            <circle cx="128.854" cy="398.018" r="16.851"></circle>
+                          </g>
+                          <circle cx="63.464" cy="398.018" r="16.851"></circle>
+                        </g>
+                        <path
+                          d="M476.051,356.541H13.95C6.258,356.541,0,362.799,0,370.49v14.135c0,7.691,6.258,13.949,13.95,13.949h19.362 c1.461,0,2.676-1.127,2.782-2.586c1.047-14.256,13.067-25.424,27.368-25.424c14.301,0,26.323,11.168,27.369,25.424 c0.107,1.459,1.321,2.586,2.783,2.586h5.088c1.461,0,2.676-1.127,2.782-2.586c1.046-14.256,13.068-25.424,27.37-25.424 c14.3,0,26.321,11.168,27.367,25.424c0.107,1.459,1.321,2.586,2.783,2.586c42.975,0,128.923,0,171.897,0 c1.461,0,2.675-1.127,2.782-2.586c1.046-14.256,13.067-25.424,27.368-25.424c14.3,0,26.323,11.168,27.369,25.424 c0.107,1.459,1.321,2.586,2.782,2.586h5.088c1.462,0,2.676-1.127,2.783-2.586c1.046-14.256,13.068-25.424,27.369-25.424 c14.301,0,26.322,11.168,27.368,25.424c0.106,1.459,1.321,2.586,2.782,2.586h19.455c7.692,0,13.949-6.258,13.949-13.949V370.49 C490,362.799,483.743,356.541,476.051,356.541z">
+                        </path>
+                      </g>
+                      <path
+                        d="M460.893,75.131H29.016C12.991,75.131,0,88.121,0,104.146v193.061c0,16.025,12.991,29.016,29.016,29.016h431.877 c16.024,0,29.016-12.99,29.016-29.016V104.146C489.908,88.121,476.917,75.131,460.893,75.131z M91.618,267.463 c0,11.82-10.002,21.402-22.339,21.402c-12.338,0-22.339-9.582-22.339-21.402V133.891c0-11.82,10.001-21.402,22.339-21.402 c12.337,0,22.339,9.582,22.339,21.402V267.463z M179.455,267.463c0,11.82-10,21.402-22.338,21.402 c-12.338,0-22.34-9.582-22.34-21.402V133.891c0-11.82,10.002-21.402,22.34-21.402c12.338,0,22.338,9.582,22.338,21.402V267.463z M267.293,267.463c0,11.82-10.002,21.402-22.339,21.402s-22.339-9.582-22.339-21.402V133.891c0-11.82,10.002-21.402,22.339-21.402 s22.339,9.582,22.339,21.402V267.463z M355.132,267.463c0,11.82-10.003,21.402-22.339,21.402c-12.339,0-22.339-9.582-22.339-21.402 V133.891c0-11.82,10-21.402,22.339-21.402c12.336,0,22.339,9.582,22.339,21.402V267.463z M442.968,267.463 c0,11.82-10,21.402-22.337,21.402c-12.339,0-22.341-9.582-22.341-21.402V133.891c0-11.82,10.002-21.402,22.341-21.402 c12.337,0,22.337,9.582,22.337,21.402V267.463z">
+                      </path>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </a>
+
+          </li>
+
+
           {{/ifEquals}}
           <li class="nav-item active"><a href="/logout" class="nav-link"> Logout</a></li>
           {{/if}}
@@ -99,8 +151,8 @@
           <li class="nav-item active"><a href="/login" class="nav-link"> Login</a></li>
           <li class="nav-item active"><a href="/registration" class="nav-link"> Register</a></li>
           {{/unless}}
-      
-         
+
+
         </ul>
       </div>
     </div>

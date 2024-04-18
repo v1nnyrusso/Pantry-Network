@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        .container-1 {
+            min-width: 450px;
+            min-height: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn:hover {
+            background-color: #3a9ba9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+            /* Align content to the top of the cell */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .btn {
+            position: absolute;
+            /* Position the button absolutely */
+            bottom: 20px;
+            /* Adjust bottom spacing */
+            left: 50%;
+            /* Move to the center horizontally */
+            transform: translateX(-50%);
+            /* Center horizontally */
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+
+    <div class="container-1">
+        <div class="small-container cart-page">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each donations}}
+                    <tr>
+                        <td>
+                            <div class="cart-info">
+                                <p>{{productName}}</p>
+                            </div>
+                        </td>
+                        <td>{{qty}}</td>
+                        {{#if expiry}}
+                        <td>{{expiry}}</td>
+                        {{/if}}
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <form action="/donate/cart" method="post" style="text-align::center">
+            <input type="submit" value="Donate" class="btn">
+            <label for="pantry">Select a pantry:</label>
+            <select name="pantry" class="form-control mb-4">
+                {{#each pantries}}
+                <option value="{{_id}}" id="pantry" name="pantry">{{pantryName}}</option>
+                {{/each}}
+                <input type="submit" value="Donate" class="btn">
+            </select>
+        </form>
+
+        <p>
+            <a href="/donate">Back to Donate Page</a>
+        </p>
+
+
+
+
+
+    </div>
+</body>
+
+</html>
