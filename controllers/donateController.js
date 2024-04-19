@@ -1,10 +1,8 @@
-
+// Imports
 const pantryDAO = require('../models/pantryModel.js');
 const productDAO = require('../models/productModel.js');
 const userDAO = require('../models/userModel.js');
 const donationDAO = require('../models/donationModel.js');
-
-
 
 // Render the donateHome page, async as it uses await for db operations
 exports.donate_home = async (req, res) => {
@@ -14,11 +12,13 @@ exports.donate_home = async (req, res) => {
         if (req.payload && req.isLoggedIn) {
             // Get pantry and donation items
 
+            // Get all products
             const products = await productDAO.getProducts();
 
             // Sort in alphabetical order of type and product
             const productsByType = products.sort((a, b) => a.typeOfProduct.localeCompare(b.typeOfProduct));
 
+            // Get error and success messages from session, clear them
             errorMessage = req.session.errorMessage;
             req.session.errorMessage = null;
             successMessage = req.session.successMessage;
@@ -46,10 +46,11 @@ exports.donate_home = async (req, res) => {
     }
 };
 
+// Add a product to the cart
 exports.addToCart = async (req, res) => {
 
+    // Local variables from the request body
     const { qty, expiry } = req.body;
-
     const [productId, productName] = req.body.product.split('_');
 
     // Validation checks
@@ -90,6 +91,7 @@ exports.addToCart = async (req, res) => {
                 pantryDAO.getAllPantries().then(pantries => pantries.sort((a, b) => a.pantryName.localeCompare(b.pantryName)))
             ]);
             
+            // Set a success message
             req.session.successMessage = "Donation added to cart successfully!"
             successMessage = req.session.successMessage;
             req.session.successMessage = null;
@@ -128,7 +130,6 @@ exports.removefromCart = async (req, res) => {
         req.session.donations = req.session.donations || [];
         req.session.donations = req.session.donations.filter(donation => donation.productId !== productId);
 
-
         console.log('Removed from cart:', req.session.donations);
         return res.redirect('/donate/cart');
     }
@@ -139,7 +140,6 @@ exports.removefromCart = async (req, res) => {
 
 
 }
-
 
 // Get the data from the session and render the donateCart page
 exports.getCart = async (req, res) => {
@@ -167,6 +167,7 @@ exports.getCart = async (req, res) => {
         req.session.donations = [];
     }
 
+    // Render donateCart page with data
     res.render('donation/cart', { donations: req.session.donations, user: req.session.user, isLoggedIn: req.isLoggedIn, title: 'Cart', role: req.session.role, isCartPage: true, pantries: pantries });
 }
 
@@ -189,10 +190,12 @@ exports.donate = async (req, res) => {
     // Get each product from the session and validate it
     donations.forEach(async (donation) => {
 
-        // Get a product line id
+        // Get a product line id, make it random, but unique by using the current date millisecond and a random number
+        // Rounded to nearest whole number, as a string for identification
         const donationLineId = Date.now() + Math.floor(Math.random() * 1000).toString();
         const productId = donation.productId;
         const productName = donation.productName;
+
         // Parse the quantity as an integer
         const quantity = parseInt(donation.qty);
         const expiry = donation.expiry || new Date().toLocaleDateString('en-GB');

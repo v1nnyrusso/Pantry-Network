@@ -1,15 +1,23 @@
+// Import models
 const productDAO = require("../models/productModel");
-
 const donationDAO = require("../models/donationModel");
-
 
 // Get the staff page
 exports.staff_page = async (req, res) => {
 
-     // Get the current staffs pantry id
-     let pantryId = req.session.pantryId;
+    if (!req.session.user || !req.session.user.id) {
+        return res.redirect('/login');
+    }
+    
+    if (req.session.role !== 'staff') {
+        return res.redirect('/');
+    }
+    
 
-     console.log('Pantry ID:', pantryId);
+    // Get the current staffs pantry id
+    let pantryId = req.session.pantryId;
+
+    console.log('Pantry ID:', pantryId);
 
     // Use a function for better readability and modularity
     getProductFiltered(pantryId).then(products => {
@@ -28,9 +36,9 @@ exports.staff_page = async (req, res) => {
 
 // Add to cart method
 exports.addToCart = async (req, res) => {
-   
-     // Get the current staffs pantry id
-     let pantryId = req.session.pantryId;
+
+    // Get the current staffs pantry id
+    let pantryId = req.session.pantryId;
 
     // Assuming staff members are managing products
     const { productId, qty, expiry, productName } = req.body;
@@ -40,7 +48,7 @@ exports.addToCart = async (req, res) => {
         // Add the claim to the session
         req.session.claims = req.session.claims || [];
         // Add the claim to the session
-        req.session.claims.push({ productId, qty, expiry, productName});
+        req.session.claims.push({ productId, qty, expiry, productName });
 
         // Set a success message
         console.log('Claim added successfully!', req.session.claims);
@@ -56,7 +64,7 @@ exports.addToCart = async (req, res) => {
             successMessage: successMessage,
             products: await getProductFiltered(pantryId),
             role: req.session.role,
-      
+
         });
     } catch (error) {
         console.error('Error adding product:', error);
@@ -68,13 +76,23 @@ exports.addToCart = async (req, res) => {
 // Get the data from the session and render the donateCart page
 exports.getCart = async (req, res) => {
 
+
+    if (!req.session.user || !req.session.user.id) {
+        return res.redirect('/login');
+    }
+    
+     // Check if user is logged in and a staff member
+     if (req.session.role !== 'staff') {
+        return res.redirect('/');
+     }
+
     // Get error message from session, clear it
     let errorMessage = req.session.errorMessage;
     req.session.errorMessage = null;
     // Get pantriees
 
-     // If the user is not logged in, redirect to login
-     if (!req.session.user || !req.session.user.id) {
+    // If the user is not logged in, redirect to login
+    if (!req.session.user || !req.session.user.id) {
         return res.redirect('/login');
     }
 
@@ -83,7 +101,7 @@ exports.getCart = async (req, res) => {
         console.log('Role:', req.session.role)
         return res.redirect('/');
     }
-   
+
     // If there are no claims in the session, initialise an empty array
     if (!req.session.claims) {
         req.session.claims = [];
@@ -133,7 +151,7 @@ async function getProductFiltered(pantryId) {
 
     // If the product exists, product.expiry is a valid date and the expiry date is greater than the current date
     // And the status is pending, add to products list
-    products = products.filter(product => product &&  product.status === 'pending' && product.expiry && new Date(product.expiry) > new Date());
+    products = products.filter(product => product && product.status === 'pending' && product.expiry && new Date(product.expiry) > new Date());
 
     // Return the products
     return products;

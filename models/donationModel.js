@@ -16,7 +16,7 @@ class DonationDao {
     }
 
     // Initialiser method
-    async donationInitializer() {
+    async donationInitialiser() {
 
         const expirydate = new Date();
 
@@ -30,8 +30,10 @@ class DonationDao {
                  
                 ]
 
+            // Find each donation in the database
             donations.forEach(donation => {
 
+                // Find each donation in the database
                 this.dbManager.db.findOne({ _id: donation._id }, (err, obj) => {
                     if (err) {
                         console.error("Error finding donation:", err);
@@ -62,6 +64,7 @@ class DonationDao {
 
                 });
             });
+            // Resolve the promise
             resolve();
         });
     }
@@ -83,6 +86,7 @@ class DonationDao {
 
     }
 
+    // Get donation by id
     async getDonationById(id) {
 
         return new Promise((resolve, reject) => {
@@ -94,6 +98,7 @@ class DonationDao {
                     return;
                 }
 
+                // Resolve the promise, send the doc
                 resolve(doc);
             });
 
@@ -104,6 +109,7 @@ class DonationDao {
     // Insert donation method into database
     async makeDonation(donation) {
         return new Promise((resolve, reject) => {
+
             // Insert donation
             this.dbManager.db.insert(donation, (err, obj) => {
                 if (err) {
@@ -122,5 +128,5 @@ class DonationDao {
 
 // Make new donation object, pass it to dbManager constructor
 const donation = new DonationDao(dbManager);
-donation.donationInitializer();
+donation.donationInitialiser();
 module.exports = donation;

@@ -1,11 +1,9 @@
+// Import gray-nedb module to use as database
 const db = require('gray-nedb')
-
 
 // Database Manager class
 class DatabaseManager
 {
-
-
     // Constructor for the Database Manager
     constructor(dbFilePath){
         if(dbFilePath){
@@ -21,7 +19,6 @@ class DatabaseManager
         }
     }
 }
-
 
 // Export the Database Manager
 const dbFilePath = ('./data/scottishPantryDb.db');

@@ -1,3 +1,4 @@
+// Get the dbManager
 const dbManager = require('../data/dbManager');
 
 // New class to handle products
@@ -15,12 +16,10 @@ class ProductDao {
     }
 
     // Initializer method for what items are needed
-    async itemsNeededInitializer() {
+    async itemsNeededInitialiser() {
         return new Promise((resolve, reject) => {
-
-
-            // Create a new list of items needed by pantries
-            // Create a new list of items needed by pantries
+ 
+            // Seed some products 
             const products = [
                 { dataStore: 'Product', productName: 'Carrot', typeOfProduct: 'Food', currentStock: 0, categories: ['Vegetable', 'Fresh Produce'] },
                 { dataStore: 'Product', productName: 'Potato', typeOfProduct: 'Food', currentStock: 0, categories: ['Vegetable', 'Fresh Produce'] },
@@ -142,8 +141,6 @@ class ProductDao {
         });
     }
 
-
-
     // Update stock method
     async updateStock(item, qty) {
         return new Promise((resolve, reject) => {
@@ -248,5 +245,5 @@ class ProductDao {
 }
 
 const productDao = new ProductDao(dbManager);
-productDao.itemsNeededInitializer();
+productDao.itemsNeededInitialiser();
 module.exports = productDao;

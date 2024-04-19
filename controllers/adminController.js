@@ -3,11 +3,10 @@ const userDAO = require('../models/userModel.js');
 const productDAO = require('../models/productModel.js');
 const pantryDAO = require('../models/pantryModel.js');
 
-
-
 // Get to admin page
 exports.admin_page = (req, res) => {
 
+    // if appropriate user is logged in, render admin page
     if (req.payload && req.isLoggedIn) {
         res.render('admin/adminhub', {
             title: "Admin Page",
@@ -23,9 +22,10 @@ exports.admin_page = (req, res) => {
 
 }
 
+// Get to staff page
 exports.staff_page = async (req, res) => {
 
-    // Get all staff
+    // Get all staff if appropriate user is logged in
     try {
         if (req.payload && req.isLoggedIn) {
             let type = 'staff';
@@ -39,28 +39,29 @@ exports.staff_page = async (req, res) => {
                 isAdminPage: true,
                 role: req.session.role,
                 staff: users
-
             })
         }
+        // Else, redirect user to login
         else {
             res.redirect('/login');
         }
     }
+    // Catch error
     catch (e) {
         console.error('Error getting staff:', e)
     }
 
-
 }
 
+// Create staff
 exports.create_staff_get = async (req, res) => {
 
+    // Error message from session and success message handling
     successMessage = req.session.successMessage
     req.session.successMessage = null;
     errorMessage = req.session.errorMessage;
     req.session.errorMessage = null;
 
-    console.log("PANTRIES: ", pantries);
     // Check if user is logged in
     if (req.payload && req.isLoggedIn) {
         res.render('admin/createStaff', {
@@ -86,9 +87,9 @@ exports.create_staff_post = async (req, res) => {
 
     let pantry = organisation;
 
-    // Capitalize the first letter of the first and last name
-    firstName = capitalizeFirstLetter(firstName);
-    secondName = capitalizeFirstLetter(secondName);
+    // Capitalise the first letter of the first and last name
+    firstName = capitaliseFirstLetter(firstName);
+    secondName = capitaliseFirstLetter(secondName);
     email = email.toLowerCase();
 
     // Get the confirm password from the request body
@@ -174,12 +175,15 @@ exports.product_page = async (req, res) => {
 
 }
 
+// Get the update product page
 exports.create_product_get = (req, res) => {
 
+    // Error message from session and success message handling
     successMessage = req.session.successMessage
     req.session.successMessage = null;
     errorMessage = req.session.errorMessage;
     req.session.errorMessage = null;
+
     // Check if user is logged in
     if (req.payload && req.isLoggedIn) {
         res.render('admin/createProduct', {
@@ -199,7 +203,9 @@ exports.create_product_get = (req, res) => {
 
 }
 
+// Create a product post    
 exports.create_product_post = async (req, res) => {
+
     // Get the data from the request body
     let { productName, typeOfProduct, currentStock, expiry } = req.body;
 
@@ -208,17 +214,17 @@ exports.create_product_post = async (req, res) => {
     // Make it an int
     currentStock = parseInt(currentStock);
 
-    // Capitalize the first letter of the category and split them
+    // Capitalise the first letter of the category and split them
     categories = categories.map(category => {
 
          category.includes(", ") ? category.split(", ") : category;
-         return capitalizeFirstLetter(category);
+         return capitaliseFirstLetter(category);
 
     });
 
-    // Capitalize the first letter of the first and last name
-    productName = capitalizeFirstLetter(productName);
-    typeOfProduct = capitalizeFirstLetter(typeOfProduct);
+    // Capitalise the first letter of the first and last name
+    productName = capitaliseFirstLetter(productName);
+    typeOfProduct = capitaliseFirstLetter(typeOfProduct);
 
     // If email or password is somehow missing, send a 401 status code
     if (!productName || !typeOfProduct || !currentStock || !categories || categories.length == 0) {
@@ -257,12 +263,15 @@ exports.create_product_post = async (req, res) => {
 
         } else {
 
+            // Create the product
             productDAO.create(productName, typeOfProduct, currentStock, categories, expiry);
            
-
+            // Set success message
             req.session.successMessage = "Success: Created product!"
             successMessage = req.session.successMessage;
             req.session.successMessage = null;
+
+            // Render the page
             res.render('admin/createProduct', {
                 title: "Create Product",
                 isLoggedIn: req.isLoggedIn,
@@ -277,8 +286,6 @@ exports.create_product_post = async (req, res) => {
         // Error occurred while looking up the product
         console.error("Error occurred:", error);
     }
-
-
 
 }
 
@@ -306,8 +313,8 @@ exports.delete = async (req, res) => {
 
 }
 
-
-function capitalizeFirstLetter(string) {
+// Capitalise the first letter of a string
+function capitaliseFirstLetter(string) {
     if (string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }

@@ -14,7 +14,7 @@ class Pantry {
     }
 
     // Initialise pantries
-async pantryInitializer() {
+async pantryInitialiser() {
     return new Promise((resolve, reject) => {
         const pantries = [
             { dataStore: 'Pantry', pantryName: 'Parkhead School House', location: 'Glasgow', address: '135 Westmuir St, Parkhead', postcode: 'G31 5EX', staffMembers: ['userId4'], donations: ['donationId1'] },
@@ -104,5 +104,5 @@ async pantryInitializer() {
 
 // Make new db and initialise, export
 pantries = new Pantry(dbManager);
-pantries.pantryInitializer();
+pantries.pantryInitialiser();
 module.exports = pantries;

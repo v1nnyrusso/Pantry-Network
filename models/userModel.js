@@ -1,5 +1,4 @@
-// Import nedb and bcrypt modules
-// Import the 'gray-nedb' module as 'Datastore'
+// Import nedb module
 const dbManager = require('../data/dbManager');
 
 // Import the 'bcrypt' module
@@ -18,11 +17,11 @@ class UserDao {
 
             // Set the dbManager
             this.dbManager = dbManager;
-
             console.log('Db connected to user model');
 
         }
 
+        // If no dbManager is provided, throw an error
         else {
 
             throw new Error('No db manager provided');
@@ -31,7 +30,7 @@ class UserDao {
     }
 
     // Initialise users / seed some users
-    async userInitializer() {
+    async userInitialiser() {
         return new Promise((resolve, reject) => {
             const users = [
                 {  dataStore: 'User', firstName: 'Vincenzo', secondName: 'Russo', organisation: 'Tesco', number: '123456789', email: 'vincenzo@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
@@ -117,6 +116,7 @@ class UserDao {
         });
     }
 
+    // Delete the user by ID
     deleteUser(id) {
 
         return new Promise((resolve, reject) => {
@@ -134,7 +134,6 @@ class UserDao {
         });
 
     }
-
 
     // Lookup user based on email
     lookupEmail(user, cb) {
@@ -191,12 +190,12 @@ class UserDao {
                     });
                     break;
                 default:
+                    // Reject promise if invalid user type
                     reject(new Error('Invalid user type'));
             }
 
         })
         
-
     }
 
     // Get user based on id, add donation to user
@@ -229,11 +228,9 @@ class UserDao {
 
 }
 
-
-
 //  Create new instance of class that Initialises database and export class to use outside of model
 const user = new UserDao(dbManager);
-user.userInitializer();
+user.userInitialiser();
 module.exports = user;
 
 

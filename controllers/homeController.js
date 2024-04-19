@@ -1,7 +1,5 @@
-
 // Import the user model
 const userDAO = require('../models/userModel.js');
-
 
 // Create a callback function for handling response to /about
 exports.about_res = (req, res) => {
@@ -11,7 +9,6 @@ exports.about_res = (req, res) => {
 
 // Landing page function
 exports.landing_page = (req, res) => {
-
     // If user is logged in and has a payload, render index with user object and logged in status variable
     if (req.payload && req.isLoggedIn) {
         console.log(req.userId);
@@ -30,8 +27,6 @@ exports.landing_page = (req, res) => {
             isHomePage: true
         })
     }
-
-
 }
 
 // Action method for registration page
@@ -50,7 +45,6 @@ exports.registration_get = (req, res) => {
         title: "Register"
     })
 }
-
 
 // Action to handle registration of a new user
 exports.post_new_user = (req, res) => {
@@ -108,8 +102,6 @@ exports.post_new_user = (req, res) => {
         // Use userDAO create method to create a new
         userDAO.create(firstName, secondName, organisation, number, email, password, source);
 
-
-
     })
 }
 
@@ -135,7 +127,6 @@ exports.login_get = (req, res) => {
 
 }
 
-
 // Handle login post request
 exports.login_post = (req, res) => {
 
@@ -151,6 +142,7 @@ exports.logout = (req, res) => {
     res.clearCookie("jwt").status(200).redirect("/");
 }
 
+// Capitalize the first letter of a string passed in
 function capitalizeFirstLetter(string) {
     if (string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
