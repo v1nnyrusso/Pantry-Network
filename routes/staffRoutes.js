@@ -1,4 +1,7 @@
 
+
+const donateController = require('../controllers/donateController.js');
+
 // Import express so we can use Router() class
 const express = require('express');
 
@@ -12,6 +15,12 @@ const staffController = require('../controllers/staffController.js');
 const auth = require('../auth/auth.js');
 
 router.get('/', auth.verifyStaff, staffController.staff_page);
+router.post('/', auth.verifyStaff, staffController.addToCart);
+
+router.get('/cart', auth.verifyStaff, staffController.getCart);
+router.post('/cart', auth.verifyStaff, staffController.makeClaim);
+
+
 
 
 module.exports = router;

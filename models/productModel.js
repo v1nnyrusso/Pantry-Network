@@ -34,11 +34,6 @@ class ProductDao {
                 { dataStore: 'Product', productName: 'Crisps', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack'] },
                 { dataStore: 'Product', productName: 'Chocolate', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack'] },
                 { dataStore: 'Product', productName: 'Biscuits', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack', 'Grain'] },
-                { dataStore: 'Product', productName: 'Tea', typeOfProduct: 'Food', currentStock: 0, categories: ['Drink'] },
-                { dataStore: 'Product', productName: 'Coffee', typeOfProduct: 'Food', currentStock: 0, categories: ['Drink'] },
-                { dataStore: 'Product', productName: 'Sugar', typeOfProduct: 'Food', currentStock: 0, categories: ['Baking'] },
-                { dataStore: 'Product', productName: 'Flour', typeOfProduct: 'Food', currentStock: 0, categories: ['Baking'] },
-                { dataStore: 'Product', productName: 'Salt', typeOfProduct: 'Food', currentStock: 0, categories: ['Baking'] },
                 { dataStore: 'Product', productName: 'Pepper', typeOfProduct: 'Food', currentStock: 0, categories: ['Cooking'] },
                 { dataStore: 'Product', productName: 'Bread', typeOfProduct: 'Grain', currentStock: 0, categories: ['Cooking'] },
                 { dataStore: 'Product', productName: 'Coca Cola', typeOfProduct: 'Food', currentStock: 0, categories: ['Drink'] },
@@ -51,14 +46,8 @@ class ProductDao {
                 { dataStore: 'Product', productName: 'Pork Mince', typeOfProduct: 'Food', currentStock: 0, categories: ['Meat', 'Pork'] },
                 { dataStore: 'Product', productName: 'Bacon', typeOfProduct: 'Food', currentStock: 0, categories: ['Meat', 'Pork'] },
                 { dataStore: 'Product', productName: 'Pasta', typeOfProduct: 'Food', currentStock: 0, categories: ['Grain'] },
-                { dataStore: 'Product', productName: 'Rice', typeOfProduct: 'Food', currentStock: 0, categories: ['Grain'] },
-                { dataStore: 'Product', productName: 'Cereal', typeOfProduct: 'Food', currentStock: 0, categories: ['Grain'] },
-                { dataStore: 'Product', productName: 'Canned Tuna', typeOfProduct: 'Food', currentStock: 0, categories: ['Canned', 'Meat', 'Fish'] },
-                { dataStore: 'Product', productName: 'Canned Salmon', typeOfProduct: 'Food', currentStock: 0, categories: ['Canned', 'Meat', 'Fish'] },
                 { dataStore: 'Product', productName: 'Canned Tomatoes', typeOfProduct: 'Food', currentStock: 0, categories: ['Canned', 'Vegetable'] },
-                { dataStore: 'Product', productName: 'Canned Beans', typeOfProduct: 'Food', currentStock: 0, categories: ['Canned'] },
                 { dataStore: 'Product', productName: 'Canned Soup', typeOfProduct: 'Food', currentStock: 0, categories: ['Canned'] },
-                { dataStore: 'Product', productName: 'Canned Vegetables', typeOfProduct: 'Food', currentStock: 0, categories: ['Canned'] },
                 { dataStore: 'Product', productName: 'Nappies', typeOfProduct: 'Non-food', currentStock: 0, categories: ['Toiletries', 'Baby'] },
                 { dataStore: 'Product', productName: 'Baby Milk', typeOfProduct: 'Food', currentStock: 0, categories: ['Baby'] },
                 { dataStore: 'Product', productName: 'Toothpaste', typeOfProduct: 'Non-food', currentStock: 0, categories: ['Toiletries'] },
@@ -140,6 +129,19 @@ class ProductDao {
         });
     }
 
+    // Get products by id
+    async getProductById(id) {
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.findOne({ _id: id }, (err, product) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve(product);
+            });
+        });
+    }
+
 
 
     // Update stock method
@@ -176,6 +178,71 @@ class ProductDao {
                 });
             });
         });
+    }
+
+    // Delete product method
+    async deleteProduct(id)
+    {
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.remove({ _id: id }, {}, (err) => {
+                if (err) {
+                    console.error("Error deleting product:", err);
+                    reject(err);
+                    return;
+                }
+                console.log("Product deleted successfully");
+                resolve();
+            });
+        });
+    }
+
+    async lookupProduct(name) {
+        console.log('Trying to look up product:', name);
+        return new Promise((resolve, reject) => {
+            console.log('Attempting to find product in the database.');
+            this.dbManager.db.findOne({ productName: name }, (err, obj) => {
+                
+                if (err) {
+                    console.log('Error occurred while looking up product:', err);
+                    reject(err);
+                    return;
+                }
+    
+                if (obj) {
+                    console.log('Product found in the database:', obj);
+                    resolve(obj);
+                } else {
+                    console.log('Product not found in the database.');
+                    resolve(); 
+                }
+            });
+        });
+    }
+    
+
+    async create(productName, typeOfProduct, currentStock, categories, expiry) {
+        return new Promise((resolve, reject) => {
+            // Create a new product
+            const newProduct = {
+                productName: productName,
+                typeOfProduct: typeOfProduct,
+                currentStock: currentStock,
+                categories: categories,
+                expiry: expiry
+            };
+
+            // Insert the new product
+            this.dbManager.db.insert(newProduct, (err, obj) => {
+                if (err) {
+                    console.error("Error inserting product:", err);
+                    reject(err);
+                    return;
+                }
+                console.log("Product inserted successfully", newProduct);
+                resolve(obj);
+            });
+        });
+    
     }
 
 }

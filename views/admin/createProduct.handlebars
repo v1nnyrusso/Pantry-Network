@@ -1,0 +1,83 @@
+<style>
+    .container-1 {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+
+    }
+
+    .form-group-1 {
+        margin-bottom: 20px;
+    }
+</style>
+<br>
+
+<div class="container-1">
+    <title>{{title}}</title>
+    <h2 style="text-align:center">Register a Product</h2>
+    <form method="post" action="/admin/product/create">
+
+        <div class="form-group-">
+            <label for="firstName">Product Name</label>
+            <input type="text" class="form-control" id="productName" name="productName" placeholder="Enter the product name"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="typeOfProduct">Product Type</label>
+            <select name="typeOfProduct" class="form-control mb-4">
+                <option value="Food" name="type">Food</option>
+                <option value="Non-food" name="type">Non-food</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="organisation">Current Stock</label>
+            <input type="number" class="form-control" id="currentStock" name="currentStock"
+                placeholder="0" required>
+        </div>
+
+        <div class="form-group">
+            <label for="number">Categories</label>
+            <input type="text" class="form-control" id="categories" name="categories" placeholder="Separate each category with a comma and a space"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="number">Expiry Date</label>
+            <input type="date" class="form-control" id="expiry" name="expiry" placeholder="mm/dd/yyyy"
+                required>
+
+        <div>
+            <div class="form-group" style="text-align:center">
+                <input type="submit" value="Register" class="btn btn-primary">
+            </div>
+            <!-- Error Message -->
+            {{#if errorMessage}}
+            <div class="alert alert-danger" id="error" role="alert">
+                {{errorMessage}}
+            </div>
+            {{/if}}
+            {{#if successMessage}}
+            <div class="alert alert-success" id="error" role="alert">
+                {{successMessage}}
+            </div>
+            {{/if}}
+        </div>
+        <!-- Submit Button -->
+
+    </form>
+</div>
+
+
+<script>
+    // JavaScript code to scroll to the error message
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorMessage = document.getElementById('error');
+        if (errorMessage) {
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+</script>

@@ -3,8 +3,6 @@ const express = require('express');
 
 const session = require('express-session');
 
-
-
 // Used to store env variables
 require('dotenv').config()
 

@@ -11,6 +11,9 @@ const session = require('express-session');
 exports.login = (req, res, next) => {
     // Extracting email and password from the request body
     let email = req.body.email;
+
+    email = email.toLowerCase();
+
     let password = req.body.password;
 
     console.log('Looking up user with email:', email); // Log the email
@@ -54,12 +57,15 @@ exports.login = (req, res, next) => {
                 req.payload = payload;
 
                 if(user.role === 'admin'){
+                    console.log("Admin logged in");
                     return res.redirect('/admin');
                 }
                 else if(user.role === 'donator'){
+                    console.log("Donator logged in");
                     next();
                 }
                 else{
+                    console.log("Staff logged in");
                     return res.redirect('/');
                 }
                 // Proceeding to the next middleware function
@@ -97,6 +103,7 @@ exports.verify = (req, res, next) => {
             req.role = payload.role;
             req.session.user = info;
             req.userId = payload.id;
+            req.session.role = payload.role;
             next();
         } catch (e) {
             req.isLoggedIn = false;
@@ -124,6 +131,7 @@ exports.verifyDonator = (req,res,next)=> {
             req.name = payload.name;
             req.payload = payload;
             req.userId = payload.id;
+            req.session.role = payload.role;
             next();
         }
         // Logged in just not a donator
@@ -156,6 +164,9 @@ exports.verifyAdmin = (req, res, next) => {
             req.isLoggedIn = true;
             req.name = payload.name;
             req.userId = payload.id;
+            req.payload = payload;
+            req.session.role = payload.role;
+            console.log('Admin verified');
             next();
         }
         else{
@@ -182,8 +193,11 @@ exports.verifyStaff = (req, res, next) => {
         // If the user is staff, proceed
         if(payload.role === 'staff'){
             req.isLoggedIn = true;
+            req.payload = true;
             req.name = payload.name;
             req.userId = payload.id;
+            req.session.role = payload.role;
+            console.log('Staff verified');
             next();
         }
         else{

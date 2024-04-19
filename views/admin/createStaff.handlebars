@@ -1,0 +1,93 @@
+<style>
+    .container-1 {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+
+    }
+
+    .form-group-1 {
+        margin-bottom: 20px;
+    }
+</style>
+<br>
+
+<div class="container-1">
+    <title>{{title}}</title>
+    <h2 style="text-align:center">Register</h2>
+    <form method="post" action="/admin/staff/create">
+        <!-- First Name -->
+        <div class="form-group-">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter their first name"
+                required>
+        </div>
+        <!-- Surname -->
+        <div class="form-group">
+            <label for="secondName">Surname</label>
+            <input type="text" class="form-control" id="secondName" name="secondName" placeholder="Enter their surname"
+                required>
+        </div>
+        <!-- Organization -->
+        <select name="organisation" class="form-control mb-4">
+            {{#each pantries}}
+            <option value="{{_id}}" id="pantry" name="organisation">{{pantryName}}</option>
+            {{/each}}
+        </select>
+        <!-- Phone Number -->
+        <div class="form-group">
+            <label for="number">Phone Number</label>
+            <input type="tel" class="form-control" id="number" name="number" placeholder="Enter their phone number"
+                required>
+        </div>
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter their email"
+                type="email" required>
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password"
+                placeholder="Enter their password (8 characters minimum)" minlength="8" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" class="form-control" id="password2" name="password2"
+                placeholder="Confirm their password" minlength="8" required>
+        </div>
+        <div>
+            <div class="form-group" style="text-align:center">
+                <input type="submit" value="Register" class="btn btn-primary">
+            </div>
+            <!-- Error Message -->
+            {{#if message}}
+            <div class="alert alert-danger" id="error" role="alert">
+                {{message}}
+            </div>
+            {{/if}}
+            {{#if successMessage}}
+            <div class="alert alert-success" id="error" role="alert">
+                {{successMessage}}
+            </div>
+            {{/if}}
+        </div>
+        <!-- Submit Button -->
+
+    </form>
+</div>
+
+<br>
+
+<script>
+    // JavaScript code to scroll to the error message
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorMessage = document.getElementById('error');
+        if (errorMessage) {
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+</script>

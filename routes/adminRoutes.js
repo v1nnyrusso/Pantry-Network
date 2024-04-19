@@ -8,11 +8,30 @@ const router = express.Router();
 // Allow access to controller functions
 const adminController = require('../controllers/adminController.js');
 
+const homeController = require('../controllers/homeController.js');
+
 // Import auth module
 const auth = require('../auth/auth.js');
 
 // Admin redirection
 router.get('/', auth.verifyAdmin, adminController.admin_page);  
+// Staff redirection
+router.get('/staff', auth.verifyAdmin, adminController.staff_page);
+
+// Staff creation page
+router.get('/staff/create', auth.verifyAdmin, adminController.create_staff_get);
+router.post('/staff/create', auth.verifyAdmin, adminController.create_staff_post);
+// Staff deletion 
+router.post('/staff/delete', auth.verifyAdmin, adminController.delete);
+
+
+
+router.get('/product', auth.verifyAdmin, adminController.product_page);
+router.get('/product/create', auth.verifyAdmin, adminController.create_product_get);
+
+router.post('/product/create', auth.verifyAdmin, adminController.create_product_post);
+router.post('/product/delete', auth.verifyAdmin, adminController.delete);
+
 
 
 module.exports=router;

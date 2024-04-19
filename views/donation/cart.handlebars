@@ -7,14 +7,14 @@
     <title>Cart</title>
     <style>
         .container-1 {
-            min-width: 450px;
+            min-width: 1000px;
             min-height: 500px;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
             position: absolute;
-            top: 50%;
+            top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -62,8 +62,9 @@
 </head>
 
 <body>
-    <br>
 
+
+    {{#ifEquals role "donator"}}
     <div class="container-1">
         <div class="small-container cart-page">
             <table>
@@ -92,26 +93,78 @@
                 </tbody>
             </table>
         </div>
-        <form action="/donate/cart" method="post" style="text-align::center">
-            <input type="submit" value="Donate" class="btn">
-            <label for="pantry">Select a pantry:</label>
-            <select name="pantry" class="form-control mb-4">
-                {{#each pantries}}
-                <option value="{{_id}}" id="pantry" name="pantry">{{pantryName}}</option>
-                {{/each}}
+        {{/ifEquals}}
+
+        {{#ifEquals role "staff"}}
+        <div class="container-1">
+            <div class="small-container cart-page">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Expiry Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each claims}}
+                        <tr>
+                            <td>
+                                <div class="cart-info">
+                                    <p>{{productName}}</p>
+                                </div>
+                            </td>
+                            <td>{{qty}}</td>
+                            {{#if expiry}}
+                            <td>{{expiry}}</td>
+                            {{/if}}
+
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{/ifEquals}}
+
+            {{#ifEquals role "donator"}}
+            <form action="/donate/cart" method="post" style="text-align::center">
                 <input type="submit" value="Donate" class="btn">
-            </select>
-        </form>
+                <label for="pantry">Select a pantry:</label>
+                <select name="pantry" class="form-control mb-4">
+                    {{#each pantries}}
+                    <option value="{{_id}}" id="pantry" name="pantry">{{pantryName}}</option>
+                    {{/each}}
+                    <input type="submit" value="Check Out" class="btn">
+                </select>
+            </form>
 
-        <p>
-            <a href="/donate">Back to Donate Page</a>
-        </p>
+            <p>
+                <a style="" href="/donate">Back to Donate Page</a>
+            </p>
+
+            {{/ifEquals}}
+
+            {{#ifEquals role "staff"}}
+            <div>
+
+                <form action="/staff/cart" method="post" style="text-align::center">
+                    <input type="submit" value="Donate" class="btn">
 
 
+                    <input type="submit" value="Check Out" class="btn">
+                    </select>
+                </form>
+
+                <p>
+                    <a style="" href="/staff">Back to Products</a>
+                </p>
+            </div>
 
 
+            {{/ifEquals}}
 
-    </div>
+
+        </div>
 </body>
 
 </html>

@@ -29,8 +29,7 @@ class DonationDao {
         return new Promise((resolve, reject) => {
             const donations =
                 [
-                    { dataStore: 'Donation', productId: 'productId1', userId: 'userId1', pantryId:'pantryId1', category:'Produce', product: 'Vegetable', name: 'Carrot', typeOf: 'Food', quantity: 2, useByDate: expirydate, status: 'pending' },
-                    { dataStore: 'Donation', productId: 'productId2', userId: 'userId2', pantryID:'pantryId1', category: 'Produce', product: 'Fruit', name: 'Apple', typeOf: 'Food', quantity: 3, useByDate: expirydate, status: 'pending' }
+                 
                 ]
 
 
@@ -70,6 +69,26 @@ class DonationDao {
         });
     }
 
+ 
+    // Get all donations
+    async getDonations() {
+
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.find({ dataStore: 'Donation' }, (err, docs) => {
+                if (err) {
+                    console.error("Error getting donations:", err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(docs);
+            });
+        });
+
+    }
+
+
+    // Insert donation method into database
     async makeDonation(donation) {
         return new Promise((resolve, reject) => {
             // Insert donation

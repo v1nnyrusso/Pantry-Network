@@ -70,13 +70,13 @@ class UserDao {
     }
 
     // Create a new user
-     create(firstName, secondName, organisation, number, email, password, source) {
+     create(firstName, secondName, organisation, number, email, password, pantry, source) {
         const that = this;
 
         // Hash the password using bcrypt
         bcrypt.hash(password, saltRounds, function (err, hash) {
 
-            var entry = { firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1), secondName: secondName.charAt(0).toUpperCase() + secondName.slice(1), number: number, email: email, password: hash, donations: []};
+            var entry = { dataStore: 'User', firstName: firstName, secondName: secondName, number: number, email: email, password: hash, claims: [], donations: [], pantryId: pantry, organisation: organisation};
             if (err) {
                 console.error("Error hashing password:", err);
                 return;
@@ -86,14 +86,20 @@ class UserDao {
             switch (source) {
                 case 'admin':
                     entry.role = 'admin';
+                    entry.pantry = null;
+                    entry.claims = null;
                     break;
                 case 'registration':
                     entry.role = 'donator';
-                    entry.organisation = organisation.charAt(0).toUpperCase() + organisation.slice(1);
+                    entry.claims = null;
+                    entry.pantry = null
                     break;
                 case 'staff':
                     entry.role = 'staff';
-                    entry.organisation = organisation.charAt(0).toUpperCase() + organisation.slice(1);
+                    entry.organisation = null;
+                    entry.donations = null;
+                    entry.claims = [];
+                    entry.pantryId = pantry;
             }
 
             // Insert the user entry into the database
@@ -105,6 +111,24 @@ class UserDao {
                 console.log("User", email, "successfully inserted into the database.");
             });
         });
+    }
+
+    deleteUser(id) {
+
+        return new Promise((resolve, reject) => {
+
+            this.dbManager.db.remove({ _id: id }, {}, (err) => {
+                if (err) {
+                    console.error("Error deleting user:", err);
+                    reject(err);
+                    return;
+                }
+                console.log("User deleted successfully.");
+                resolve();
+            });
+
+        });
+
     }
 
 
@@ -125,6 +149,49 @@ class UserDao {
                 }
 
             });
+
+    }
+
+    // Lookup user based on role type
+    async getUsers(type) {
+
+        return new Promise((resolve, reject) => {
+
+            // Use switch for modularity and to avoid repetition
+            switch (type) {
+                case 'donator':
+                    this.dbManager.db.find({ role: type }, (err, entries) => {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        resolve(entries);
+                    });
+                    break;
+                case 'staff':
+                    this.dbManager.db.find({ role: type }, (err, entries) => {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        resolve(entries);
+                    });
+                    break;
+                case 'admin':
+                    this.dbManager.db.find({ role: type }, (err, entries) => {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        resolve(entries);
+                    });
+                    break;
+                default:
+                    reject(new Error('Invalid user type'));
+            }
+
+        })
+        
 
     }
 

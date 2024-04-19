@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container Styles */
+        .container {
+            margin: 0 auto;
+            max-width: 1200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+  
+        }
+
+        /* Card Styles */
+        .card {
+            width: 250px;
+            background-color: #67b0b7;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Link Styles */
+        .card a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Heading Styles */
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Cards -->
+   
+        <div class="card">
+            <a href="/admin/donators">Donators</a>
+        </div>
+        <div class="card">
+            <a href="/admin/staff">Staff</a>
+        </div>
+        <div class="card">
+            <a href="/admin/donation">Donations</a>
+          
+        </div>
+        <div class="card">
+            <a href="/admin/product">Products</a>
+        </div>
+        <div class="card">
+            <a href="/admin/pantry">Pantries</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
