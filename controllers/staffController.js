@@ -6,11 +6,14 @@ const donationDAO = require("../models/donationModel");
 // Get the staff page
 exports.staff_page = async (req, res) => {
 
+     // Get the current staffs pantry id
+     let pantryId = req.session.pantryId;
+
+     console.log('Pantry ID:', pantryId);
 
     // Use a function for better readability and modularity
-    getProductFiltered().then(products => {
-        console.log('products:', products);
-
+    getProductFiltered(pantryId).then(products => {
+        // Render the staff page
         return res.render('staff/staffhub', {
             title: "Staff Page",
             isLoggedIn: req.isLoggedIn,
@@ -23,10 +26,12 @@ exports.staff_page = async (req, res) => {
 
 }
 
-
-
+// Add to cart method
 exports.addToCart = async (req, res) => {
    
+     // Get the current staffs pantry id
+     let pantryId = req.session.pantryId;
+
     // Assuming staff members are managing products
     const { productId, qty, expiry, productName } = req.body;
     try {
@@ -49,7 +54,7 @@ exports.addToCart = async (req, res) => {
             isLoggedIn: req.isLoggedIn,
             user: req.session.user,
             successMessage: successMessage,
-            products: await getProductFiltered(),
+            products: await getProductFiltered(pantryId),
             role: req.session.role,
       
         });
@@ -78,7 +83,6 @@ exports.getCart = async (req, res) => {
         console.log('Role:', req.session.role)
         return res.redirect('/');
     }
-
    
     // If there are no claims in the session, initialise an empty array
     if (!req.session.claims) {
@@ -89,6 +93,7 @@ exports.getCart = async (req, res) => {
 }
 
 
+// Make the claim method
 exports.makeClaim = async (req, res) => {
     // Get the claims from the session
     let claims = req.session.claims;
@@ -118,18 +123,19 @@ exports.makeClaim = async (req, res) => {
 }
 
 // Create a function for this as it will get used a lot
-async function getProductFiltered() {
+async function getProductFiltered(pantryId) {
 
-    // Get donations
-    let donations = await donationDAO.getDonations();
+    // Get donations by pantryId
+    let donations = await donationDAO.getDonationById(pantryId);
 
     // Get products from donations
     let products = donations.map(donation => donation.products).flat();
 
-    // Show products that have not yet expired
-    products = products.filter(product => product.expiry > new Date().toLocaleDateString('en-GB'));
+    // If the product exists, product.expiry is a valid date and the expiry date is greater than the current date
+    // And the status is pending, add to products list
+    products = products.filter(product => product &&  product.status === 'pending' && product.expiry && new Date(product.expiry) > new Date());
 
-
+    // Return the products
     return products;
 }
 

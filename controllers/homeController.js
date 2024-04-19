@@ -21,7 +21,6 @@ exports.landing_page = (req, res) => {
             user: req.session.user,
             isHomePage: true,
             role: req.session.user.role
-
         })
     }
     // Else, render index without user object and logged in status variable, as they arent logged in

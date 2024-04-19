@@ -10,15 +10,19 @@ const saltRounds = 10;
 
 class UserDao {
 
+    // Constructor for the User DAO (data access object)
     constructor(dbManager) {
-        // If dbFilePath is true
-        // Create a new instance of Datastore with the provided file path
+    
+        // Check if a dbManager is provided
         if (dbManager) {
 
+            // Set the dbManager
             this.dbManager = dbManager;
+
             console.log('Db connected to user model');
 
         }
+
         else {
 
             throw new Error('No db manager provided');
@@ -195,6 +199,7 @@ class UserDao {
 
     }
 
+    // Get user based on id, add donation to user
     async addUserDonation(donationId, userId) {
 
         console.log('Adding donation to user:', donationId, userId);

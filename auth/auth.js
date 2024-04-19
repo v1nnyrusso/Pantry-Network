@@ -50,7 +50,7 @@ exports.login = (req, res, next) => {
                 console.log("User", email, "logged in successfully.");
                 
                 // Creating a JWT token with the user's email as payload
-                let payload = { email: user.email , role: user.role, name: user.firstName, id: user._id};
+                let payload = { email: user.email , role: user.role, name: user.firstName, id: user._id, pantryId: user.pantryId};
                 let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
                 // Setting the JWT token as a cookie
                 res.cookie("jwt", accessToken);
@@ -197,6 +197,8 @@ exports.verifyStaff = (req, res, next) => {
             req.name = payload.name;
             req.userId = payload.id;
             req.session.role = payload.role;
+            // Try get the pantry id
+            req.session.pantryId = payload.pantryId;
             console.log('Staff verified');
             next();
         }

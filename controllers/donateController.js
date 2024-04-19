@@ -188,14 +188,18 @@ exports.donate = async (req, res) => {
 
     // Get each product from the session and validate it
     donations.forEach(async (donation) => {
+
+        // Get a product line id
+        const donationLineId = Date.now() + Math.floor(Math.random() * 1000).toString();
         const productId = donation.productId;
         const productName = donation.productName;
         // Parse the quantity as an integer
         const quantity = parseInt(donation.qty);
         const expiry = donation.expiry || new Date().toLocaleDateString('en-GB');
+        const status = 'pending';
 
         // Push each product to new array
-        products.push({ productId, productName, quantity, expiry });
+        products.push({ donationLineId, productId, productName, quantity, expiry, status });
 
         // Update stock for each product
         productDAO.updateStock(productId, quantity);
@@ -213,7 +217,6 @@ exports.donate = async (req, res) => {
         userId: req.session.user.id,
         pantryId: pantry,
         products: products,
-        status: 'pending',
         donationDate: new Date().toLocaleDateString('en-GB'),
     };
 

@@ -1,8 +1,12 @@
 const db = require('gray-nedb')
 
+
+// Database Manager class
 class DatabaseManager
 {
 
+
+    // Constructor for the Database Manager
     constructor(dbFilePath){
         if(dbFilePath){
             this.db = new db({filename: dbFilePath, autoload: true});
@@ -19,8 +23,7 @@ class DatabaseManager
 }
 
 
+// Export the Database Manager
 const dbFilePath = ('./data/scottishPantryDb.db');
-
 const dbManager = new DatabaseManager(dbFilePath);
-
 module.exports = dbManager;

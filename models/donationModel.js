@@ -1,6 +1,5 @@
+// Import dbManager
 const dbManager = require('../data/dbManager');
-
-
 
 // New class to handle donations
 class DonationDao {
@@ -16,8 +15,6 @@ class DonationDao {
         }
     }
 
-    
-
     // Initialiser method
     async donationInitializer() {
 
@@ -26,12 +23,12 @@ class DonationDao {
         // Makes the food expire in 7 days
         expirydate.setDate(expirydate.getDate() + 7);
 
+        // No donations added as of now
         return new Promise((resolve, reject) => {
             const donations =
                 [
                  
                 ]
-
 
             donations.forEach(donation => {
 
@@ -68,7 +65,6 @@ class DonationDao {
             resolve();
         });
     }
-
  
     // Get all donations
     async getDonations() {
@@ -87,6 +83,23 @@ class DonationDao {
 
     }
 
+    async getDonationById(id) {
+
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.find({ pantryId: id }, (err, doc) => {
+
+                if (err) {
+                    console.error("Error getting donation:", err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(doc);
+            });
+
+        });
+
+    }
 
     // Insert donation method into database
     async makeDonation(donation) {
@@ -103,13 +116,9 @@ class DonationDao {
                 resolve(obj._id);
             });
         });
-    }
-
-    
-    
+    }   
 
 }
-
 
 // Make new donation object, pass it to dbManager constructor
 const donation = new DonationDao(dbManager);
