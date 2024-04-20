@@ -58,7 +58,7 @@ exports.login = (req, res, next) => {
 
                 if(user.role === 'admin'){
                     console.log("Admin logged in");
-                    return res.redirect('/admin');
+                    next();
                 }
                 else if(user.role === 'donator'){
                     console.log("Donator logged in");

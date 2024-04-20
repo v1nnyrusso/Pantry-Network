@@ -1,4 +1,5 @@
-
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,12 +8,29 @@
     <!-- CSS and JavaScript links can be included here -->
     <style>
         /* Container Styles */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
+        .container-1 {
+            min-width: 900px;
+            min-height: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow-x: auto;
+            position: relative;
+            z-index: 1;
+        }
 
         /* Table Styles */
         .table {
             width: 100%;
-            border-collapse: collapse;
             margin-top: 20px;
         }
 
@@ -31,16 +49,21 @@
             background-color: #f5f5f5;
         }
 
-    
-
+        /* Footer Styles */
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            width: 100%;
+            position: sticky;
+            bottom: 0;
+            z-index: 0;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2 style="text-align: center; color: #000000">Products Dashboard</h2>
-
-
+    <div class="container-1">
+    <h2 style="text-align: center; color: #000000"> {{pantry}} Donated Products</h2>
 
         <table id="userTable" class="table">
             <thead>
@@ -49,11 +72,11 @@
                     <th>Quantity</th>
                     <th>Expiry</th>
                     <th>Action</th>
-  
                 </tr>
             </thead>
             <tbody id="userTableBody">
                 {{#each products}}
+                {{#unless claimed}}
                 <tr>
                     <td>{{productName}}</td>
                     <td>{{quantity}}</td>
@@ -61,35 +84,39 @@
                     <td>
                         {{!-- only deletes if confirmDelete() is true --}}
                         <form action="/staff" method="post">
+                            <input type="hidden" name="donationLineId" value="{{donationLineId}}">
                             <input type="hidden" name="productId" value="{{productId}}">
                             <input type="hidden" name="productName" value={{productName}}>
-                            <input type = "hidden" name = "qty" value = {{quantity}}>
-                            <input type = "hidden" name = "expiry" value = {{expiry}}>
+                            <input type="hidden" name="qty" value={{quantity}}>
+                            <input type="hidden" name="expiry" value={{expiry}}>
                             <input type="submit" value="Claim" class="btn btn-primary">
                         </form>
                     </td>
-                  
                 </tr>
+                        {{/unless}}
                 {{/each}}
+        
             </tbody>
         </table>
         <p>
             {{#if errorMessage}}
-            <div class="alert alert-danger" id="error" role="alert">
-                {{message}}
-            </div>
-            {{/if}}
-            {{#if successMessage}}
-            <div class="alert alert-success" id="error" role="alert">
-                {{successMessage}}
-            </div>
-            {{/if}}
+        <div class="alert alert-danger" id="error" role="alert">
+            {{message}}
+        </div>
+        {{/if}}
+        {{#if successMessage}}
+        <div class="alert alert-success" id="error" role="alert">
+            {{successMessage}}
+        </div>
+        {{/if}}
         </p>
     </div>
 </body>
+
+
 <script>
     // JavaScript code to scroll to the error message
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var errorMessage = document.getElementById('error');
         if (errorMessage) {
             errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -97,5 +124,4 @@
     });
 </script>
 
-
-
+</html>

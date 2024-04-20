@@ -199,10 +199,10 @@ exports.donate = async (req, res) => {
         // Parse the quantity as an integer
         const quantity = parseInt(donation.qty);
         const expiry = donation.expiry || new Date().toLocaleDateString('en-GB');
-        const status = 'pending';
+        const isClaimed = false;
 
         // Push each product to new array
-        products.push({ donationLineId, productId, productName, quantity, expiry, status });
+        products.push({ donationLineId, productId, productName, quantity, expiry, isClaimed });
 
         // Update stock for each product
         productDAO.updateStock(productId, quantity);
@@ -223,9 +223,16 @@ exports.donate = async (req, res) => {
         donationDate: new Date().toLocaleDateString('en-GB'),
     };
 
+    
+
     // Try to make the donation, add it to user and pantry, update the stock and redirect to home
     try {
         const donationId = await donationDAO.makeDonation(donation);
+        for (let product of products) {
+            const productId = product.productId;
+            await productDAO.addDonationIdToProduct(productId, donationId);
+        }
+
         // await productDAO.updateStock(product, qty);
         await userDAO.addUserDonation(donationId, req.session.user.id);
         await pantryDAO.addDonationToPantry(pantry, donationId);

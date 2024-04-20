@@ -25,11 +25,11 @@ class ProductDao {
                 { dataStore: 'Product', productName: 'Potato', typeOfProduct: 'Food', currentStock: 0, categories: ['Vegetable', 'Fresh Produce'] },
                 { dataStore: 'Product', productName: 'Onion', typeOfProduct: 'Food', currentStock: 0, categories: ['Vegetable', 'Fresh Produce'] },
                 { dataStore: 'Product', productName: 'Banana', typeOfProduct: 'Food', currentStock: 0, categories: ['Fruit', 'Fresh Produce'] },
-                { dataStore: 'Product', productName: 'Apple', typeOfProduct: 'Food', currentStock: 0, categories: ['Fruit', 'Fresh Produce'] },
+                { dataStore: 'Product', productName: 'Apple', typeOfProduct: 'Food', currentStock: 0, categories: ['Fruit', 'Fresh Produce'], donations: []},
                 { dataStore: 'Product', productName: 'Orange', typeOfProduct: 'Food', currentStock: 0, categories: ['Fruit', 'Fresh Produce'] },
                 { dataStore: 'Product', productName: 'Milk', typeOfProduct: 'Food', currentStock: 0, categories: ['Dairy', 'Drink'] },
                 { dataStore: 'Product', productName: 'Cheese', typeOfProduct: 'Food', currentStock: 0, categories: ['Dairy'] },
-                { dataStore: 'Product', productName: 'Yogurt', typeOfProduct: 'Dairy', currentStock: 0, categories: ['Dairy'] },
+                { dataStore: 'Product', productName: 'Yogurt', typeOfProduct: 'Food', currentStock: 0, categories: ['Dairy'] },
                 { dataStore: 'Product', productName: 'Crisps', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack'] },
                 { dataStore: 'Product', productName: 'Chocolate', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack'] },
                 { dataStore: 'Product', productName: 'Biscuits', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack', 'Grain'] },
@@ -94,6 +94,20 @@ class ProductDao {
 
             // Resolve the promise
             resolve();
+        });
+    }
+
+    addDonationIdToProduct(productId, donationId) {
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.update({ _id: productId }, { $push: { donations: donationId } }, {}, (err) => {
+                if (err) {
+                    console.error("Error adding donation id to product:", err);
+                    reject(err);
+                    return;
+                }
+                console.log("Donation id added to product successfully");
+                resolve();
+            });
         });
     }
 

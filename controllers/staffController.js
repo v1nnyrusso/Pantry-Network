@@ -2,25 +2,42 @@
 const productDAO = require("../models/productModel");
 const donationDAO = require("../models/donationModel");
 
+const pantryDAO = require("../models/pantryModel");
+
 // Get the staff page
 exports.staff_page = async (req, res) => {
 
     if (!req.session.user || !req.session.user.id) {
         return res.redirect('/login');
     }
-    
+
     if (req.session.role !== 'staff') {
         return res.redirect('/');
     }
-    
 
-    // Get the current staffs pantry id
+    // Get the success message from the session
+    let successMessage = req.session.successMessage;
+    req.session.successMessage = null;
+
+
+    // Get the current staff's pantry id
     let pantryId = req.session.pantryId;
 
-    console.log('Pantry ID:', pantryId);
+    // If there is no pantry id, return an error
+    if(!pantryId){
+        return res.status(500).send('Error getting pantry');
+    }
 
-    // Use a function for better readability and modularity
-    getProductFiltered(pantryId).then(products => {
+    // Get the pantry based on pantry id
+    let pantry = await pantryDAO.getPantryById(pantryId);
+
+    // Get pantry name
+    pantryName = pantry.pantryName;
+
+    try {
+        // Use a function for better readability and modularity
+        const products = await getProductFiltered(pantryId);
+        const claims = req.session.claims || [];
         // Render the staff page
         return res.render('staff/staffhub', {
             title: "Staff Page",
@@ -28,30 +45,42 @@ exports.staff_page = async (req, res) => {
             user: req.session.user,
             isAdminPage: false,
             role: req.session.role,
-            products: products,
+            // If at least one claim exists where the product id matches the claim product id, set claimed to true, otherwise false
+            products: products.map(product => {
+                return {
+                    ...product,
+                    claimed: claims.some(claim => claim.productId === product.productId)
+                };
+            }),
+            // Get success messages and pantry name
+            successMessage: successMessage,
+            pantry: pantryName
         });
-    });
+    } catch (error) {
+        console.error("Error getting products:", error);
+        return res.status(500).send('Error getting products');
+    }
+};
 
-}
 
 // Add to cart method
 exports.addToCart = async (req, res) => {
 
-    // Get the current staffs pantry id
+    // Get the current staff's pantry id
     let pantryId = req.session.pantryId;
 
     // Assuming staff members are managing products
-    const { productId, qty, expiry, productName } = req.body;
+    const { donationLineId, productId, qty, expiry, productName } = req.body;
     try {
 
-        console.log('Adding product:', productId, qty, expiry, productName);
+        console.log('Adding product:', donationLineId, productId, qty, expiry, productName);
         // Add the claim to the session
         req.session.claims = req.session.claims || [];
         // Add the claim to the session
-        req.session.claims.push({ productId, qty, expiry, productName });
+        req.session.claims.push({ donationLineId, productId, qty, expiry, productName, isClaimed: true });
 
         // Set a success message
-        console.log('Claim added successfully!', req.session.claims);
+        console.log('Claim added to cart!', req.session.claims);
 
         req.session.successMessage = "Claim added successfully!";
         const successMessage = req.session.successMessage;
@@ -62,9 +91,14 @@ exports.addToCart = async (req, res) => {
             isLoggedIn: req.isLoggedIn,
             user: req.session.user,
             successMessage: successMessage,
-            products: await getProductFiltered(pantryId),
+            // Map through the products and claims, if the product id matches the claim product id, set claimed attribute to true, otherwise false
+            products: (await getProductFiltered(pantryId)).map(product => {
+                return {
+                    ...product,
+                    claimed: product.productId === productId ? true : false
+                };
+            }),
             role: req.session.role,
-
         });
     } catch (error) {
         console.error('Error adding product:', error);
@@ -80,11 +114,11 @@ exports.getCart = async (req, res) => {
     if (!req.session.user || !req.session.user.id) {
         return res.redirect('/login');
     }
-    
-     // Check if user is logged in and a staff member
-     if (req.session.role !== 'staff') {
+
+    // Check if user is logged in and a staff member
+    if (req.session.role !== 'staff') {
         return res.redirect('/');
-     }
+    }
 
     // Get error message from session, clear it
     let errorMessage = req.session.errorMessage;
@@ -110,7 +144,6 @@ exports.getCart = async (req, res) => {
     res.render('donation/cart', { claims: req.session.claims, user: req.session.user, isLoggedIn: req.isLoggedIn, title: 'Cart', role: req.session.role, isCartPage: true });
 }
 
-
 // Make the claim method
 exports.makeClaim = async (req, res) => {
     // Get the claims from the session
@@ -121,23 +154,82 @@ exports.makeClaim = async (req, res) => {
         return res.redirect('/staff');
     }
 
-    // Get the user id from the session
-    let userId = req.userId;
+    try {
 
-    // Create a new donation
-    let claim = {
-        userId: userId,
-        products: claims
-    };
+        // Get the products from the pantry
+        let products = await getProductFiltered(req.session.pantryId);
 
-    console.log('Claim:', claim);
+        // For each product in the pantry
+        for (let product of products) {
+
+            // For each claim in the session
+            for (let claimProduct of claims) {
+
+                // If the donation line id matches
+                if (product.donationLineId == claimProduct.donationLineId) {
+
+                    // And if the quantity is less than the claim quantity, return a stock error
+                    if (product.quantity < claimProduct.qty) {
+                        req.session.errorMessage = "Not enough stock for " + product.productName;
+                        return res.redirect('/staff');
+                    }
+                    // Else, continue
+                    else {
+
+                        // If the quantity is 0, return a stock error
+                        if (product.quantity === 0) {
+                            req.session.errorMessage = "No stock for " + product.productName;
+                            return res.redirect('/staff');
+                        }
+
+                        // Update the product quantity
+                        product.quantity -= claimProduct.qty;
+
+                        // Get all donations
+                        let donations = await donationDAO.getDonations();
+
+                        // For each donation
+                        for (let donation of donations) {
+
+                            // if the donation pantry id matches the current pantry id and the donation line id matches the claim product donation line id and exists in the donations products
+                            if (donation.pantryId === req.session.pantryId && donation.products.find(p => p.donationLineId === claimProduct.donationLineId)) {
+
+                                // For each donation product
+                                for (let donationProduct of donation.products) {
+
+                                    // If the donation line id matches the claim product donation line id
+                                    if (donationProduct.donationLineId === claimProduct.donationLineId) {
+
+                                        // Update the donation product quantity and set isClaimed to true 
+                                        donationProduct.isClaimed = true;
+                                        donationProduct.quantity = product.quantity;
+
+                                        // Update the donation line, send the donation id, donation line id and the product
+                                        await donationDAO.updateDonationLine(donation._id, claimProduct.donationLineId, product);
+
+
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // Catch any errors
+    } catch (error) {
+        console.error("Error making claim:", error);
+        req.session.errorMessage = "An error occurred while making the claim.";
+        return res.redirect('/staff');
+    }
 
     // Clear the claims from the session
     req.session.claims = [];
 
+    req.session.successMessage = "Claim made successfully!";
     // Redirect to the staff page
     res.redirect('/staff');
-
 }
 
 // Create a function for this as it will get used a lot
@@ -151,7 +243,7 @@ async function getProductFiltered(pantryId) {
 
     // If the product exists, product.expiry is a valid date and the expiry date is greater than the current date
     // And the status is pending, add to products list
-    products = products.filter(product => product && product.status === 'pending' && product.expiry && new Date(product.expiry) > new Date());
+    products = products.filter(product => product && !product.isClaimed && product.expiry && new Date(product.expiry) > new Date());
 
     // Return the products
     return products;

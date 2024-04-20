@@ -19,7 +19,7 @@ async pantryInitialiser() {
         const pantries = [
             { dataStore: 'Pantry', pantryName: 'Parkhead School House', location: 'Glasgow', address: '135 Westmuir St, Parkhead', postcode: 'G31 5EX', staffMembers: ['userId4'], donations: ['donationId1'] },
             { dataStore: 'Pantry', pantryName: 'Govanhill Pantry', location: 'Glasgow', address: '488 Cathcart Rd', postcode: 'G42 7BX', staffMembers: ['userId3'], donations: [] },
-            { dataStore: 'Pantry', pantryName: 'Croftpark Pantry', location: 'Glasgow', address: 'Croftpark Ave, Crofthill Rd', postcode: 'G 44 5NR', staffMembers: ['userId3', 'userId4'], donations: ['donationId2'] }
+            { _id: 'Ut22rpI3PD3Soxh8', dataStore: 'Pantry', pantryName: 'Croftpark Pantry', location: 'Glasgow', address: 'Croftpark Ave, Crofthill Rd', postcode: 'G 44 5NR', staffMembers: ['userId3', 'userId4'], donations: ['donationId2'] }
         ];
 
         // Make sure pantry is unique

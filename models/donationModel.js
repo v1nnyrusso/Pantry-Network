@@ -1,4 +1,5 @@
 // Import dbManager
+const e = require('express');
 const dbManager = require('../data/dbManager');
 
 // New class to handle donations
@@ -18,16 +19,19 @@ class DonationDao {
     // Initialiser method
     async donationInitialiser() {
 
-        const expirydate = new Date();
-
-        // Makes the food expire in 7 days
+        let expirydate = new Date();
         expirydate.setDate(expirydate.getDate() + 7);
+
+
+
+
 
         // No donations added as of now
         return new Promise((resolve, reject) => {
             const donations =
                 [
-                 
+                    // { dataStore: 'donation', pantryId: '1kz8jFYAKQEgnZub', products: [{ donationLineId: '1', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '2', productName: 'Canned Beans', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '3', productName: 'Canned Vegetables', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '4', productName: 'Canned Fruit', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '5', productName: 'Canned Meat', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '6', productName: 'Canned Fish', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '7', productName: 'Canned Pasta', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '8', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '9', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '10', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '11', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '12', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '13', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '14', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }, { donationLineId: '15', productName: 'Canned Soup', quantity: 100, expiryDate: expirydate, isClaimed: false }]}, 
+
                 ]
 
             // Find each donation in the database
@@ -68,7 +72,7 @@ class DonationDao {
             resolve();
         });
     }
- 
+
     // Get all donations
     async getDonations() {
 
@@ -85,6 +89,7 @@ class DonationDao {
         });
 
     }
+
 
     // Get donation by id
     async getDonationById(id) {
@@ -106,6 +111,75 @@ class DonationDao {
 
     }
 
+    async getDonations() {
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.find({ dataStore: 'Donation' }, (err, docs) => {
+                if (err) {
+                    console.error("Error getting donations:", err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(docs);
+            });
+        });
+    }
+
+    // Update the donation line in the database, pass in doantionId, donationLineId and the product
+    updateDonationLine(donationId, donationLineId, product) {
+        return new Promise((resolve, reject) => {
+            // Find the donation by its ID
+            this.dbManager.db.findOne({ _id: donationId }, (err, obj) => {
+                if (err) {
+                    console.error("Error finding donation:", err);
+                    reject(err);
+                    return;
+                }
+
+                // Check if the object is found
+                if (obj) {
+                    // Initialise the products array if not exists
+                    obj.products = obj.products || [];
+
+                    // Loop through products to find the specific one
+                    for (let donationLine of obj.products) {
+                        if (donationLine.donationLineId == donationLineId) {
+                            // Update the quantity and set isClaimed to true 
+                            donationLine.quantity = product.quantity;
+                            donationLine.isClaimed = true;
+                            donationLine.expiry = product.expiry;
+                            donationLine.productName = product.productName;
+                            donationLine.donationLineId = product.donationLineId;
+                            break;
+                        }
+                    }
+
+                    console.log(obj.products);
+
+                    // Update the donation in the database
+                    this.dbManager.db.update({ _id: donationId }, { $set: { products: obj.products } }, {}, (err) => {
+                        if (err) {
+                            console.error("Error updating donation:", err);
+                            reject(err);
+                            return;
+                        }
+
+                        // Log the success, went to plan, finally!
+                        console.log("Donation updated successfully:", donationId, donationLineId, product);
+                        
+                        resolve(); 
+                    });
+                } else {
+                    // Reject if donation is not found
+                    reject(new Error('Donation not found'));
+                }
+            });
+        });
+    }
+
+
+
+
     // Insert donation method into database
     async makeDonation(donation) {
         return new Promise((resolve, reject) => {
@@ -122,7 +196,7 @@ class DonationDao {
                 resolve(obj._id);
             });
         });
-    }   
+    }
 
 }
 

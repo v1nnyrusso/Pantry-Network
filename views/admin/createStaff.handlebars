@@ -16,7 +16,7 @@
 
 <div class="container-1">
     <title>{{title}}</title>
-    <h2 style="text-align:center">Register</h2>
+    <h2 style="text-align:center">Create a Staff Member</h2>
     <form method="post" action="/admin/staff/create">
         <!-- First Name -->
         <div class="form-group-">
@@ -30,7 +30,8 @@
             <input type="text" class="form-control" id="secondName" name="secondName" placeholder="Enter their surname"
                 required>
         </div>
-        <!-- Organization -->
+
+        <label>Pantry</label>
         <select name="organisation" class="form-control mb-4">
             {{#each pantries}}
             <option value="{{_id}}" id="pantry" name="organisation">{{pantryName}}</option>
