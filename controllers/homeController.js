@@ -62,11 +62,10 @@ exports.post_new_user = (req, res) => {
     let confirmPassword = req.body.password2;
 
     // Set the source of the user to be from registration to decipher role in create method
-    source = 'registration';
+    let source = 'registration';
 
     // If email or password is somehow missing, send a 401 status code
     if (!email || !password) {
-
         res.status(401).send('No username or password.');
         return;
     }
@@ -80,14 +79,14 @@ exports.post_new_user = (req, res) => {
         });
     }
 
-    // If the passwords dont match, rerender and send error message
+    // If the passwords don't match, rerender and send an error message
     if (password != confirmPassword) {
         return res.render("users/registration", {
             message: "Error: Passwords must match."
         })
     }
 
-    // Lookup user by email tom make sure they dont exist
+    // Lookup user by email to make sure they don't exist
     userDAO.lookupEmail(email, (err, u) => {
         if (u) {
 
@@ -98,12 +97,14 @@ exports.post_new_user = (req, res) => {
             return res.redirect('/login');
         }
 
-
         // Use userDAO create method to create a new
-        userDAO.create(firstName, secondName, organisation, number, email, password, source);
+        userDAO.create(firstName, secondName, organisation, number, email, password, req.body.pantryId, source);
 
+        // Redirect to login page
+        res.redirect('/login');
     })
 }
+
 
 // Action method for requesting login page
 exports.login_get = (req, res) => {

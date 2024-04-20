@@ -20,6 +20,8 @@ router.post('/', auth.verifyStaff, staffController.addToCart);
 router.get('/cart', auth.verifyStaff, staffController.getCart);
 router.post('/cart', auth.verifyStaff, staffController.makeClaim);
 
+router.get('/claimed', auth.verifyStaff, staffController.claimed_page);
+
 
 
 

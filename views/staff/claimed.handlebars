@@ -63,7 +63,7 @@
 
 <body>
     <div class="container-1">
-    <h2 style="text-align: center; color: #000000"> {{pantry}} Unclaimed Product Donations</h2>
+        <h2 style="text-align: center; color: #000000"> {{pantry}} Claimed Products</h2>
 
         <table id="userTable" class="table">
             <thead>
@@ -71,46 +71,39 @@
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Expiry</th>
-                    <th>User</th>
-                    <th>Action</th>
+                    <th>Date Donated</th>
+                    <th>Donator's Name</th>
+                    <th>Donator's Email</th>
+                    <th>Donator's Phone Number</th>
                 </tr>
             </thead>
             <tbody id="userTableBody">
+                {{#each claimedDonations}}
                 {{#each products}}
-                {{#unless claimed}}
                 <tr>
                     <td>{{productName}}</td>
                     <td>{{quantity}}</td>
                     <td>{{expiry}}</td>
-                    <td>{{user}}</td>
-                    <td>
-                        {{!-- only deletes if confirmDelete() is true --}}
-                        <form action="/staff" method="post">
-                            <input type="hidden" name="donationLineId" value="{{donationLineId}}">
-                            <input type="hidden" name="productId" value="{{productId}}">
-                            <input type="hidden" name="productName" value={{productName}}>
-                            <input type="hidden" name="qty" value={{quantity}}>
-                            <input type="hidden" name="expiry" value={{expiry}}>
-                            <input type="submit" value="Claim" class="btn btn-primary">
-                        </form>
-                    </td>
+                    <td>{{../donationDate}}</td>
+                    <td>{{donatedByUser.firstName}} {{donatedByUser.secondName}}</td>
+                    <td>{{donatedByUser.email}}</td>
+                    <td>{{donatedByUser.number}}</td>
                 </tr>
-                        {{/unless}}
                 {{/each}}
-        
+                {{/each}}
             </tbody>
         </table>
         <p>
             {{#if errorMessage}}
-        <div class="alert alert-danger" id="error" role="alert">
-            {{message}}
-        </div>
-        {{/if}}
-        {{#if successMessage}}
-        <div class="alert alert-success" id="error" role="alert">
-            {{successMessage}}
-        </div>
-        {{/if}}
+            <div class="alert alert-danger" id="error" role="alert">
+                {{message}}
+            </div>
+            {{/if}}
+            {{#if successMessage}}
+            <div class="alert alert-success" id="error" role="alert">
+                {{successMessage}}
+            </div>
+            {{/if}}
         </p>
     </div>
 </body>

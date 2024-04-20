@@ -25,7 +25,7 @@ class ProductDao {
                 { dataStore: 'Product', productName: 'Potato', typeOfProduct: 'Food', currentStock: 0, categories: ['Vegetable', 'Fresh Produce'] },
                 { dataStore: 'Product', productName: 'Onion', typeOfProduct: 'Food', currentStock: 0, categories: ['Vegetable', 'Fresh Produce'] },
                 { dataStore: 'Product', productName: 'Banana', typeOfProduct: 'Food', currentStock: 0, categories: ['Fruit', 'Fresh Produce'] },
-                { dataStore: 'Product', productName: 'Apple', typeOfProduct: 'Food', currentStock: 0, categories: ['Fruit', 'Fresh Produce'], donations: []},
+                { dataStore: 'Product', productName: 'Apple', typeOfProduct: 'Food', currentStock: 0, categories: ['Fruit', 'Fresh Produce']},
                 { dataStore: 'Product', productName: 'Orange', typeOfProduct: 'Food', currentStock: 0, categories: ['Fruit', 'Fresh Produce'] },
                 { dataStore: 'Product', productName: 'Milk', typeOfProduct: 'Food', currentStock: 0, categories: ['Dairy', 'Drink'] },
                 { dataStore: 'Product', productName: 'Cheese', typeOfProduct: 'Food', currentStock: 0, categories: ['Dairy'] },
@@ -33,14 +33,11 @@ class ProductDao {
                 { dataStore: 'Product', productName: 'Crisps', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack'] },
                 { dataStore: 'Product', productName: 'Chocolate', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack'] },
                 { dataStore: 'Product', productName: 'Biscuits', typeOfProduct: 'Food', currentStock: 0, categories: ['Snack', 'Grain'] },
-                { dataStore: 'Product', productName: 'Pepper', typeOfProduct: 'Food', currentStock: 0, categories: ['Cooking'] },
-                { dataStore: 'Product', productName: 'Bread', typeOfProduct: 'Grain', currentStock: 0, categories: ['Cooking'] },
                 { dataStore: 'Product', productName: 'Coca Cola', typeOfProduct: 'Food', currentStock: 0, categories: ['Drink'] },
                 { dataStore: 'Product', productName: 'Bottled Water', typeOfProduct: 'Food', currentStock: 0, categories: ['Drink'] },
                 { dataStore: 'Product', productName: 'Chicken Breast', typeOfProduct: 'Food', currentStock: 0, categories: ['Meat', 'Chicken'] },
                 { dataStore: 'Product', productName: 'Chicken Thighs', typeOfProduct: 'Food', currentStock: 0, categories: ['Meat', 'Chicken'] },
                 { dataStore: 'Product', productName: 'Eggs', typeOfProduct: 'Food', currentStock: 0, categories: ['Dairy'] },
-                { dataStore: 'Product', productName: 'Butter', typeOfProduct: 'Food', currentStock: 0, categories: ['Dairy'] },
                 { dataStore: 'Product', productName: 'Beef Mince', typeOfProduct: 'Food', currentStock: 0, categories: ['Meat', 'Beef'] },
                 { dataStore: 'Product', productName: 'Pork Mince', typeOfProduct: 'Food', currentStock: 0, categories: ['Meat', 'Pork'] },
                 { dataStore: 'Product', productName: 'Bacon', typeOfProduct: 'Food', currentStock: 0, categories: ['Meat', 'Pork'] },
@@ -191,6 +188,42 @@ class ProductDao {
         });
     }
 
+    // Update stock method
+    async updateStockMinus(item, qty) {
+        return new Promise((resolve, reject) => {
+            // Find the item
+            this.dbManager.db.findOne({ _id: item }, (err, obj) => {
+                if (err) {
+                    console.error("Error finding item:", err);
+                    reject(err);
+                    return;
+                }
+
+                if (!obj) {
+                    console.error("Item not found:", item);
+                    reject(new Error("Item not found"));
+                    return;
+                }
+
+                // Update the stock, make sure to parse it as an integer
+                const updatedStock = obj.currentStock - parseInt(qty);
+
+                // Update the item in the database
+                // Parse the updated stock as an integer
+                this.dbManager.db.update({ _id: item }, { $set: { currentStock: updatedStock } }, {}, (err) => {
+                    if (err) {
+                        console.error("Error updating stock:", err);
+                        reject(err);
+                        return;
+                    }
+
+                    console.log("Stock updated successfully for", item, "new stock:", updatedStock);
+                    resolve(updatedStock);
+                });
+            });
+        });
+    }
+
     // Delete product method
     async deleteProduct(id)
     {
@@ -237,7 +270,7 @@ class ProductDao {
             const newProduct = {
                 productName: productName,
                 typeOfProduct: typeOfProduct,
-                currentStock: currentStock,
+                currentStock: 0,
                 categories: categories,
                 expiry: expiry
             };

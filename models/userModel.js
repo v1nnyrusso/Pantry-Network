@@ -36,7 +36,7 @@ class UserDao {
                 {  dataStore: 'User', firstName: 'Vincenzo', secondName: 'Russo', organisation: 'Tesco', number: '123456789', email: 'vincenzo@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
                 {  dataStore:'User',firstName: 'Conor', secondName: 'Lynagh', organisation: 'Iceland', number: '987654321', email: 'conor@example.com', password: bcrypt.hashSync('123', saltRounds), role: 'donator', donations: [] },
                 {  dataStore: 'User',firstName: 'Admin', secondName: 'Admin', organiation: null, number: '123456789', email: 'admin@admin.com', password:bcrypt.hashSync('admin', saltRounds), role: 'admin', donations: [] },
-                {  dataStore:'User', firstName: 'Staff', secondName: 'Staff', organisation: null, number: '123456789', email: 'staff@staff.com', password: bcrypt.hashSync('staff', saltRounds), role: 'staff', donations: [] },
+                {  dataStore:'User', firstName: 'Staff', secondName: 'Staff', organisation: null, number: '123456789', email: 'staff@staff.com', password: bcrypt.hashSync('staff', saltRounds), role: 'staff', donations: [], pantryId: 'IGtRVJCHNHEAsAeK' },
                 {  dataStore:'User', firstName: 'Staff', secondName: 'Staff', organisation: null, number: '123456789', email: 'staff2@staff.com', password: bcrypt.hashSync('staff', saltRounds), role: 'staff', donations: [], pantryId: 'Ut22rpI3PD3Soxh8' }
             ];
     
@@ -80,30 +80,32 @@ class UserDao {
         // Hash the password using bcrypt
         bcrypt.hash(password, saltRounds, function (err, hash) {
 
-            var entry = { dataStore: 'User', firstName: firstName, secondName: secondName, number: number, email: email, password: hash, claims: [], donations: [], pantryId: pantry, organisation: organisation};
+            var entry = { dataStore: 'User', firstName: firstName, secondName: secondName, number: number, email: email, role: '', password: hash, claims: [], donations: [], pantryId: pantry, organisation: organisation};
             if (err) {
                 console.error("Error hashing password:", err);
                 return;
             }
 
+            console.log('source',source)
+
             // Depending on the source, set the role of the user
             switch (source) {
                 case 'admin':
                     entry.role = 'admin';
-                    entry.pantry = null;
+                    entry.pantryId = null;
                     entry.claims = null;
                     break;
                 case 'registration':
                     entry.role = 'donator';
-                    entry.claims = null;
-                    entry.pantry = null
+                    entry.claims = [];
+                    entry.pantryId = [];
                     break;
                 case 'staff':
                     entry.role = 'staff';
-                    entry.organisation = null;
-                    entry.donations = null;
-                    entry.claims = [];
+                    entry.organisation = [];
+                    entry.donations = [];
                     entry.pantryId = pantry;
+       
             }
 
             // Insert the user entry into the database
@@ -112,7 +114,7 @@ class UserDao {
                     console.error("Error inserting user:", err);
                     return;
                 }
-                console.log("User", email, "successfully inserted into the database.");
+                console.log("User", entry, "successfully inserted into the database.");
             });
         });
     }
@@ -225,6 +227,24 @@ class UserDao {
                 resolve();
             });
         });
+    }
+
+    // Get user based on id, add claim to user,
+    async getUserById(id) {
+
+        return new Promise((resolve, reject) => {
+
+            this.dbManager.db.findOne({ _id: id }, (err, entry) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve(entry);
+            });
+
+
+        })
+
     }
 
 }

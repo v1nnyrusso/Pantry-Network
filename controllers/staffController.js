@@ -3,9 +3,12 @@ const productDAO = require("../models/productModel");
 const donationDAO = require("../models/donationModel");
 
 const pantryDAO = require("../models/pantryModel");
+const userDAO = require("../models/userModel");
 
 // Get the staff page
 exports.staff_page = async (req, res) => {
+
+
 
     if (!req.session.user || !req.session.user.id) {
         return res.redirect('/login');
@@ -19,9 +22,10 @@ exports.staff_page = async (req, res) => {
     let successMessage = req.session.successMessage;
     req.session.successMessage = null;
 
-
     // Get the current staff's pantry id
     let pantryId = req.session.pantryId;
+    console.log('Pantry ID:', pantryId);
+
 
     // If there is no pantry id, return an error
     if(!pantryId){
@@ -61,6 +65,41 @@ exports.staff_page = async (req, res) => {
         return res.status(500).send('Error getting products');
     }
 };
+
+exports.claimed_page = async (req, res) => {
+
+    if (!req.session.user || !req.session.user.id) {
+        return res.redirect('/login');
+    }
+
+    if (req.session.role !== 'staff') {
+        return res.redirect('/');
+    }
+
+    // Get the success message from the session
+    let successMessage = req.session.successMessage;
+    req.session.successMessage = null;
+
+    // Get the current staff's pantry id
+    let pantryId = req.session.pantryId;
+
+
+    // If there is no pantry id, return an error
+    if(!pantryId){
+        return res.status(500).send('Error getting pantry');
+    
+    }
+
+    res.render('staff/claimed', {
+        title: "Claimed Page",
+        isLoggedIn: req.isLoggedIn,
+        user: req.session.user,
+        isAdminPage: false,
+        role: req.session.role,
+        successMessage: successMessage,
+        claimedDonations: await getClaimedDonations(pantryId)
+    });
+}
 
 
 // Add to cart method
@@ -155,59 +194,40 @@ exports.makeClaim = async (req, res) => {
     }
 
     try {
-
         // Get the products from the pantry
         let products = await getProductFiltered(req.session.pantryId);
 
         // For each product in the pantry
         for (let product of products) {
-
             // For each claim in the session
             for (let claimProduct of claims) {
-
                 // If the donation line id matches
                 if (product.donationLineId == claimProduct.donationLineId) {
-
                     // And if the quantity is less than the claim quantity, return a stock error
                     if (product.quantity < claimProduct.qty) {
                         req.session.errorMessage = "Not enough stock for " + product.productName;
                         return res.redirect('/staff');
-                    }
-                    // Else, continue
-                    else {
-
+                    } else {
                         // If the quantity is 0, return a stock error
                         if (product.quantity === 0) {
                             req.session.errorMessage = "No stock for " + product.productName;
                             return res.redirect('/staff');
                         }
-
-                        // Update the product quantity
-                        product.quantity -= claimProduct.qty;
-
                         // Get all donations
                         let donations = await donationDAO.getDonations();
-
                         // For each donation
                         for (let donation of donations) {
-
                             // if the donation pantry id matches the current pantry id and the donation line id matches the claim product donation line id and exists in the donations products
                             if (donation.pantryId === req.session.pantryId && donation.products.find(p => p.donationLineId === claimProduct.donationLineId)) {
-
                                 // For each donation product
                                 for (let donationProduct of donation.products) {
-
                                     // If the donation line id matches the claim product donation line id
                                     if (donationProduct.donationLineId === claimProduct.donationLineId) {
-
                                         // Update the donation product quantity and set isClaimed to true 
                                         donationProduct.isClaimed = true;
-                                        donationProduct.quantity = product.quantity;
-
                                         // Update the donation line, send the donation id, donation line id and the product
                                         await donationDAO.updateDonationLine(donation._id, claimProduct.donationLineId, product);
-
-
+                          
                                         break;
                                     }
                                 }
@@ -248,4 +268,64 @@ async function getProductFiltered(pantryId) {
     // Return the products
     return products;
 }
+
+// Create a function to get all claimed donations with user information
+async function getClaimedDonations(pantryId) {
+    try {
+        // Get donations by pantryId
+        let donations = await donationDAO.getDonationById(pantryId);
+
+        // Filter out donations with claimed products
+        let claimedDonations = donations.filter(donation => {
+            return donation.products && donation.products.some(product => product.isClaimed);
+        });
+
+        // Iterate over each claimed donation
+        for (let donation of claimedDonations) {
+            // Filter out unclaimed products
+            donation.products = donation.products.filter(product => product.isClaimed);
+
+            
+            // Get user information for each claimed product
+            for (let product of donation.products) {
+                if (product.isClaimed) {
+                    product.stockLevel = product.quantity;
+
+                    // Get user that donated the product
+                    let userDonationId = await getUserById(donation._id);
+                    // Get the user
+                    let user = await getUserById(userDonationId.userId);
+
+                    console.log('User:', user);
+                   
+                    // Set the donated by user to the user's name if it exists, otherwise set to unknown 
+                    product.donatedByUser = user ? user : "Unknown";
+                }
+            }
+        }
+
+        console.log('Claimed donations:', claimedDonations);
+
+        // Return the claimed donations
+        return claimedDonations;
+        
+    } catch (error) {
+        console.error("Error getting claimed donations:", error);
+        throw error;
+    }
+}
+
+async function getUserById(userId) {
+    try {
+        let user = await userDAO.getUserById(userId);
+        return user;
+    } catch (error) {
+        console.error("Error getting user by ID:", error);
+        throw error;
+    }
+}
+
+
+
+
 

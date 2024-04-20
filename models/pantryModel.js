@@ -17,8 +17,10 @@ class Pantry {
 async pantryInitialiser() {
     return new Promise((resolve, reject) => {
         const pantries = [
-            { dataStore: 'Pantry', pantryName: 'Parkhead School House', location: 'Glasgow', address: '135 Westmuir St, Parkhead', postcode: 'G31 5EX', staffMembers: ['userId4'], donations: ['donationId1'] },
-            { dataStore: 'Pantry', pantryName: 'Govanhill Pantry', location: 'Glasgow', address: '488 Cathcart Rd', postcode: 'G42 7BX', staffMembers: ['userId3'], donations: [] },
+
+            // Static id so staff can be seeded assigned to pantry
+            { _id: 'IGtRVJCHNHEAsAeK', dataStore: 'Pantry', pantryName: 'Parkhead School House', location: 'Glasgow', address: '135 Westmuir St, Parkhead', postcode: 'G31 5EX', staffMembers: ['userId4'], donations: ['donationId1'] },
+            { _id: 'yRfjPiGLs84oGDbe', dataStore: 'Pantry', pantryName: 'Govanhill Pantry', location: 'Glasgow', address: '488 Cathcart Rd', postcode: 'G42 7BX', staffMembers: ['userId3'], donations: [] },
             { _id: 'Ut22rpI3PD3Soxh8', dataStore: 'Pantry', pantryName: 'Croftpark Pantry', location: 'Glasgow', address: 'Croftpark Ave, Crofthill Rd', postcode: 'G 44 5NR', staffMembers: ['userId3', 'userId4'], donations: ['donationId2'] }
         ];
 
@@ -72,6 +74,22 @@ async pantryInitialiser() {
         })
 
     }
+
+    // insert staff member to pantry
+    async insertStaff (staffId, pantryId) {
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.update({ _id: pantryId }, { $push: { staffMembers: staffId } }, {}, (err, numReplaced) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(numReplaced);
+                }
+            });
+        });
+    }
+
+
 
     // Function to get pantry by id
     async getPantryById(pantryId) {

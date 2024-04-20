@@ -87,6 +87,7 @@ exports.create_staff_post = async (req, res) => {
 
     let pantry = organisation;
 
+    
     // Capitalise the first letter of the first and last name
     firstName = capitaliseFirstLetter(firstName);
     secondName = capitaliseFirstLetter(secondName);
@@ -135,7 +136,7 @@ exports.create_staff_post = async (req, res) => {
 
         console.log("Creating user: ", firstName, secondName, organisation, number, email, password, pantry, source);
         // Use userDAO create method to create a new
-        userDAO.create(firstName, secondName, organisation, number, email, password, pantry, source);
+        let staffId = userDAO.create(firstName, secondName, organisation, number, email, password, pantry, source);
 
         req.session.successMessage = "User " + email + " created successfully.";
         // Return to login as they exist
