@@ -73,13 +73,13 @@ The database has pantries seeded, a few contact messages, as well as a few donat
 Donations are not seeded. You must create a donation to perform staff features.
 
 
-Installation
+Runnning the Application
 
-To install the application, follow these steps:
+To run the application, follow these steps:
 
-- Clone the repository: git clone https://github.com/your-repo/your-project.git
+- Clone the repository: git clone https://github.com/vrusso300/CWK2.git
 - Navigate to the project directory.
-- Install the dependencies: npm install
+- Install the following dependencies: npm install
 
 
     "bcrypt": "^5.1.1",
