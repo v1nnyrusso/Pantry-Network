@@ -10,18 +10,6 @@
         /* Container Styles */
 
 
-     .container-1 {
-            min-width: 1000px;
-            min-height: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
         /* Table Styles */
         .table {
             width: 100%;
@@ -44,43 +32,55 @@
             background-color: #f5f5f5;
         }
 
-    
-
     </style>
 </head>
 
 <body>
     <div class="container">
-        <br>
-        <h2 style="text-align: center; color: #000000">Staff Dashboard</h2>
+        <h2 style="text-align: center; color: #000000">Messages Dashboard</h2>
 
-
+        <!-- Search bar -->
+        <form action="/admin/contact/search" method="get">
+            <label for="email">Search:</label>
+            <input type="text" id="email" name="email" placeholder="Enter name or email">
+            <button class="btn" type="submit">Search Messages</button>
+        </form>
 
         <table id="userTable" class="table">
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Phone Number</th>
-                    <th>Organisation</th>
                     <th>Email</th>
-                    <th>Actions</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Date Submitted</th>
+                    <th>Status</th>
+                    <th>Delete</th>
+                    <th>Mark Read</th>
                 </tr>
             </thead>
             <tbody id="userTableBody">
-                {{#each staff}}
+                {{#each contacts}}
                 <tr>
-                    <td>{{firstName}}</td>
-                    <td>{{secondName}}</td>
-                    <td>{{number}}</td>
-                    <td>{{pantry}}</td>
-                    <td>{{email}}</td>
+                    <td>{{contactEmail}}</td>
+                    <td>{{subject}}</td>
+                    <td>{{contactMessage}}</td>
+                    <td>{{dateSubmitted}}</td>
+                    <td>{{status}}</td>
                     <td>
                         {{!-- only deletes if confirmDelete() is true --}}
-                        <form action="/admin/staff/delete" method="post" onsubmit="return confirmDelete()">
+                        <form action="/admin/contact/delete" method="post" onsubmit="return confirmDelete()">
                             <input type="hidden" name="id" value="{{_id}}">
-                            <input type="hidden" name="source" value="staff">
+                            <input type="hidden" name="source" value="contact">
                             <button type="submit" class="btn">Delete</button>
+                        </form>
+                        <br>
+                        {{!-- only deletes if confirmDelete() is true --}}
+                    </td>
+                    <td>
+                        <form action="/admin/contact/markread" method="post">
+                            <input type="hidden" name="id" value="{{_id}}">
+                            <input type="hidden" name="message" value="message">
+                            <button type="submit" class="btn">Mark Read</button>
                         </form>
                     </td>
                 </tr>
@@ -88,7 +88,6 @@
             </tbody>
         </table>
 
-        <a href="/admin/staff/create" id="createStaffLink" class="btn">Create New Member of Staff </a>
         <p>
 
         </p>
@@ -100,14 +99,11 @@
 <script>
     // Function to confirm deletion
     function confirmDelete() {
-
         // Confirm the deletion
-        if (confirm("Are you sure you want to delete this staff member?")) {
+        if (confirm("Are you sure you want to delete this message?")) {
             return true;
         } else {
             return false;
         }
-
-
     }
 </script>

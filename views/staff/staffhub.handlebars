@@ -17,7 +17,7 @@
         }
 
         .container-1 {
-            min-width: 900px;
+            max-width: 900px;
             min-height: 500px;
             margin: 20px auto;
             padding: 20px;
@@ -32,11 +32,13 @@
         .table {
             width: 100%;
             margin-top: 20px;
+            border-collapse: collapse;
+            overflow-x: auto;
         }
 
         .table th,
         .table td {
-            padding: 8px;
+            padding: 10px;
             border-bottom: 1px solid #ddd;
             text-align: left;
         }
@@ -49,21 +51,71 @@
             background-color: #f5f5f5;
         }
 
-        /* Footer Styles */
-        footer {
-            background-color: #f8f9fa;
-            padding: 20px 0;
-            width: 100%;
-            position: sticky;
-            bottom: 0;
-            z-index: 0;
+        /* Form Button */
+        .btn {
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+     
+            color: #fff;
+         
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+      
+         
+            color: #fff;
+        }
+
+    
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d43f3a;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+            border-color: #ac2925;
+            color: #fff;
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
         }
     </style>
 </head>
 
 <body>
     <div class="container-1">
-    <h2 style="text-align: center; color: #000000"> {{pantry}} Unclaimed Product Donations</h2>
+        <h2 style="text-align: center; color: #000000"> <strong style="color: #67b0b7">{{pantry}} </strong> <br>Unclaimed Product Donations</h2>
 
         <table id="userTable" class="table">
             <thead>
@@ -84,7 +136,6 @@
                     <td>{{expiry}}</td>
                     <td>{{user}}</td>
                     <td>
-                        {{!-- only deletes if confirmDelete() is true --}}
                         <form action="/staff" method="post">
                             <input type="hidden" name="donationLineId" value="{{donationLineId}}">
                             <input type="hidden" name="productId" value="{{productId}}">
@@ -95,35 +146,34 @@
                         </form>
                     </td>
                 </tr>
-                        {{/unless}}
+                {{/unless}}
                 {{/each}}
-        
             </tbody>
         </table>
         <p>
             {{#if errorMessage}}
-        <div class="alert alert-danger" id="error" role="alert">
-            {{message}}
-        </div>
-        {{/if}}
-        {{#if successMessage}}
-        <div class="alert alert-success" id="error" role="alert">
-            {{successMessage}}
-        </div>
-        {{/if}}
+            <div class="alert alert-danger" id="error" role="alert">
+                {{errorMessage}}
+            </div>
+            {{/if}}
+            {{#if successMessage}}
+            <div class="alert alert-success" id="error" role="alert">
+                {{successMessage}}
+            </div>
+            {{/if}}
         </p>
     </div>
+    <br>
+    <script>
+        // JavaScript code to scroll to the error message
+        document.addEventListener('DOMContentLoaded', function () {
+            var errorMessage = document.getElementById('error');
+            if (errorMessage) {
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    </script>
+
 </body>
-
-
-<script>
-    // JavaScript code to scroll to the error message
-    document.addEventListener('DOMContentLoaded', function () {
-        var errorMessage = document.getElementById('error');
-        if (errorMessage) {
-            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
-</script>
 
 </html>

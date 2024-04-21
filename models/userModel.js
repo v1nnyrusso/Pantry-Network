@@ -88,7 +88,7 @@ class UserDao {
 
             console.log('source',source)
 
-            // Depending on the source, set the role of the user
+            // Depending on the source, set the role of the user for modularity and reusability
             switch (source) {
                 case 'admin':
                     entry.role = 'admin';

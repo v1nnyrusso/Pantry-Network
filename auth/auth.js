@@ -84,7 +84,6 @@ exports.login = (req, res, next) => {
 exports.verify = (req, res, next) => {
     let accessToken = req.cookies.jwt;
 
-
     if (!accessToken) {
         req.isLoggedIn = false;
         next();
@@ -104,6 +103,7 @@ exports.verify = (req, res, next) => {
             req.session.user = info;
             req.userId = payload.id;
             req.session.role = payload.role;
+            console.log(req.isLoggedIn);
             next();
         } catch (e) {
             req.isLoggedIn = false;

@@ -32,6 +32,15 @@ router.get('/product/create', auth.verifyAdmin, adminController.create_product_g
 router.post('/product/create', auth.verifyAdmin, adminController.create_product_post);
 router.post('/product/delete', auth.verifyAdmin, adminController.delete);
 
+router.get('/contact', auth.verifyAdmin, adminController.contact_page);
+router.post('/contact/delete', auth.verifyAdmin, adminController.delete);
+
+// Mark as read
+router.post('/contact/markread', auth.verifyAdmin, adminController.markRead);
+
+router.get('/contact/search', auth.verifyAdmin, adminController.search_messages);
+
+
 
 
 module.exports=router;

@@ -64,6 +64,7 @@ const homeRoutes = require('./routes/homeRoutes.js');
 const adminRoutes = require('./routes/adminRoutes.js');
 const donateRoutes = require ('./routes/donateRoutes.js');
 const staffRoutes = require('./routes/staffRoutes.js');
+const contactRoutes = require('./routes/contactRoutes.js');
 
 
 // Rerouters for different endpoints
@@ -71,6 +72,12 @@ app.use('/', homeRoutes);
 app.use('/admin', adminRoutes);
 app.use('/donate', donateRoutes);
 app.use('/staff', staffRoutes);
+app.use('/contact', contactRoutes);
+
+// Catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  res.status(404).send('ERROR 404: Page not found');
+});
 
 
 // Listens for port 3000, log to console that msg for success

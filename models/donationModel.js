@@ -146,10 +146,11 @@ class DonationDao {
                         if (donationLine.donationLineId == donationLineId) {
                             // Update the quantity and set isClaimed to true 
                             donationLine.quantity = product.quantity;
-                            donationLine.isClaimed = true;
+                            donationLine.isClaimed = product.isClaimed;
                             donationLine.expiry = product.expiry;
                             donationLine.productName = product.productName;
                             donationLine.donationLineId = product.donationLineId;
+                            donationLine.status = product.status;
                             break;
                         }
                     }
@@ -177,6 +178,44 @@ class DonationDao {
         });
     }
 
+    async updateDonationLineStatus(donationId, donationLineId, status) {
+
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.findOne({ _id: donationId }, (err, obj) => {
+                if (err) {
+                    console.error("Error finding donation:", err);
+                    reject(err);
+                    return;
+                }
+
+                if (obj) {
+                    obj.products = obj.products || [];
+
+                    for (let donationLine of obj.products) {
+                        if (donationLine.donationLineId == donationLineId) {
+                            donationLine.status = status;
+                            break;
+                        }
+                    }
+
+                    this.dbManager.db.update({ _id: donationId }, { $set: { products: obj.products } }, {}, (err) => {
+                        if (err) {
+                            console.error("Error updating donation:", err);
+                            reject(err);
+                            return;
+                        }
+
+                        console.log("Donation updated successfully:", donationId, donationLineId, status);
+                        resolve();
+                    });
+                } else {
+                    reject(new Error('Donation not found'));
+                }
+            });
+        });
+
+    }
+
 
 
 
@@ -197,6 +236,8 @@ class DonationDao {
             });
         });
     }
+
+    
 
 }
 

@@ -34,7 +34,9 @@ router.post('/login',login, homeController.login_post);
 // Logout
 router.get('/logout',  homeController.logout);
 
+router.get('/faq', verify, homeController.faq_res);
 
+router.get('/about', verify, homeController.about_res);
 
 // Allows index.js to have access to defined routes
 module.exports = router;

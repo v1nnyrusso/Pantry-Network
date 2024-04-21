@@ -1,29 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
         .container-1 {
-            min-width: 1000px;
-            min-height: 500px;
-            margin: 0 auto;
+            max-width: 900px;
+            margin: 20px auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            background-color: #fff;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #67b0b7;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .btn:hover {
-            background-color: #3a9ba9;
+            background-color: #67b0b7;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
 
         th,
@@ -31,7 +48,6 @@
             padding: 8px;
             text-align: left;
             vertical-align: top;
-            /* Align content to the top of the cell */
         }
 
         th {
@@ -46,21 +62,24 @@
             background-color: #ddd;
         }
 
+        .cart-info p {
+            margin: 0;
+        }
+
+        .form-control {
+            width: auto;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .form-control,
         .btn {
-            position: absolute;
-            /* Position the button absolutely */
-            bottom: 20px;
-            /* Adjust bottom spacing */
-            left: 50%;
-            /* Move to the center horizontally */
-            transform: translateX(-50%);
-            /* Center horizontally */
+            margin-bottom: 10px;
         }
     </style>
 </head>
 
-
-
+<body>
 
     {{#ifEquals role "donator"}}
     <div class="container-1">
@@ -85,83 +104,72 @@
                         {{#if expiry}}
                         <td>{{expiry}}</td>
                         {{/if}}
-
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
         </div>
-        {{/ifEquals}}
 
-        {{#ifEquals role "staff"}}
-        <div class="container-1">
-            <div class="small-container cart-page">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Expiry Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each claims}}
-                        <tr>
-                            <td>
-                                <div class="cart-info">
-                                    <p>{{productName}}</p>
-                                </div>
-                            </td>
-                            <td>{{qty}}</td>
-                            {{#if expiry}}
-                            <td>{{expiry}}</td>
-                            {{/if}}
+<br>
+        <form action="/donate/cart" method="post" style="text-align:center;">
+            <label for="pantry">Select a pantry:</label>
+            <select name="pantry" class="form-control mb-4">
+                {{#each pantries}}
+                <option value="{{_id}}" id="pantry" name="pantry">{{pantryName}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" value="Check Out" class="btn">
+        </form>
 
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-            {{/ifEquals}}
+        <p>
+            <a href="/donate">Back to Donate Page</a>
+        </p>
 
-            {{#ifEquals role "donator"}}
-            <form action="/donate/cart" method="post" style="text-align::center">
-                <input type="submit" value="Donate" class="btn">
-                <label for="pantry">Select a pantry:</label>
-                <select name="pantry" class="form-control mb-4">
-                    {{#each pantries}}
-                    <option value="{{_id}}" id="pantry" name="pantry">{{pantryName}}</option>
+    </div>
+    {{/ifEquals}}
+
+    {{#ifEquals role "staff"}}
+    <div class="container-1">
+        <div class="small-container cart-page">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each claims}}
+                    <tr>
+                        <td>
+                            <div class="cart-info">
+                                <p>{{productName}}</p>
+                            </div>
+                        </td>
+                        <td>{{qty}}</td>
+                        {{#if expiry}}
+                        <td>{{expiry}}</td>
+                        {{/if}}
+                    </tr>
                     {{/each}}
-                    <input type="submit" value="Check Out" class="btn">
-                </select>
-            </form>
-
-            <p>
-                <a style="" href="/donate">Back to Donate Page</a>
-            </p>
-
-            {{/ifEquals}}
-
-            {{#ifEquals role "staff"}}
-            <div>
-
-                <form action="/staff/cart" method="post" style="text-align::center">
-                    <input type="submit" value="Donate" class="btn">
-
-
-                    <input type="submit" value="Check Out" class="btn">
-                    </select>
-                </form>
-
-                <p>
-                    <a style="" href="/staff">Back to Donations</a>
-                </p>
-            </div>
-
-
-            {{/ifEquals}}
-
-
+                </tbody>
+            </table>
         </div>
 
+<br>
+        <form action="/staff/cart" method="post" style="text-align:center;">
 
+            <input type="submit" value="Check Out" class="btn">
+        </form>
+
+        <p>
+            <a href="/staff">Back to Donations</a>
+        </p>
+    </div>
+    {{/ifEquals}}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</body>
+
+</html>

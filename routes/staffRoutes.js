@@ -22,6 +22,10 @@ router.post('/cart', auth.verifyStaff, staffController.makeClaim);
 
 router.get('/claimed', auth.verifyStaff, staffController.claimed_page);
 
+router.post('/reject', auth.verifyStaff, staffController.rejectClaim);
+
+router.post('/markreceived', auth.verifyStaff, staffController.markReceived);
+
 
 
 

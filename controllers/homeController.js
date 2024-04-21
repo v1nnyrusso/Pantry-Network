@@ -1,10 +1,38 @@
 // Import the user model
 const userDAO = require('../models/userModel.js');
+const contactDAO = require('../models/contactModel.js');
+const pantryDAO = require('../models/pantryModel.js');
 
 // Create a callback function for handling response to /about
-exports.about_res = (req, res) => {
-    res.send('<h1> Wellcome to the about page. This is not yet implemented</h1>')
+exports.about_res = async (req, res) => {
+    try {
 
+        // Get list of pantries
+        const pantriesList = await pantryDAO.getPantries();
+ 
+        console.log(req.isLoggedIn, req.session.user, req.role)
+        // If the user is logged in, render the about page with the user object and logged in status variable
+        if (req.session.user) {
+            return res.render('users/about', {
+                title: "About Us",
+                // If the user is logged in, set isLoggedIn to true
+                isLoggedIn: true,
+                user: req.session.user,
+                isHomePage: true,
+                role: req.session.user.role,
+                pantries: pantriesList
+            })
+        } else {
+            return res.render('users/about', {
+                title: "About Us",
+                isHomePage: true,
+                pantries: pantriesList
+            })
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).send("Error fetching pantries");
+    }
 }
 
 // Landing page function
@@ -143,6 +171,91 @@ exports.logout = (req, res) => {
     res.clearCookie("jwt").status(200).redirect("/");
 }
 
+exports.getContactPage = (req, res) => {
+
+
+    if (req.isLoggedIn) {
+        return res.render('contact/contact', {
+            title: "Contact Us",
+            isLoggedIn: req.isLoggedIn,
+            user: req.session.user,
+            isHomePage: true,
+            role: req.session.user.role
+        })
+    }
+    else {
+        return res.render('contact/contact', {
+            title: "Contact Us",
+            isHomePage: true
+        })
+    }
+
+}
+
+exports.postContactForm = (req, res) => {
+    let { subject, email, message } = req.body;
+
+    // Capitalize the first letter of the first and last name
+    email = email.toLowerCase();
+
+    // If email or password is somehow missing, send a 401 status code
+    if (!email || !subject || !message) {
+        res.render("contact/contact", {
+            title: "Contact Us",
+            errorMessage: "Error: Please fill in all fields.",
+            isHomePage: true
+        });
+        return;
+    }
+
+    req.session.successMessage = "Message sent successfully.";
+    successMessage = req.session.successMessage;
+    req.session.successMessage = null;
+
+    // Create a new contact message
+    contactDAO.createContact(subject, email, message);
+
+    if (req.isLoggedIn) {
+        return res.render('contact/contact', {
+            title: "Contact Us",
+            isLoggedIn: req.isLoggedIn,
+            user: req.session.user,
+            isHomePage: true,
+            role: req.session.user.role,
+            successMessage: successMessage,
+        })
+    }
+    else {
+
+        // Redirect to login page
+        res.render("contact/contact", {
+            title: "Contact Us",
+            successMessage: successMessage,
+            isHomePage: true
+
+        });
+    }
+
+}
+
+exports.faq_res = (req, res) => {
+    if (req.isLoggedIn) {
+        return res.render('users/faq', {
+            title: "FAQ",
+            isLoggedIn: req.isLoggedIn,
+            user: req.session.user,
+            isHomePage: true,
+            role: req.session.user.role
+        })
+    }
+    else {
+        return res.render('users/faq', {
+            title: "FAQ",
+            isHomePage: true
+        })
+    }
+}
+
 // Capitalize the first letter of a string passed in
 function capitalizeFirstLetter(string) {
     if (string) {
@@ -153,5 +266,7 @@ function capitalizeFirstLetter(string) {
     }
 
 }
+
+
 
 

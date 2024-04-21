@@ -270,7 +270,9 @@ class ProductDao {
             const newProduct = {
                 productName: productName,
                 typeOfProduct: typeOfProduct,
-                currentStock: 0,
+                // Parse the current stock as an integer
+                // Ended up not using this, but it's here for future reference
+                currentStock: parseInt(currentStock),
                 categories: categories,
                 expiry: expiry
             };

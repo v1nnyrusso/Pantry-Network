@@ -50,16 +50,18 @@ exports.donate_home = async (req, res) => {
 exports.addToCart = async (req, res) => {
 
     // Local variables from the request body
-    const { qty, expiry } = req.body;
+    const { qty } = req.body;
     const [productId, productName] = req.body.product.split('_');
 
+    let { expiry } = req.body;
+
     // Validation checks
-    if (!productId || !qty || !expiry || isNaN(qty) || expiry.length !== 10 || expiry < new Date().toLocaleDateString('en-GB')) {
+    if (!productId || !qty || !expiry || isNaN(qty) || expiry.length !== 10 || expiry < new Date()) {
         let errorMessage = '';
         if (!productId || !qty || !expiry) errorMessage = 'Error: All fields are required.';
         else if (isNaN(qty)) errorMessage = 'Error: Quantity must be a number.';
         else if (expiry.length !== 10) errorMessage = 'Error: Expiry date must be in the format dd/mm/yyyy.';
-        else if (expiry.length < new Date().toLocaleDateString('en-GB')) errorMessage = 'Error: Expiry date cannot be in the past.';
+        else if (expiry.length < new Date()) errorMessage = 'Error: Expiry date cannot be in the past.';
         else {
             errorMessage = 'Error: Something went wrong. Please try again.';
         }
@@ -198,17 +200,18 @@ exports.donate = async (req, res) => {
 
         // Parse the quantity as an integer
         const quantity = parseInt(donation.qty);
-        const expiry = donation.expiry || new Date().toLocaleDateString('en-GB');
+        const expiry = donation.expiry;
         const isClaimed = false;
+        const status = 'pending';
 
         // Push each product to new array
-        products.push({ donationLineId, productId, productName, quantity, expiry, isClaimed });
+        products.push({ donationLineId, productId, productName, quantity, expiry, isClaimed, status });
 
         // Update stock for each product
         productDAO.updateStock(productId, quantity);
 
         // Validation checks
-        if (!productId || !quantity || !expiry || isNaN(quantity) || expiry.length !== 10 || expiry < new Date().toLocaleDateString('en-GB')) {
+        if (!productId || !quantity || !expiry || isNaN(quantity) || expiry.length !== 10 || expiry < new Date()) {
             console.error('Error: Invalid donation data');
             return res.status(400).send('Error: Invalid donation data');
         }
@@ -233,12 +236,14 @@ exports.donate = async (req, res) => {
             await productDAO.addDonationIdToProduct(productId, donationId);
         }
 
+        let pantryDonation = await pantryDAO.getPantryById(pantry);
+        pantryName = pantryDonation.pantryName;
         // await productDAO.updateStock(product, qty);
         await userDAO.addUserDonation(donationId, req.session.user.id);
         await pantryDAO.addDonationToPantry(pantry, donationId);
         console.log('Donation made successfully');
         req.session.donations = [];
-        req.session.successMessage = 'Donation made successfully!';
+        req.session.successMessage = 'Donation made successfully! ' + donationId + ' is your donation ID. ' + 'Please keep this in a safe place for your records.' + '\n ' + pantryName + ' will contact you once they have accepted your donation.';
         return res.redirect('/donate');
     } catch (err) {
         console.error('Error making donation or updating stock:', err);

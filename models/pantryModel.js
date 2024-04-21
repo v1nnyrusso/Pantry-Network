@@ -75,6 +75,19 @@ async pantryInitialiser() {
 
     }
 
+    async getPantries() {
+        return new Promise((resolve, reject) => {
+            this.dbManager.db.find({ dataStore: 'Pantry' }, (err, pantries) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(pantries);
+                    console.log('function all() returns: ', pantries);
+                }
+            });
+        });
+    }
+    
     // insert staff member to pantry
     async insertStaff (staffId, pantryId) {
         return new Promise((resolve, reject) => {

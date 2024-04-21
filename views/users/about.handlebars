@@ -1,0 +1,183 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Scottish Pantry Network</title>
+    <!-- CSS and JavaScript links can be included here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            background-color: #67b0b7;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .vision {
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+        }
+
+        .vision h2 {
+            color: #67b0b7;
+        }
+
+        .mission {
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f1f1f1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+        }
+
+        .mission h3 {
+            color: #67b0b7;
+        }
+
+        .values {
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+        }
+
+        .values h3 {
+            color: #67b0b7;
+        }
+
+        .points {
+            list-style-type: none;
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .points li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .points li:before {
+            content: "•";
+            color: #67b0b7;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #67b0b7;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+
+        .pantries {
+            margin-top: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .pantry-card {
+            width: 45%;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f1f1f1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media screen and (max-width: 768px) {
+
+            .mission,
+            .values {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Scottish Pantry Network</h1>
+        </div>
+        <div class="vision">
+            <h2>Our Vision</h2>
+            <p>Our vision is to establish a sustainable network of pantries providing affordable food and wrap-around
+                services. The pantry is a dignified approach empowering communities to help themselves. We will support
+                upskilling the community through volunteering and employability opportunities, with the shop itself
+                being utilized as a training facility.</p>
+        </div>
+        <div class="mission">
+            <h3>Our Mission</h3>
+            <p>The Scottish Pantry Network will support the pantries by being the collective voice for change. We forge
+                strong partnerships to support the development of the hub model, creating a tailored experience for
+                local communities. The Network will provide ongoing support to the pantries through compliance,
+                lobbying, and creating links with food suppliers.</p>
+        </div>
+        <div class="values">
+            <h3>Our Values</h3>
+            <ul class="points">
+                <li><strong>Prevention of Poverty:</strong> Providing food security to those who need it most and are
+                    disadvantaged due to unemployment, low income, lone parenthood, health, and social standing.</li>
+                <li><strong>Advancement of Community Development:</strong> Acting on behalf of the Network of Pantries,
+                    sourcing food to ensure there is enough in the supply chain, lobbying government, providing a
+                    regulatory function, and sharing best practice across the Network.</li>
+                <li><strong>Advancement of Environmental Protection:</strong> Reducing food waste locally and
+                    nationally.</li>
+                <li><strong>Advancement of Education:</strong> Increasing access to skills, training, and employment
+                    prospects in relation to developing and running a local pantry.</li>
+                <li><strong>Advancement of Health:</strong> Improving health outcomes – particularly around the
+                    consumption of fresh fruit and vegetables, through social eating, improving emotional wellbeing and
+                    social inclusion through Pantries acting as community hubs, and promoting access to nutritious meals
+                    and increasing fruit and vegetable consumption.</li>
+                <li><strong>Relief for Those in Need:</strong> Providing access to key support such as money advice,
+                    credit unions, housing, health, employment, and skills.</li>
+            </ul>
+        </div>
+
+        <br>
+         <h3 style="text-align:center;">Our Pantries</h3>
+        <div class="pantries">
+           
+            <div class="pantry-card">
+                {{#each pantries}}
+                <h3 style="color: #67b0b7">{{pantryName}}</h3>
+                <p><strong >Location:</strong> {{location}}, {{address}}, {{postcode}}</p>
+
+                {{/each}}
+            </div>
+
+
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/" class="btn">Back to Home</a>
+        </div>
+    </div>
+</body>

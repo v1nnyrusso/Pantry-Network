@@ -2,6 +2,7 @@
 const userDAO = require('../models/userModel.js');
 const productDAO = require('../models/productModel.js');
 const pantryDAO = require('../models/pantryModel.js');
+const contactDAO = require('../models/contactModel.js');
 
 // Get to admin page
 exports.admin_page = (req, res) => {
@@ -31,6 +32,12 @@ exports.staff_page = async (req, res) => {
             let type = 'staff';
             // Get usesr based on role type
             const users = await userDAO.getUsers(type)
+  
+            // Get pantry name for each user
+            for (let user of users) {
+                let pantry = await pantryDAO.getPantryById(user.pantryId);
+                user.pantry = pantry.pantryName;
+            }
 
             res.render('admin/adminStaff', {
                 title: "Staff Page",
@@ -52,6 +59,8 @@ exports.staff_page = async (req, res) => {
     }
 
 }
+
+
 
 // Create staff
 exports.create_staff_get = async (req, res) => {
@@ -147,6 +156,8 @@ exports.create_staff_post = async (req, res) => {
 
 }
 
+
+// Get the product page
 exports.product_page = async (req, res) => {
 
     try {
@@ -290,6 +301,73 @@ exports.create_product_post = async (req, res) => {
 
 }
 
+exports.contact_page = async (req, res) => {
+    try {
+        // Get all products
+        let messages = await contactDAO.getMessages();
+
+        // Sort messages by unread status and date submitted
+        messages.sort((a, b) => {
+            if (a.status === "unread" && b.status !== "unread") {
+                return -1;
+            }
+            if (a.status !== "unread" && b.status === "unread") {
+                return 1;
+            }
+            // If both are unread or both are read, sort by date submitted
+            return new Date(b.dateSubmitted) - new Date(a.dateSubmitted);
+        });
+
+        // Check if user is logged in
+        if (req.payload && req.isLoggedIn) {
+            res.render('admin/adminContacts', {
+                title: "Messages",
+                isLoggedIn: req.isLoggedIn,
+                user: req.session.user,
+                isAdminPage: true,
+                role: req.session.role,
+                contacts: messages
+            });
+        } else {
+            res.redirect('/login');
+        }
+    } catch (e) {
+        console.error('Error getting messages:', e);
+    }
+};
+
+
+
+exports.search_messages = async (req, res) => {
+    // Search for messages by email
+    try {
+
+        // Get the email from the query
+        const { email } = req.query;
+        const messages = await contactDAO.searchMessagesByEmail(email);
+
+        if (req.payload && req.isLoggedIn) {
+            res.render('admin/adminContacts', {
+                title: "Messages",
+                isLoggedIn: req.isLoggedIn,
+                user: req.session.user,
+                isAdminPage: true,
+                role: req.session.role,
+                contacts: messages
+            });
+        }
+        else {
+            res.redirect('/login');
+        }
+    }
+    catch (e) {
+        console.error('Error searching messages:', e);
+    }
+}
+
+
+
+
 // Delete
 exports.delete = async (req, res) => {
 
@@ -299,7 +377,7 @@ exports.delete = async (req, res) => {
     // Get the source from the request body
     let source = req.body.source;
 
-    // Depending on source call appropraite delete method
+    // Depending on source call approprite delete method
     switch (source) {
         case 'staff':
             await userDAO.deleteUser(id);
@@ -309,8 +387,25 @@ exports.delete = async (req, res) => {
             await productDAO.deleteProduct(id);
             await res.redirect('/admin/product');
             break;
+        case 'contact':
+            await contactDAO.deleteMessage(id);
+            await res.redirect('/admin/contact');
+            break;
         default:
     }
+
+}
+
+exports.markRead = async (req, res) => {
+
+    // Get the id from the request body
+    let id = req.body.id;
+
+    // Mark the message as read
+    await contactDAO.markRead(id);
+
+    // Redirect to the contact page
+    await res.redirect('/admin/contact');
 
 }
 
