@@ -251,7 +251,7 @@ exports.addToCart = async (req, res) => {
     // Get the current staff's pantry id
     let pantryId = req.session.pantryId;
 
-    // Assuming staff members are managing products
+   
     const { donationLineId, productId, qty, expiry, productName } = req.body;
     try {
         console.log('Adding product:', donationLineId, productId, qty, expiry, productName);
@@ -312,7 +312,7 @@ exports.getCart = async (req, res) => {
 
 // Make the claim method
 exports.makeClaim = async (req, res) => {
-    // Get the claims from the session
+
     let claims = req.session.claims;
 
     // If there are no claims, redirect to the staff page
@@ -345,14 +345,18 @@ exports.makeClaim = async (req, res) => {
                         let donations = await donationDAO.getDonations();
                         // For each donation
                         for (let donation of donations) {
+
                             // if the donation pantry id matches the current pantry id and the donation line id matches the claim product donation line id and exists in the donations products
                             if (donation.pantryId === req.session.pantryId && donation.products.find(p => p.donationLineId === claimProduct.donationLineId)) {
+
                                 // For each donation product
                                 for (let donationProduct of donation.products) {
                                     // If the donation line id matches the claim product donation line id
+
                                     if (donationProduct.donationLineId === claimProduct.donationLineId) {
                                         // Update the donation product quantity and set isClaimed to true 
                                         product.isClaimed = true;
+                                        
                                         product.status = 'claimed';
                                         // Update the donation line, send the donation id, donation line id and the product
                                         await donationDAO.updateDonationLine(donation._id, claimProduct.donationLineId, product);
