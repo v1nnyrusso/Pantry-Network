@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
 
 const jwt = require('jsonwebtoken');
-const session = require('express-session');
 
 // Exporting a function called 'login', which handles the login request
 exports.login = (req, res, next) => {
@@ -96,6 +95,7 @@ exports.verify = (req, res, next) => {
 
             const info  = {role: payload.role, id: payload.id, name: payload.name, email: payload.email};
             
+            // Get the user's role
             req.payload = payload;
             req.isLoggedIn = true;
             req.name = payload.name;
