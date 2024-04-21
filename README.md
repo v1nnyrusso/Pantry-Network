@@ -73,10 +73,13 @@ The database has pantries seeded, a few contact messages, as well as a few donat
 Donations are not seeded. You must create a donation to perform staff features.
 
 
-Running the Application
+Installation
 
-To run the application, first install the following dependencies with npm install >>>
+To install the application, follow these steps:
 
+- Clone the repository: git clone https://github.com/your-repo/your-project.git
+- Navigate to the project directory.
+- Install the dependencies: npm install
 
 
     "bcrypt": "^5.1.1",
@@ -99,6 +102,6 @@ To run the application, first install the following dependencies with npm instal
     
     "path": "^0.12.7"
     
+- Start the application: node index.js
 
- Then, start the application with node index.js.
-
+Thank you for reading.
