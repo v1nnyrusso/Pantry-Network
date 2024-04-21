@@ -23,13 +23,13 @@ Directory Structure (MVC)
 
 - auth/: Contains the authentication logic.
 
-- controllers/: Contains the controllers for handling different routes.
+- controllers/: Contains the controllers for handling different routes, an intermediary between the views and models.
 
 - css/: Contains the CSS files for styling the application.
 
 - data/: Contains the database manager.
 
-- models/: Contains the data models for the application.
+- models/: Contains the data models for the application. The database uses these models to update the database.
 
 - public/: Contains public assets like images and stylesheets.
 
@@ -43,29 +43,7 @@ Directory Structure (MVC)
 Key Files
 
 - auth/auth.js: Handles user authentication.
-
-- controllers/adminController.js: Handles admin routes.
-
-- controllers/donateController.js: Handles donation routes.
-
-- controllers/homeController.js: Handles home routes.
-
-- controllers/staffController.js: Handles staff routes.
-
 - data/dbManager.js: Manages the database.
-
-- models/donationModel.js: Defines the donation data model.
-
-- models/userModel.js: Defines the user data model.
-
-- routes/adminRoutes.js: Defines the admin routes.
-
-- routes/donateRoutes.js: Defines the donation routes.
-
-- routes/homeRoutes.js: Defines the home routes.
-
-- routes/staffRoutes.js: Defines the staff routes.
-
 
 Miscellaneous Information
 
