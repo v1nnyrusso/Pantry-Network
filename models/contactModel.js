@@ -124,6 +124,7 @@ class Contact {
     }   
 
 
+    // Search messages by email
     async searchMessagesByEmail(search) {
         try {
             // Search for messages by email
@@ -166,7 +167,7 @@ class Contact {
 
 
 
-
+// Create a new contact object, Export it
 const contact = new Contact(dbManager);
 contact.contactInitialiser();
 module.exports = contact;

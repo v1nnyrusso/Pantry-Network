@@ -94,6 +94,7 @@ class ProductDao {
         });
     }
 
+    // Add donation id to product
     addDonationIdToProduct(productId, donationId) {
         return new Promise((resolve, reject) => {
             this.dbManager.db.update({ _id: productId }, { $push: { donations: donationId } }, {}, (err) => {
@@ -263,7 +264,7 @@ class ProductDao {
         });
     }
     
-
+    // Create a new product
     async create(productName, typeOfProduct, currentStock, categories, expiry) {
         return new Promise((resolve, reject) => {
             // Create a new product

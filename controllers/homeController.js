@@ -125,6 +125,8 @@ exports.post_new_user = (req, res) => {
             return res.redirect('/login');
         }
 
+
+        req.session.successMessage = "User " + email + " created successfully! Please login.";
         // Use userDAO create method to create a new
         userDAO.create(firstName, secondName, organisation, number, email, password, req.body.pantryId, source);
 
@@ -145,11 +147,16 @@ exports.login_get = (req, res) => {
     // Error message handling
     let message = req.session.errorMessage;
 
+    // Success
+    let successMessage = req.session.successMessage;
+    req.session.successMessage = null;
+
     req.session.errorMessage = null;
 
     // Correct the syntax error here
     res.render('users/login', {
         errorMessage: message,
+        successMessage: successMessage,
         title: 'Login'
 
     });

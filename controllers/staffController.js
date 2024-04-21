@@ -232,6 +232,7 @@ exports.claimed_page = async (req, res) => {
         return 0;
     });
 
+    // Render the claimed page
     res.render('staff/claimed', {
         title: "Claimed Page",
         isLoggedIn: req.isLoggedIn,

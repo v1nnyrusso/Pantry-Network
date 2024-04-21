@@ -46,6 +46,12 @@
                 {{errorMessage}}
             </div>
             {{/if}}
+            {{!-- Add this code to display an error message if the user enters an incorrect username or password --}}
+            {{#if successMessage}}
+            <div class="alert alert-success" role="alert">
+                {{successMessage}}
+            </div>
+            {{/if}}
         </div>
 
     </form>

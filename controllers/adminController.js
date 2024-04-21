@@ -60,8 +60,6 @@ exports.staff_page = async (req, res) => {
 
 }
 
-
-
 // Create staff
 exports.create_staff_get = async (req, res) => {
 

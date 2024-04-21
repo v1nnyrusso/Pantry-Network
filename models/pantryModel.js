@@ -57,7 +57,7 @@ async pantryInitialiser() {
 }
 
 
-    // Function to get all pantries
+    // Function to get all pantries, sorted by name
     async getAllPantries() {
         // Get all pantries
         return new Promise((resolve, reject) => {
@@ -75,6 +75,7 @@ async pantryInitialiser() {
 
     }
 
+    // Get all pantries without sorting
     async getPantries() {
         return new Promise((resolve, reject) => {
             this.dbManager.db.find({ dataStore: 'Pantry' }, (err, pantries) => {

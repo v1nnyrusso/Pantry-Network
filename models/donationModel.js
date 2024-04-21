@@ -22,10 +22,6 @@ class DonationDao {
         let expirydate = new Date();
         expirydate.setDate(expirydate.getDate() + 7);
 
-
-
-
-
         // No donations added as of now
         return new Promise((resolve, reject) => {
             const donations =
@@ -111,6 +107,7 @@ class DonationDao {
 
     }
 
+    // get donations without id
     async getDonations() {
         return new Promise((resolve, reject) => {
             this.dbManager.db.find({ dataStore: 'Donation' }, (err, docs) => {
@@ -178,6 +175,7 @@ class DonationDao {
         });
     }
 
+    // Update the donation lines status
     async updateDonationLineStatus(donationId, donationLineId, status) {
 
         return new Promise((resolve, reject) => {
