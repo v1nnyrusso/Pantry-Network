@@ -16,7 +16,7 @@ Features
 
 - Admin: Admins can CRUD (create, read, update and delete) staff and products. They can also delete messages sent via contact form.
 
-- Unauthorised user: Can login, register and send in a contact form message, as well as peruse the website. All of the above can do this.
+- Unauthorised user: Can login, register and send in a contact form message, as well as peruse non-role-specific sections of the website. All of the above can do this.
 
 
 Directory Structure (MVC)
