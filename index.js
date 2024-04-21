@@ -26,7 +26,6 @@ app.use(session({
 // Used to parse cookies
 app.use(cookieParser());
 
-
 // Create handlebars engine, set views directory to views/layouts, create helper function for ifEquals
 const hbs = expressHandlebars.create({
   layoutsDir: __dirname + '/views/layouts',
@@ -58,14 +57,12 @@ app.use(express.static(public));
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
-
 // Import routes for code modularity and readability
 const homeRoutes = require('./routes/homeRoutes.js');
 const adminRoutes = require('./routes/adminRoutes.js');
 const donateRoutes = require ('./routes/donateRoutes.js');
 const staffRoutes = require('./routes/staffRoutes.js');
 const contactRoutes = require('./routes/contactRoutes.js');
-
 
 // Rerouters for different endpoints
 app.use('/', homeRoutes);
@@ -78,7 +75,6 @@ app.use('/contact', contactRoutes);
 app.use(function(req, res, next) {
   res.status(404).send('ERROR 404: Page not found');
 });
-
 
 // Listens for port 3000, log to console that msg for success
 app.listen(3000, () => {

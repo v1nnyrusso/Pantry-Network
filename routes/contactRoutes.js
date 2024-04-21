@@ -10,7 +10,6 @@ const auth = require('../auth/auth.js');
 
 const homeController = require('../controllers/homeController')
 
-
 router.get('/', auth.verify, homeController.getContactPage)
 router.post('/',auth.verify, homeController.postContactForm)
 

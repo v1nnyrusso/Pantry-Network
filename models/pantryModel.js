@@ -56,7 +56,6 @@ async pantryInitialiser() {
     })
 }
 
-
     // Function to get all pantries, sorted by name
     async getAllPantries() {
         // Get all pantries
