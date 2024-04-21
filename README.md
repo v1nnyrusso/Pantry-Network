@@ -3,7 +3,7 @@ README
 
 Project Overview 
 
-This project is a web application for managing a food pantry, using an MVC architectural pattern. It includes features for handling donations, managing products, and user registration. The application is built using JavaScript, Node.js and Express, with data stored in a local nedb-gray database. Handlebars are used as a template syntax, an extension of mustache that allows for conditional statements in the front-end.
+This project is a web application for managing a food pantry, using an MVC architectural pattern. It includes features for handling donations, managing products, and user registration. The application is built using Node.js and Express, with data stored in a local nedb-gray database. Handlebars are used as a template syntax, an extension of mustache that allows for conditional statements in the front-end.
 
 
 Features
