@@ -82,7 +82,7 @@ To run the application, follow these steps:
     "jsonwebtoken": "^9.0.2",
     
     "path": "^0.12.7"
-    
+
 - Start the application: node index.js
 
 Thank you for reading.
