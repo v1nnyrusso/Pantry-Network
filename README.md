@@ -19,7 +19,9 @@ Features
 - Unauthorised user: Can login, register and send in a contact form message, as well as peruse non-role-specific sections of the website. All of the above can do this.
 
 
-Directory Structure (MVC)
+
+Directory/Data Structure
+NedB is a NoSQL database that stores data in JSON format. Here's the directory structure emphasising the use of NeDB where necessary:
 
 - auth/: Contains the authentication logic.
 
@@ -27,9 +29,9 @@ Directory Structure (MVC)
 
 - css/: Contains the CSS files for styling the application.
 
-- data/: Contains the database manager.
+- data/: Contains the NeDB database manager.
 
-- models/: Contains the data models for the application. The database uses these models to update the database.
+- models/: Contains the NeDB data models for the application. The database uses these models to update the NeDB database.
 
 - public/: Contains public assets like images and stylesheets.
 
@@ -38,6 +40,7 @@ Directory Structure (MVC)
 - scripts/: Contains JavaScript scripts for the application.
 
 - views/: Contains the Handlebars templates for the application.
+
 
 
 Key Files
