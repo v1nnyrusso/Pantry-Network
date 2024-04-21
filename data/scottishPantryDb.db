@@ -1,4 +1,5 @@
 {"dataStore":"Product","productName":"Cheese","typeOfProduct":"Food","currentStock":0,"categories":["Dairy"],"_id":"0AypoNOQ8jOQld44"}
+{"_id":"1","dataStore":"Contact","subject":"John Doe","contactEmail":"tes4t@test.com","contactMessage":"Hello, I would like to donate some food to your pantry.","dateSubmitted":"21/04/2024","status":"unread"}
 {"_id":"2","dataStore":"Contact","subject":"Jane Doe","contactEmail":"test3@test.com","contactMessage":"Hello, I would like to volunteer at your pantry.","dateSubmitted":"21/04/2024","status":"unread"}
 {"dataStore":"Product","productName":"Soap","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"4UPl9On41xx8PmtL"}
 {"dataStore":"Product","productName":"Pasta","typeOfProduct":"Food","currentStock":0,"categories":["Grain"],"_id":"4rd7F5eqCbSbgJFp"}
@@ -32,7 +33,9 @@
 {"dataStore":"Product","productName":"Sanitary Towels","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"hfBfDCaPRlDVUiZf"}
 {"dataStore":"Product","productName":"Nappies","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries","Baby"],"_id":"jF2ZQwzsOf6Zqn1x"}
 {"dataStore":"Product","productName":"Onion","typeOfProduct":"Food","currentStock":0,"categories":["Vegetable","Fresh Produce"],"_id":"lEJf8tI3tQIe8OfJ"}
+{"dataStore":"Product","productName":"Baby Milk","typeOfProduct":"Food","currentStock":0,"categories":["Baby"],"_id":"pUGIAdazvObL2wWl"}
 {"dataStore":"Product","productName":"Cat Food","typeOfProduct":"Food","currentStock":0,"categories":["Pet"],"_id":"qNoxXM18YlpUe2rB"}
+{"dataStore":"User","firstName":"Vincenzo","secondName":"Russo","number":"07528883633","email":"vincenz333o@example.com","role":"donator","password":"$2b$10$n3uJ.jWQNCE459fpjWES9uc7/oB4XZoc6MBLPE5HpykHx1WkJ/bAm","claims":[],"donations":[],"pantryId":[],"organisation":"Tesco","_id":"qRx73LewsIxAsRAu"}
 {"dataStore":"Product","productName":"Apple","typeOfProduct":"Food","currentStock":11,"categories":["Fruit","Fresh Produce"],"_id":"qVIrPfLY6U1KqAIJ","donations":["d3Bp7cPlkWKwhiFb","FQET2kgXTyH6y6S4"]}
 {"dataStore":"Product","productName":"Yogurt","typeOfProduct":"Food","currentStock":0,"categories":["Dairy"],"_id":"rOV4mGgRyor4zqMD"}
 {"dataStore":"User","firstName":"Staff","secondName":"Staff","organisation":null,"number":"123456789","email":"staff@staff.com","password":"$2b$10$Wm8fdOftoR.1CDfhMZAcquU3Sgw0zdsLh2n9n35S7xfd3lwqeBhpO","role":"staff","donations":[],"pantryId":"IGtRVJCHNHEAsAeK","_id":"ra2WbPu9rtSfWVeV"}
@@ -42,6 +45,3 @@
 {"dataStore":"Product","productName":"Toilet Paper","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"umFg89iQkdlQIlD4"}
 {"_id":"yRfjPiGLs84oGDbe","dataStore":"Pantry","pantryName":"Govanhill Pantry","location":"Glasgow","address":"488 Cathcart Rd","postcode":"G42 7BX","staffMembers":["userId3"],"donations":[]}
 {"dataStore":"Product","productName":"Shampoo","typeOfProduct":"Non-food","currentStock":0,"categories":["Toiletries"],"_id":"zZW8EDvzD8ZOIsi9"}
-{"_id":"1","dataStore":"Contact","subject":"John Doe","contactEmail":"tes4t@test.com","contactMessage":"Hello, I would like to donate some food to your pantry.","dateSubmitted":"21/04/2024","status":"unread"}
-{"dataStore":"Product","productName":"Baby Milk","typeOfProduct":"Food","currentStock":0,"categories":["Baby"],"_id":"pUGIAdazvObL2wWl"}
-{"dataStore":"User","firstName":"Vincenzo","secondName":"Russo","number":"07528883633","email":"vincenz333o@example.com","role":"donator","password":"$2b$10$n3uJ.jWQNCE459fpjWES9uc7/oB4XZoc6MBLPE5HpykHx1WkJ/bAm","claims":[],"donations":[],"pantryId":[],"organisation":"Tesco","_id":"qRx73LewsIxAsRAu"}
