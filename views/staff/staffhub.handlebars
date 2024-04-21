@@ -144,6 +144,12 @@
                             <input type="hidden" name="expiry" value={{expiry}}>
                             <input type="submit" value="Claim" class="btn btn-primary">
                         </form>
+                       
+                        <form action="/staff/reject" method="post" onclick="return confirm('Are you sure you want to reject this donation?')">
+                            <input type="hidden" name="donationLineId" value="{{donationLineId}}">
+                            <input type="submit" value="Reject" class="btn btn-danger">
+                        </form>
+                    </td>
                     </td>
                 </tr>
                 {{/unless}}

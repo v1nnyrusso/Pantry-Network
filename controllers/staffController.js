@@ -182,19 +182,9 @@ exports.rejectClaim = async (req, res) => {
                 }
             }
         }
-        req.session.successMessage = "Claim rejected successfully!";
-        let successMessage = req.session.successMessage;
-        req.session.successMessage = null;
 
-        // Render the staff page
-        res.render('staff/claimed', {
-            title: 'Claimed Page',
-            isLoggedIn: req.isLoggedIn,
-            user: req.session.user,
-            successMessage: successMessage,
-            role: req.session.role,
-            claimedDonations: await getClaimedDonations(pantryId)
-        });
+       
+        res.redirect('/staff');
 
     } catch (err) {
         console.error("Error rejecting claim:", err);
